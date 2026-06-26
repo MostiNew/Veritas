@@ -78,7 +78,7 @@
 - Individual copy and delete functions
 
 ### 👤 Human-in-the-Loop Verifier
-- **Password Protected**: `MoMo123456789@@@`
+- **Password Protected**: `tbd`
 - **Auto-Population**: Token automatically loaded from main interface
 - **Full Validation**: Signature check, expiration, payload decoding
 - **Instant Status Update**: Changes main interface from Pending to Verified

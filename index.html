@@ -1576,7 +1576,7 @@
             <div class="footer-top">
                 <span class="footer-brand">MyMedfit BRAVO PRO</span>
                 <span class="footer-divider">·</span>
-                <a href="https://virtualcaresolution.de" target="_blank" style="color:#00b4d8; text-decoration:none; font-weight:600;">virtualcaresolution.de</a>
+                <span style="color:#00b4d8; font-weight:600;">www.virtualcaresolution.de</span>
                 <span class="footer-divider">·</span>
                 <span class="footer-ip"><i class="fas fa-globe"></i> IP: <span id="ipDisplay">—</span></span>
             </div>
@@ -1587,17 +1587,6 @@
                     <span>VERITAS: <span class="veritas-accent" data-i18n="vbc_tag">Value-Based Care</span> with <span class="veritas-accent" data-i18n="anti_deepfake">Anti-Deepfake Verification</span></span>
                     <i class="fas fa-check-circle" style="color:#28a745; font-size:0.7rem;"></i>
                 </div>
-
-                <button class="btn-cta-veritas" id="generateVeritasReport">
-                    <span class="cta-main">
-                        <i class="fas fa-file-medical-alt"></i>
-                        <span data-i18n="generate_report">Generate VERITAS Report</span>
-                        <span class="badge-veritas">ANCHOR</span>
-                    </span>
-                    <span class="cta-sub" data-i18n="report_sub">
-                        Anti-Deepfake Verified · Value-Based Outcomes · Reimbursement-Ready · Regulator-Aligned
-                    </span>
-                </button>
 
                 <div class="footer-triad">
                     <span class="triad-item"><span class="provider">🏛️</span> <span data-i18n="provider">Provider</span></span>
@@ -1621,13 +1610,13 @@
 
                 <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> <span data-i18n="verifier_title">VERITAS Token Verifier</span></h2>
                 <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;" data-i18n="verifier_sub">
-                    Human verifier: enter the password to unlock, then verify the token.
+                    Second human verifies the token. Enter password to unlock, then verify. Paste the token generated from the ANCHOR, then the status will change.
                 </p>
 
                 <div class="verifier-field">
-                    <label><i class="fas fa-lock"></i> <span data-i18n="human_password">Human-in-the-Loop Password</span></label>
-                    <input type="password" id="verifierPassword" placeholder="Enter password to unlock" />
-                    <div class="verifier-password-hint" id="passwordHint">🔑 Required: MoMo123456789@@@</div>
+                    <label><i class="fas fa-lock"></i> <span data-i18n="human_password">Verifier Password</span></label>
+                    <input type="password" id="verifierPassword" placeholder="Enter password to unlock verifier" />
+                    <div class="verifier-password-hint" id="passwordHint"></div>
                 </div>
 
                 <div class="verifier-field">
@@ -1683,7 +1672,6 @@
         // ========== I18N DICTIONARY ==========
         const i18n = {
             en: {
-                // General
                 badge_patient: 'Patient‑Centred Care',
                 profile_acute: 'Acute Rehab',
                 profile_preventive: 'Preventive',
@@ -1753,16 +1741,14 @@
                 no_encounters: 'No encounters yet.',
                 vbc_tag: 'Value-Based Care',
                 anti_deepfake: 'Anti-Deepfake Verification',
-                generate_report: 'Generate VERITAS Report',
-                report_sub: 'Anti-Deepfake Verified · Value-Based Outcomes · Reimbursement-Ready · Regulator-Aligned',
                 provider: 'Provider',
                 payer: 'Payer',
                 regulator: 'Regulator',
                 patient: 'Patient',
                 footer_align: 'Aligns Provider–Payer–Regulator goals around measurable patient outcomes.',
                 verifier_title: 'VERITAS Token Verifier',
-                verifier_sub: 'Human verifier: enter the password to unlock, then verify the token.',
-                human_password: 'Human-in-the-Loop Password',
+                verifier_sub: 'Second human verifies the token. Enter password to unlock, then verify.',
+                human_password: 'Verifier Password',
                 session_token_label: 'Session Token',
                 unlock: 'Unlock',
                 verify_token: 'Verify Token',
@@ -1878,16 +1864,14 @@
                 no_encounters: 'Noch keine Behandlungen.',
                 vbc_tag: 'Wertbasierte Versorgung',
                 anti_deepfake: 'Anti-Deepfake-Verifizierung',
-                generate_report: 'VERITAS-Bericht erstellen',
-                report_sub: 'Anti-Deepfake-verifiziert · Wertbasierte Ergebnisse · Abrechnungsbereit · Regulatorisch abgestimmt',
                 provider: 'Anbieter',
                 payer: 'Zahler',
                 regulator: 'Regulierungsbehörde',
                 patient: 'Patient',
                 footer_align: 'Bringt die Ziele von Anbieter, Zahler und Regulierungsbehörde bei messbaren Patientenergebnissen in Einklang.',
                 verifier_title: 'VERITAS Token-Verifizierer',
-                verifier_sub: 'Menschlicher Verifizierer: Geben Sie das Passwort ein, um zu entsperren, dann verifizieren Sie den Token.',
-                human_password: 'Human-in-the-Loop-Passwort',
+                verifier_sub: 'Zweiter Mensch verifiziert den Token. Passwort eingeben, um zu entsperren, dann verifizieren.',
+                human_password: 'Verifizierer-Passwort',
                 session_token_label: 'Sitzungstoken',
                 unlock: 'Entsperren',
                 verify_token: 'Token verifizieren',
@@ -2000,16 +1984,14 @@
                 no_encounters: 'Aún no hay consultas.',
                 vbc_tag: 'Atención Basada en Valor',
                 anti_deepfake: 'Verificación Anti-Deepfake',
-                generate_report: 'Generar Informe VERITAS',
-                report_sub: 'Verificado Anti-Deepfake · Resultados Basados en Valor · Listo para Reembolso · Alineado con el Regulador',
                 provider: 'Proveedor',
                 payer: 'Pagador',
                 regulator: 'Regulador',
                 patient: 'Paciente',
                 footer_align: 'Alinea los objetivos de Proveedor, Pagador y Regulador en torno a resultados medibles para el paciente.',
                 verifier_title: 'Verificador de Token VERITAS',
-                verifier_sub: 'Verificador humano: ingrese la contraseña para desbloquear, luego verifique el token.',
-                human_password: 'Contraseña Humano en el Bucle',
+                verifier_sub: 'Segundo humano verifica el token. Ingrese la contraseña para desbloquear, luego verifique.',
+                human_password: 'Contraseña del Verificador',
                 session_token_label: 'Token de Sesión',
                 unlock: 'Desbloquear',
                 verify_token: 'Verificar Token',
@@ -2095,7 +2077,6 @@
             const langData = i18n[currentLang] || i18n.en;
             let value = langData[key];
             if (!value) {
-                // Fallback to English
                 value = i18n.en[key] || key;
             }
             if (typeof value === 'function') {
@@ -2110,12 +2091,10 @@
                 b.classList.toggle('active', b.dataset.lang === lang);
             });
 
-            // Update all elements with data-i18n attribute
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 const translation = t(key);
                 if (translation) {
-                    // Preserve child elements (like icons, badges) by only updating text nodes
                     const textNodes = [];
                     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
                     let node;
@@ -2133,15 +2112,10 @@
                             }
                         });
                     } else {
-                        // Fallback: set innerHTML but preserve children
-                        const originalHTML = el.innerHTML;
-                        // Only replace text content, not HTML structure
                         const children = el.children;
                         if (children.length === 0) {
                             el.textContent = translation;
                         } else {
-                            // For elements with children, we need to be careful
-                            // Find the first text node and update it
                             const firstText = el.childNodes[0];
                             if (firstText && firstText.nodeType === Node.TEXT_NODE) {
                                 firstText.textContent = translation;
@@ -2151,24 +2125,13 @@
                 }
             });
 
-            // Update placeholder texts
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.dataset.i18nPlaceholder;
-                const translation = t(key);
-                if (translation) el.placeholder = translation;
-            });
+            // Update password hint based on language - HIDDEN password
+            const hintEl = document.getElementById('passwordHint');
+            if (hintEl) {
+                hintEl.textContent = '';
+                hintEl.className = 'verifier-password-hint';
+            }
 
-            // Update select options
-            document.querySelectorAll('[data-i18n-options]').forEach(el => {
-                const key = el.dataset.i18nOptions;
-                const translation = t(key);
-                if (translation) {
-                    const option = el.querySelector('option');
-                    if (option) option.textContent = translation;
-                }
-            });
-
-            // Re-render insights with new language
             const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
             if (latest) {
                 renderInsights(latest);
@@ -2446,7 +2409,6 @@
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
             data.anchor_hr_quality = lastHREstimate ? lastHREstimate.quality : null;
             data.anchor_verified = anchorVerified;
-            // DOB and Insurance
             const dobEl = document.getElementById('dob');
             const insEl = document.getElementById('insuranceNumber');
             data.dob = dobEl ? dobEl.value : '1980-01-01';
@@ -2487,12 +2449,10 @@
 
         // ========== DYNAMIC RISK ENGINE ==========
 
-        // 1. Signal Decomposition: separate trait (baseline) from state (drift)
         function decomposeSignal(currentValue, historicalValues, windowDays = 30) {
             if (!historicalValues || historicalValues.length < 3) {
                 return { trait: currentValue, state: 0, noise: 0 };
             }
-            // Use last N values for rolling median (trait)
             const recent = historicalValues.slice(-10);
             const sorted = [...recent].sort((a, b) => a - b);
             const median = sorted.length % 2 === 0 ? (sorted[sorted.length/2 - 1] + sorted[sorted.length/2]) / 2 : sorted[Math.floor(sorted.length/2)];
@@ -2502,28 +2462,21 @@
             return { trait, state, noise };
         }
 
-        // 2. Dynamic Weighting: subjective vs objective
         function getDynamicWeight(domain, currentValue, historicalValues) {
-            if (!historicalValues || historicalValues.length < 3) return 1.2; // default moderate weight
+            if (!historicalValues || historicalValues.length < 3) return 1.2;
             const { trait, state } = decomposeSignal(currentValue, historicalValues);
-            // State change > 2 points = clinically meaningful → boost weight
             if (Math.abs(state) > 2.0) return 3.0;
-            // Stable trait → moderate weight
             if (Math.abs(state) < 0.5) return 1.2;
-            // Normal fluctuation → low weight
             return 0.8;
         }
 
-        // 3. Concordance: detect discrepancy between subjective and objective signals
         function calculateConcordance(encounter, allEncounters) {
-            // Subjective score (PROMs)
             const pain = parseFloat(encounter.pain) || 0;
             const mobility = parseFloat(encounter.mobility) || 0;
             const fatigue = parseFloat(encounter.fatigue) || 0;
             const func = parseFloat(encounter.function) || 0;
-            const subjectiveScore = ((10 - Math.min(10, pain)) + Math.min(10, mobility) + (10 - Math.min(10, fatigue)) + Math.min(10, func)) / 4 * 10; // 0-100
+            const subjectiveScore = ((10 - Math.min(10, pain)) + Math.min(10, mobility) + (10 - Math.min(10, fatigue)) + Math.min(10, func)) / 4 * 10;
 
-            // Objective score (labs)
             const glucose = parseFloat(encounter.glucose) || 0;
             const hba1c = parseFloat(encounter.hba1c) || 0;
             const egfr = parseFloat(encounter.egfr) || 0;
@@ -2571,7 +2524,6 @@
             return { discrepancy, riskMultiplier, alert, alertType, subjectiveScore, objectiveScore };
         }
 
-        // 4. Temporal Decay: weight recent encounters more
         function calculateDecayedIndex(encounters) {
             if (!encounters || encounters.length === 0) return 0;
             const sorted = [...encounters].sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -2582,7 +2534,6 @@
             sorted.forEach((enc, index) => {
                 const daysAgo = (now - new Date(enc.date)) / (1000 * 60 * 60 * 24);
                 const decayWeight = Math.exp(-DECAY_LAMBDA * daysAgo);
-                // Recency bonus for last 3 encounters
                 const recencyBonus = (sorted.length - index) <= 3 ? 1.2 : 1.0;
                 const finalWeight = decayWeight * recencyBonus;
 
@@ -2594,7 +2545,6 @@
             return totalWeight > 0 ? Math.round(weightedSum / totalWeight) : 0;
         }
 
-        // 5. Trend detection
         function detectTrend(encounters) {
             if (!encounters || encounters.length < 3) return { direction: 'stable', change: 0 };
             const sorted = [...encounters].sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -2607,7 +2557,6 @@
             return { direction, change };
         }
 
-        // ========== CARE INDEX (existing) ==========
         function computeCareIndex(data) {
             const n = (v) => parseFloat(v) || 0;
             const pain = n(data.pain);
@@ -2648,7 +2597,6 @@
             return Math.min(100, Math.round(raw * 2));
         }
 
-        // ========== GENERATE CARE TIPS (i18n aware) ==========
         function generateCareTips(data, goals) {
             const n = (v) => parseFloat(v) || 0;
             const pain = n(data.pain);
@@ -2695,7 +2643,6 @@
             return tips;
         }
 
-        // ========== RENDER INSIGHTS (enhanced with dynamic risk) ==========
         function renderInsights(data) {
             if (!data || Object.keys(data).length === 0 || !data.pain) {
                 riskContainer.innerHTML =
@@ -2708,12 +2655,10 @@
                 return;
             }
 
-            // 1. Base index
             const index = computeCareIndex(data);
             const goals = getGoals();
             const tips = generateCareTips(data, goals);
 
-            // 2. Dynamic risk: concordance
             const concordance = calculateConcordance(data, encounters);
             const alertHtml = concordance.alert ? `
                 <div class="alert ${concordance.alertType}">
@@ -2729,7 +2674,6 @@
                 </div>
             `;
 
-            // 3. Temporal decay: trend index
             const decayedIndex = calculateDecayedIndex(encounters);
             const trend = detectTrend(encounters);
             const trendIcon = trend.direction === 'up' ? '📈' : trend.direction === 'down' ? '📉' : '➡️';
@@ -2744,7 +2688,6 @@
                 <span>${concordance.riskMultiplier > 1 ? '⚠️ Adjusted risk: ' + (index * concordance.riskMultiplier).toFixed(0) : ''}</span>
             `;
 
-            // 4. Risk summary with dynamic adjustments
             const adjustedIndex = Math.min(100, Math.round(index * concordance.riskMultiplier));
 
             let html = '<div class="risk-summary">';
@@ -2794,12 +2737,10 @@
             riskContainer.innerHTML = html;
             compositeScore.textContent = adjustedIndex;
 
-            // 5. AI insights with dynamic tips
             let tipText = tips.map(t => `<li>${t}</li>`).join('');
             aiInsight.innerHTML = `<i class="fas fa-robot"></i> <ul>${tipText}</ul>`;
         }
 
-        // ========== CHART ==========
         function updateChart(patientData) {
             const sorted = [...patientData].sort((a, b) => new Date(a.date) - new Date(b.date));
             if (chartInstance) { chartInstance.destroy();
@@ -3377,8 +3318,9 @@
             verifierResults.style.display = 'none';
             verifierStatusBadge.className = 'verifier-status-badge pending';
             verifierStatusBadge.textContent = t('pending');
+            // Password hint is hidden - no display
             passwordHint.className = 'verifier-password-hint';
-            passwordHint.textContent = '🔑 Required: MoMo123456789@@@';
+            passwordHint.textContent = '';
             verifierPassword.style.borderColor = '#262c4a';
             verifierModal.classList.add('active');
         }
@@ -3398,7 +3340,7 @@
                 verifyTokenBtn.disabled = true;
                 verifierPassword.style.borderColor = '#dc3545';
                 passwordHint.className = 'verifier-password-hint error';
-                passwordHint.textContent = '❌ Incorrect password. Try: MoMo123456789@@@';
+                passwordHint.textContent = '❌ Incorrect password.';
                 setTimeout(() => {
                     verifierPassword.style.borderColor = '#262c4a';
                 }, 2000);
@@ -3639,7 +3581,7 @@
             renderHistory();
         }
 
-        // ========== PDF / VERITAS REPORT (Enhanced with VBC, DOB, Insurance) ==========
+        // ========== PDF / VERITAS REPORT ==========
         function generatePDFReport() {
             const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
             if (!latest) {
@@ -3647,7 +3589,6 @@
                 return;
             }
 
-            // Get enhanced patient identifiers
             const dob = latest.dob || document.getElementById('dob')?.value || '1980-01-01';
             const insuranceNumber = latest.insurance_number || document.getElementById('insuranceNumber')?.value || 'INS-123456789';
 
@@ -3655,13 +3596,11 @@
             const tips = generateCareTips(latest, getGoals());
             const last5 = [...encounters].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
 
-            // Compute VBC metrics
             const decayedIndex = calculateDecayedIndex(encounters);
             const trend = detectTrend(encounters);
             const concordance = calculateConcordance(latest, encounters);
             const adjustedIndex = Math.min(100, Math.round(idx * concordance.riskMultiplier));
 
-            // VBC value statement (i18n aware)
             let vbcStatement = '';
             if (adjustedIndex >= 75) {
                 vbcStatement = t('vbc_high');
@@ -3671,7 +3610,6 @@
                 vbcStatement = t('vbc_low');
             }
 
-            // ICF domains (compact)
             const icfDomains = [];
             const pain = parseFloat(latest.pain) || 0,
                 mobility = parseFloat(latest.mobility) || 0;
@@ -3708,7 +3646,6 @@
             if (crp > 10) icfDomains.push('Inflammation (b) – elevated CRP');
             if (ldl > 3.0) icfDomains.push('Lipids (b) – elevated LDL');
 
-            // Trend rows
             let trendRows = '';
             last5.forEach(enc => {
                 const i = computeCareIndex(enc);
@@ -3733,10 +3670,8 @@
             const veritasStatus = anchorVerified ? '✅ VERIFIED' : '⏳ ' + t('pending');
             const veritasIcon = anchorVerified ? '🛡️' : '⏳';
 
-            // Single-page report with virtualcaresolution.de branding and VBC focus
             const reportHTML = `
                 <div style="background:#0b1020; color:#f5f5f5; padding:16px 20px; font-family:'Segoe UI',Roboto,system-ui,sans-serif; max-width:900px; margin:0 auto; font-size:11px;">
-                    <!-- Header: Branding replaced with virtualcaresolution.de -->
                     <div style="border-bottom:2px solid #005792; padding-bottom:10px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
                         <div style="display:flex; align-items:center; gap:6px;">
                             <span style="font-size:1.2rem; font-weight:900; color:#00b4d8; line-height:1;">virtual</span>
@@ -3749,7 +3684,6 @@
                         </div>
                     </div>
 
-                    <!-- Patient Identifiers: DOB & Insurance -->
                     <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:4px 10px; background:#0f1428; padding:4px 8px; border-radius:6px; margin-bottom:8px; font-size:0.6rem;">
                         <div><span style="color:#8892b0;">DOB</span> <span style="font-weight:600;">${dob}</span></div>
                         <div><span style="color:#8892b0;">Insurance</span> <span style="font-weight:600;font-family:monospace;">${insuranceNumber}</span></div>
@@ -3757,9 +3691,7 @@
                         <div><span style="color:#8892b0;">Device</span> <span style="font-weight:600;font-family:monospace;font-size:0.5rem;">${latest.device_id || '—'}</span></div>
                     </div>
 
-                    <!-- Two-column summary -->
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
-                        <!-- Left: Key metrics -->
                         <div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">${t('functionality_index')}</span>
@@ -3811,7 +3743,6 @@
                             </div>
                         </div>
 
-                        <!-- Right: VBC & Concordance -->
                         <div>
                             <div style="background:#0f1428; border-left:3px solid #6f42c1; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
                                 <div style="font-size:0.55rem; font-weight:700; color:#6f42c1; text-transform:uppercase; letter-spacing:0.5px;">${t('vbc_tag')}</div>
@@ -3836,20 +3767,17 @@
                         </div>
                     </div>
 
-                    <!-- ICF Domains (compact) -->
                     <div style="background:#0f1428; padding:3px 8px; border-radius:4px; margin-bottom:4px; font-size:0.55rem;">
                         <span style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.45rem;">ICF Domains:</span>
                         ${icfDomains.slice(0,6).map(d => `<span style="background:#1a2038; padding:1px 6px; border-radius:12px; margin:0 2px; font-size:0.5rem;">${d}</span>`).join('')}
                         ${icfDomains.length > 6 ? `<span style="color:#8892b0; font-size:0.5rem;">+${icfDomains.length - 6} more</span>` : ''}
                     </div>
 
-                    <!-- Care Tips (compact) -->
                     <div style="background:#0f1428; border-left:3px solid #00b4d8; padding:3px 8px; border-radius:4px; margin-bottom:4px; font-size:0.55rem;">
                         <span style="font-weight:600; color:#00b4d8; text-transform:uppercase; font-size:0.45rem;">Care Tips:</span>
                         <ul style="margin:1px 0 0 14px; padding:0; list-style-type:disc; color:#f5f5f5; font-size:0.5rem;">${tipsHtml}</ul>
                     </div>
 
-                    <!-- Trend table (compact) -->
                     ${last5.length > 0 ? `
                     <div style="font-size:0.55rem; margin-top:4px;">
                         <div style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.45rem; margin-bottom:2px;">Recent Trends (last 5)</div>
@@ -3867,9 +3795,8 @@
                     </div>
                     ` : ''}
 
-                    <!-- Footer -->
                     <div style="margin-top:6px; padding-top:4px; border-top:1px solid #1a2038; text-align:center; font-size:0.45rem; color:#8892b0;">
-                        <a href="https://virtualcaresolution.de" target="_blank" style="color:#00b4d8; text-decoration:none; font-weight:600;">virtualcaresolution.de</a> · VERITAS · Value-Based Care Report · ${new Date().toISOString().split('T')[0]}
+                        <span style="color:#00b4d8; font-weight:600;">www.virtualcaresolution.de</span> · VERITAS · Value-Based Care Report · ${new Date().toISOString().split('T')[0]}
                     </div>
                 </div>
             `;
@@ -3900,31 +3827,6 @@
             });
         }
 
-        function generateVeritasReport() {
-            if (encounters.length === 0) {
-                alert('Please save at least one patient encounter before generating a VERITAS report.');
-                return;
-            }
-
-            if (!anchorVerified) {
-                const proceed = confirm(
-                    '⚠️ VERITAS verification is not complete.\n\n' +
-                    'VERITAS requires:\n' +
-                    '1. ✅ Liveness detection\n' +
-                    '2. ✅ Heart rate measurement\n' +
-                    '3. ✅ KYC details (Name, License)\n\n' +
-                    'Do you want to generate the report anyway without full verification?'
-                );
-                if (!proceed) return;
-            }
-
-            generatePDFReport();
-            console.log('✅ VERITAS Report Generated');
-            console.log('🔒 Verified:', anchorVerified);
-            console.log('👤 Caregiver:', getCaregiverData().name);
-            console.log('📊 Functionality Index:', computeCareIndex(getFormData()));
-        }
-
         // ========== COPY TOKEN ==========
         function copyToken() {
             const token = tokenOutput.value.trim();
@@ -3949,14 +3851,11 @@
         function init() {
             console.log('=== MyMedfit BRAVO PRO + VERITAS + Dynamic Risk Engine ===');
             console.log('Device ID:', deviceId);
-            console.log('🔑 Verifier Password:', VERIFIER_PASSWORD);
 
             deviceIdDisplay.textContent = deviceId.substring(0, 12) + '…';
 
-            // Set default language
             applyLanguage('en');
 
-            // Language switcher
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     applyLanguage(this.dataset.lang);
@@ -3975,12 +3874,10 @@
             startHRBtn.addEventListener('click', startHRMonitoring);
             stopHRBtn.addEventListener('click', stopHRMonitoring);
 
-            // Caregiver input listeners
             [caregiverName, caregiverLicense, issuingAuthority].forEach(el => {
                 el.addEventListener('input', updateAnchorStatus);
             });
 
-            // Token controls
             generateTokenBtn.addEventListener('click', generateToken);
             copyTokenBtn.addEventListener('click', copyToken);
             saveToVaultBtn.addEventListener('click', saveTokenToVault);
@@ -3988,7 +3885,6 @@
             exportVaultBtn.addEventListener('click', exportVault);
             verifyVaultBtn.addEventListener('click', verifyAllVaultTokens);
 
-            // Verifier controls
             openVerifierBtn.addEventListener('click', openVerifier);
             closeVerifierBtn.addEventListener('click', () => verifierModal.classList.remove('active'));
             closeVerifierBtn2.addEventListener('click', () => verifierModal.classList.remove('active'));
@@ -3999,10 +3895,9 @@
             verifierPassword.addEventListener('keydown', (e) => { if (e.key === 'Enter') unlockVerifier(); });
             verifierTokenInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && isUnlocked) verifyToken(); });
 
-            // VERITAS CTA
-            document.getElementById('generateVeritasReport').addEventListener('click', generateVeritasReport);
+            // Report generation ONLY from the PDF button
+            pdfBtn.addEventListener('click', generatePDFReport);
 
-            // Form controls
             form.addEventListener('submit', saveEncounter);
             clearBtn.addEventListener('click', function() {
                 clearFormValues();
@@ -4014,9 +3909,7 @@
                 trendContainer.style.display = 'none';
                 encounterNumberSpan.textContent = '0000';
             });
-            pdfBtn.addEventListener('click', generatePDFReport);
 
-            // Profile buttons
             document.querySelectorAll('.profile-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const profile = this.dataset.profile;
@@ -4024,7 +3917,6 @@
                 });
             });
 
-            // Load saved data
             if (encounters.length > 0) {
                 const latest = encounters[encounters.length - 1];
                 setFormData(latest);

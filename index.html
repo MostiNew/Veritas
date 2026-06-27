@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>VERITAS · MyMedfit BRAVO PRO</title>
+    <title>VERITAS · MyMedfit BRAVO PRO · Dynamic Risk</title>
 
     <!-- ========== DEPENDENCIES ========== -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
@@ -1203,6 +1203,50 @@
             display: none;
         }
 
+        /* ========== CONCORDANCE & DYNAMIC RISK UI ========== */
+        .concordance-box {
+            background: #0f1428;
+            border-radius: 8px;
+            padding: 6px 10px;
+            margin: 4px 0;
+            border-left: 4px solid #6f42c1;
+            font-size: 0.65rem;
+        }
+        .concordance-box .alert {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .concordance-box .alert.silent {
+            color: #ff6b6b;
+        }
+        .concordance-box .alert.psychosocial {
+            color: #ffc107;
+        }
+        .concordance-box .alert.good {
+            color: #28a745;
+        }
+        .concordance-box .detail {
+            font-size: 0.55rem;
+            color: #8892b0;
+            margin-top: 2px;
+        }
+
+        .trend-indicator {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            background: #0f1428;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.6rem;
+            margin: 2px 0;
+        }
+        .trend-indicator .up { color: #28a745; }
+        .trend-indicator .down { color: #dc3545; }
+        .trend-indicator .stable { color: #ffc107; }
+
         /* ========== RESPONSIVE ========== */
         @media (max-width: 480px) {
             .form-grid {
@@ -1460,6 +1504,9 @@
                         <span><i class="fas fa-shield-alt"></i> Functionality Index</span>
                         <span class="composite-score" id="compositeScore">—</span>
                     </div>
+                    <!-- Concordance / Dynamic Risk UI -->
+                    <div id="concordanceContainer" style="margin:4px 0;"></div>
+                    <div id="trendContainer" class="trend-indicator" style="display:none;"></div>
                     <div class="chart-container">
                         <canvas id="trendChart"></canvas>
                     </div>
@@ -1601,8 +1648,8 @@
     <!-- ========== JAVASCRIPT ========== -->
     <script>
         // ============================================================
-        //  COMPLETE VERITAS APPLICATION
-        //  All features integrated: ANCHOR, KYC, Token, Vault, Verifier
+        //  COMPLETE VERITAS APPLICATION with DYNAMIC RISK ENGINE
+        //  Includes: Signal Decomposition, Dynamic Weighting, Concordance, Temporal Decay
         // ============================================================
 
         // ========== CONSTANTS ==========
@@ -1610,6 +1657,7 @@
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
         const STORAGE_KEY = 'medfitBravo_encounters';
         const VAULT_KEY = 'medfitBravo_tokenVault';
+        const DECAY_LAMBDA = 0.1; // temporal decay rate
 
         // ========== UTILITY FUNCTIONS ==========
         function base64UrlEncode(str) {
@@ -1617,9 +1665,7 @@
         }
 
         function base64UrlDecode(str) {
-            try {
-                return atob(str.replace(/-/g, '+').replace(/_/g, '/'));
-            } catch (e) { return null; }
+            try { return atob(str.replace(/-/g, '+').replace(/_/g, '/')); } catch (e) { return null; }
         }
 
         function generateSessionId() {
@@ -1823,6 +1869,10 @@
         const verifierStatusBadge = document.getElementById("verifierStatusBadge");
         const passwordHint = document.getElementById("passwordHint");
 
+        // Dynamic Risk UI
+        const concordanceContainer = document.getElementById("concordanceContainer");
+        const trendContainer = document.getElementById("trendContainer");
+
         let isUnlocked = false;
 
         // ========== CORE FUNCTIONS ==========
@@ -1945,7 +1995,129 @@
             return 'BRAVO' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substr(2, 3).toUpperCase();
         }
 
-        // ========== CARE INDEX ==========
+        // ========== DYNAMIC RISK ENGINE ==========
+
+        // 1. Signal Decomposition: separate trait (baseline) from state (drift)
+        function decomposeSignal(currentValue, historicalValues, windowDays = 30) {
+            if (!historicalValues || historicalValues.length < 3) {
+                return { trait: currentValue, state: 0, noise: 0 };
+            }
+            // Use last N values for rolling median (trait)
+            const recent = historicalValues.slice(-10);
+            const sorted = [...recent].sort((a, b) => a - b);
+            const median = sorted.length % 2 === 0 ? (sorted[sorted.length/2 - 1] + sorted[sorted.length/2]) / 2 : sorted[Math.floor(sorted.length/2)];
+            const trait = median;
+            const state = currentValue - trait;
+            const noise = Math.abs(state) < 0.5 ? 0 : state;
+            return { trait, state, noise };
+        }
+
+        // 2. Dynamic Weighting: subjective vs objective
+        function getDynamicWeight(domain, currentValue, historicalValues) {
+            if (!historicalValues || historicalValues.length < 3) return 1.2; // default moderate weight
+            const { trait, state } = decomposeSignal(currentValue, historicalValues);
+            // State change > 2 points = clinically meaningful → boost weight
+            if (Math.abs(state) > 2.0) return 3.0;
+            // Stable trait → moderate weight
+            if (Math.abs(state) < 0.5) return 1.2;
+            // Normal fluctuation → low weight
+            return 0.8;
+        }
+
+        // 3. Concordance: detect discrepancy between subjective and objective signals
+        function calculateConcordance(encounter, allEncounters) {
+            // Subjective score (PROMs)
+            const pain = parseFloat(encounter.pain) || 0;
+            const mobility = parseFloat(encounter.mobility) || 0;
+            const fatigue = parseFloat(encounter.fatigue) || 0;
+            const func = parseFloat(encounter.function) || 0;
+            const subjectiveScore = ((10 - Math.min(10, pain)) + Math.min(10, mobility) + (10 - Math.min(10, fatigue)) + Math.min(10, func)) / 4 * 10; // 0-100
+
+            // Objective score (labs)
+            const glucose = parseFloat(encounter.glucose) || 0;
+            const hba1c = parseFloat(encounter.hba1c) || 0;
+            const egfr = parseFloat(encounter.egfr) || 0;
+            const fev1 = parseFloat(encounter.fev1) || 0;
+            const hb = parseFloat(encounter.hb) || 0;
+            const albumin = parseFloat(encounter.albumin) || 0;
+            const crp = parseFloat(encounter.crp) || 0;
+            const ef = parseFloat(encounter.ef) || 0;
+            const ldl = parseFloat(encounter.ldl) || 0;
+
+            let objectiveScore = 0;
+            let objCount = 0;
+            if (glucose > 0) { objectiveScore += Math.max(0, 100 - Math.abs(glucose - 5.5) * 20); objCount++; }
+            if (hba1c > 0) { objectiveScore += Math.max(0, 100 - (hba1c - 5.5) * 20); objCount++; }
+            if (egfr > 0) { objectiveScore += Math.min(100, egfr / 90 * 100); objCount++; }
+            if (fev1 > 0) { objectiveScore += Math.min(100, fev1 / 3.5 * 100); objCount++; }
+            if (hb > 0) { objectiveScore += Math.min(100, hb / 150 * 100); objCount++; }
+            if (albumin > 0) { objectiveScore += Math.min(100, albumin / 45 * 100); objCount++; }
+            if (crp > 0) { objectiveScore += Math.max(0, 100 - crp * 2); objCount++; }
+            if (ef > 0) { objectiveScore += Math.min(100, ef / 60 * 100); objCount++; }
+            if (ldl > 0) { objectiveScore += Math.max(0, 100 - (ldl - 2.5) * 20); objCount++; }
+            if (objCount === 0) return { discrepancy: 0, riskMultiplier: 1.0, alert: null };
+            objectiveScore = objectiveScore / objCount;
+
+            const discrepancy = Math.abs(objectiveScore - subjectiveScore);
+            let riskMultiplier = 1.0;
+            let alert = null;
+            let alertType = 'good';
+
+            if (discrepancy > 15) {
+                if (objectiveScore < subjectiveScore) {
+                    riskMultiplier = 1.5;
+                    alert = '⚠️ SILENT DETERIORATION: Objective markers declining despite stable PROMs.';
+                    alertType = 'silent';
+                } else {
+                    riskMultiplier = 0.7;
+                    alert = '🧠 PSYCHOSOCIAL FACTOR: PROMs elevated but labs stable. Consider mental health review.';
+                    alertType = 'psychosocial';
+                }
+            } else {
+                alert = '✅ Concordant: Subjective and objective signals align.';
+                alertType = 'good';
+            }
+
+            return { discrepancy, riskMultiplier, alert, alertType, subjectiveScore, objectiveScore };
+        }
+
+        // 4. Temporal Decay: weight recent encounters more
+        function calculateDecayedIndex(encounters) {
+            if (!encounters || encounters.length === 0) return 0;
+            const sorted = [...encounters].sort((a, b) => new Date(a.date) - new Date(b.date));
+            const now = new Date();
+            let weightedSum = 0;
+            let totalWeight = 0;
+
+            sorted.forEach((enc, index) => {
+                const daysAgo = (now - new Date(enc.date)) / (1000 * 60 * 60 * 24);
+                const decayWeight = Math.exp(-DECAY_LAMBDA * daysAgo);
+                // Recency bonus for last 3 encounters
+                const recencyBonus = (sorted.length - index) <= 3 ? 1.2 : 1.0;
+                const finalWeight = decayWeight * recencyBonus;
+
+                const indexScore = computeCareIndex(enc);
+                weightedSum += indexScore * finalWeight;
+                totalWeight += finalWeight;
+            });
+
+            return totalWeight > 0 ? Math.round(weightedSum / totalWeight) : 0;
+        }
+
+        // 5. Trend detection
+        function detectTrend(encounters) {
+            if (!encounters || encounters.length < 3) return { direction: 'stable', change: 0 };
+            const sorted = [...encounters].sort((a, b) => new Date(a.date) - new Date(b.date));
+            const last3 = sorted.slice(-3);
+            const indices = last3.map(e => computeCareIndex(e));
+            const change = indices[indices.length - 1] - indices[0];
+            let direction = 'stable';
+            if (change > 3) direction = 'up';
+            else if (change < -3) direction = 'down';
+            return { direction, change };
+        }
+
+        // ========== CARE INDEX (existing) ==========
         function computeCareIndex(data) {
             const n = (v) => parseFloat(v) || 0;
             const pain = n(data.pain);
@@ -1986,6 +2158,7 @@
             return Math.min(100, Math.round(raw * 2));
         }
 
+        // ========== GENERATE CARE TIPS ==========
         function generateCareTips(data, goals) {
             const n = (v) => parseFloat(v) || 0;
             const pain = n(data.pain);
@@ -2032,20 +2205,57 @@
             return tips;
         }
 
-        // ========== RENDER INSIGHTS ==========
+        // ========== RENDER INSIGHTS (enhanced with dynamic risk) ==========
         function renderInsights(data) {
-            if (!data || Object.keys(data).length === 0) {
+            if (!data || Object.keys(data).length === 0 || !data.pain) {
                 riskContainer.innerHTML =
                     `<div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">Save an encounter to see recommendations.</div>`;
                 compositeScore.textContent = '—';
                 aiInsight.innerHTML =
                     `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
+                concordanceContainer.innerHTML = '';
+                trendContainer.style.display = 'none';
                 return;
             }
 
+            // 1. Base index
             const index = computeCareIndex(data);
             const goals = getGoals();
             const tips = generateCareTips(data, goals);
+
+            // 2. Dynamic risk: concordance
+            const concordance = calculateConcordance(data, encounters);
+            const alertHtml = concordance.alert ? `
+                <div class="alert ${concordance.alertType}">
+                    <i class="fas fa-${concordance.alertType === 'silent' ? 'exclamation-triangle' : concordance.alertType === 'psychosocial' ? 'brain' : 'check-circle'}"></i>
+                    ${concordance.alert}
+                </div>
+                <div class="detail">Discrepancy: ${concordance.discrepancy.toFixed(1)} points | Subjective: ${concordance.subjectiveScore.toFixed(0)} | Objective: ${concordance.objectiveScore.toFixed(0)}</div>
+            ` : '';
+
+            concordanceContainer.innerHTML = `
+                <div class="concordance-box">
+                    ${alertHtml}
+                </div>
+            `;
+
+            // 3. Temporal decay: trend index
+            const decayedIndex = calculateDecayedIndex(encounters);
+            const trend = detectTrend(encounters);
+            const trendIcon = trend.direction === 'up' ? '📈' : trend.direction === 'down' ? '📉' : '➡️';
+            const trendColor = trend.direction === 'up' ? 'up' : trend.direction === 'down' ? 'down' : 'stable';
+            const trendText = trend.direction === 'up' ? 'Improving' : trend.direction === 'down' ? 'Declining' : 'Stable';
+
+            trendContainer.style.display = 'flex';
+            trendContainer.innerHTML = `
+                <span><i class="fas fa-chart-line"></i> Trend: <span class="${trendColor}">${trendIcon} ${trendText}</span></span>
+                <span>Change: ${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts</span>
+                <span>Decayed Index: ${decayedIndex}</span>
+                <span>${concordance.riskMultiplier > 1 ? '⚠️ Adjusted risk: ' + (index * concordance.riskMultiplier).toFixed(0) : ''}</span>
+            `;
+
+            // 4. Risk summary with dynamic adjustments
+            const adjustedIndex = Math.min(100, Math.round(index * concordance.riskMultiplier));
 
             let html = '<div class="risk-summary">';
             const items = [
@@ -2092,8 +2302,9 @@
                      </div>`;
 
             riskContainer.innerHTML = html;
-            compositeScore.textContent = index;
+            compositeScore.textContent = adjustedIndex;
 
+            // 5. AI insights with dynamic tips
             let tipText = tips.map(t => `<li>${t}</li>`).join('');
             aiInsight.innerHTML = `<i class="fas fa-robot"></i> <ul>${tipText}</ul>`;
         }
@@ -2407,7 +2618,6 @@
 
             const allConditionsMet = livenessCompleted && lastHREstimate && hasName && hasLicense;
 
-            // Update status details
             if (statusDetails) {
                 statusDetails.innerHTML = `
                     Liveness: ${livenessCompleted ? '✅' : '❌'} 
@@ -2752,7 +2962,6 @@
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
-                    // Update token vault
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -2761,7 +2970,6 @@
                         renderVault();
                     }
 
-                    // Update main status
                     if (token === tokenOutput.value.trim()) {
                         anchorVerified = true;
                         anchorIcon.className = "status-icon pass";
@@ -2943,6 +3151,8 @@
             compositeScore.textContent = '—';
             aiInsight.innerHTML =
                 `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
+            concordanceContainer.innerHTML = '';
+            trendContainer.style.display = 'none';
             encounterNumberSpan.textContent = '0000';
             renderHistory();
         }
@@ -3220,7 +3430,7 @@
 
         // ========== INIT ==========
         function init() {
-            console.log('=== MyMedfit BRAVO PRO + VERITAS Initializing ===');
+            console.log('=== MyMedfit BRAVO PRO + VERITAS + Dynamic Risk Engine ===');
             console.log('Device ID:', deviceId);
             console.log('🔑 Verifier Password:', VERIFIER_PASSWORD);
 
@@ -3273,6 +3483,8 @@
                 compositeScore.textContent = '—';
                 aiInsight.innerHTML =
                     `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
+                concordanceContainer.innerHTML = '';
+                trendContainer.style.display = 'none';
                 encounterNumberSpan.textContent = '0000';
             });
             pdfBtn.addEventListener('click', generatePDFReport);

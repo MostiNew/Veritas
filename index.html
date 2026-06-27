@@ -376,6 +376,12 @@
         .demo-bar .demo-group input[type="number"] {
             width: 42px;
         }
+        .demo-bar .demo-group input[type="date"] {
+            width: 90px;
+        }
+        .demo-bar .demo-group input[type="text"] {
+            width: 80px;
+        }
 
         .goals-section {
             display: flex;
@@ -827,6 +833,7 @@
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.3s ease;
+            padding: 10px;
         }
         .verifier-modal.active {
             display: flex;
@@ -845,9 +852,9 @@
             background: #151a30;
             border: 1px solid #262c4a;
             border-radius: 16px;
-            padding: 24px;
+            padding: 20px;
             max-width: 650px;
-            width: 95%;
+            width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
@@ -855,14 +862,14 @@
         .verifier-modal-content h2 {
             color: #6f42c1;
             border-bottom: 1px solid #262c4a;
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-            font-size: 1.1rem;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 1rem;
         }
         .verifier-modal-content .close-btn {
             position: absolute;
-            top: 12px;
-            right: 16px;
+            top: 10px;
+            right: 14px;
             background: none;
             border: none;
             color: #8892b0;
@@ -873,30 +880,30 @@
             color: #f5f5f5;
         }
         .verifier-field {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .verifier-field label {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
             color: #8892b0;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .verifier-field input,
         .verifier-field textarea {
             width: 100%;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 8px;
             border: 1px solid #262c4a;
             background: #0f1428;
             color: #f5f5f5;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-family: monospace;
         }
         .verifier-field textarea {
-            min-height: 80px;
+            min-height: 70px;
             resize: vertical;
         }
         .verifier-field input:focus,
@@ -906,18 +913,19 @@
         }
         .verifier-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
             margin-top: 8px;
         }
         .verifier-actions button {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 30px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
+            flex: 1 0 auto;
         }
         .btn-unlock {
             background: #6f42c1;
@@ -949,17 +957,17 @@
             background: #b02a37;
         }
         .verifier-results {
-            margin-top: 12px;
-            padding: 12px;
+            margin-top: 10px;
+            padding: 10px;
             border-radius: 8px;
             background: #0f1428;
             border: 1px solid #262c4a;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
         .verifier-results .result-item {
             display: flex;
             justify-content: space-between;
-            padding: 3px 0;
+            padding: 2px 0;
             border-bottom: 1px solid #1a2038;
         }
         .verifier-results .result-item:last-child {
@@ -982,9 +990,9 @@
         }
         .verifier-status-badge {
             display: inline-block;
-            padding: 2px 12px;
+            padding: 2px 10px;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
         }
@@ -1259,6 +1267,12 @@
             .demo-bar .demo-group select {
                 width: 50px;
             }
+            .demo-bar .demo-group input[type="date"] {
+                width: 80px;
+            }
+            .demo-bar .demo-group input[type="text"] {
+                width: 70px;
+            }
             .profile-btn {
                 font-size: 0.5rem;
                 padding: 3px 8px;
@@ -1287,6 +1301,10 @@
             }
             .verifier-modal-content {
                 padding: 16px;
+            }
+            .verifier-actions button {
+                font-size: 0.65rem;
+                padding: 6px 10px;
             }
         }
         @media (min-width: 600px) {
@@ -1476,6 +1494,14 @@
                         <label>kg</label>
                         <input type="number" id="weight" placeholder="72" step="0.1" />
                     </div>
+                    <div class="demo-group">
+                        <label><i class="fas fa-calendar"></i> DOB</label>
+                        <input type="date" id="dob" value="1980-01-01" />
+                    </div>
+                    <div class="demo-group">
+                        <label><i class="fas fa-id-card"></i> Insurance</label>
+                        <input type="text" id="insuranceNumber" value="INS-123456789" style="width:80px; font-size:0.55rem;" />
+                    </div>
                 </div>
 
                 <div class="goals-section">
@@ -1595,13 +1621,13 @@
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
 
                 <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> VERITAS Token Verifier</h2>
-                <p style="font-size:0.75rem; color:#8892b0; margin-bottom:12px;">
-                    Second human verifies the token. Enter password to unlock, then verify.
+                <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;">
+                    Human verifier: enter the password to unlock, then verify the token.
                 </p>
 
                 <div class="verifier-field">
-                    <label><i class="fas fa-lock"></i> Verifier Password</label>
-                    <input type="password" id="verifierPassword" placeholder="Enter password to unlock verifier" />
+                    <label><i class="fas fa-lock"></i> Human-in-the-Loop Password</label>
+                    <input type="password" id="verifierPassword" placeholder="Enter password to unlock" />
                     <div class="verifier-password-hint" id="passwordHint">🔑 Required: MoMo123456789@@@</div>
                 </div>
 
@@ -1617,21 +1643,17 @@
                 </div>
 
                 <div class="verifier-results" id="verifierResults" style="display:none;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                        <span style="font-weight:700;">📊 Verification Results</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:4px;">
+                        <span style="font-weight:700; font-size:0.7rem;">📊 Verification Results</span>
                         <span class="verifier-status-badge pending" id="verifierStatusBadge">Pending</span>
                     </div>
                     <div id="verifierResultsContent">
                         <div class="result-item"><span class="label">Status</span><span class="value" id="resultStatus">—</span></div>
                         <div class="result-item"><span class="label">Caregiver</span><span class="value" id="resultCaregiver">—</span></div>
                         <div class="result-item"><span class="label">License</span><span class="value" id="resultLicense">—</span></div>
-                        <div class="result-item"><span class="label">Authority</span><span class="value" id="resultAuthority">—</span></div>
                         <div class="result-item"><span class="label">Liveness</span><span class="value" id="resultLiveness">—</span></div>
                         <div class="result-item"><span class="label">Heart Rate</span><span class="value" id="resultHR">—</span></div>
-                        <div class="result-item"><span class="label">Functionality Index</span><span class="value" id="resultIndex">—</span></div>
-                        <div class="result-item"><span class="label">Issued At</span><span class="value" id="resultIssued">—</span></div>
-                        <div class="result-item"><span class="label">Expires At</span><span class="value" id="resultExpires">—</span></div>
-                        <div class="result-item"><span class="label">Remaining</span><span class="value" id="resultRemaining">—</span></div>
+                        <div class="result-item"><span class="label">Function Index</span><span class="value" id="resultIndex">—</span></div>
                         <div class="result-item"><span class="label">Signature</span><span class="value" id="resultSignature">—</span></div>
                     </div>
                 </div>
@@ -1964,6 +1986,11 @@
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
             data.anchor_hr_quality = lastHREstimate ? lastHREstimate.quality : null;
             data.anchor_verified = anchorVerified;
+            // DOB and Insurance
+            const dobEl = document.getElementById('dob');
+            const insEl = document.getElementById('insuranceNumber');
+            data.dob = dobEl ? dobEl.value : '1980-01-01';
+            data.insurance_number = insEl ? insEl.value : 'INS-123456789';
             return data;
         }
 
@@ -1977,6 +2004,9 @@
             if (data.caregiver_license) caregiverLicense.value = data.caregiver_license;
             if (data.caregiver_authority) issuingAuthority.value = data.caregiver_authority;
             if (data.encounter_ref) encounterRef.value = data.encounter_ref;
+            if (data.dob) { const dobEl = document.getElementById('dob'); if (dobEl) dobEl.value = data.dob; }
+            if (data.insurance_number) { const insEl = document.getElementById('insuranceNumber'); if (insEl) insEl.value = data
+                    .insurance_number; }
         }
 
         function clearFormValues() {
@@ -3021,7 +3051,6 @@
             const payload = data.payload;
             resultCaregiver.textContent = payload.kyc?.caregiver_name || payload.caregiver_name || '—';
             resultLicense.textContent = payload.kyc?.caregiver_license || payload.caregiver_license || '—';
-            resultAuthority.textContent = payload.kyc?.issuing_authority || payload.issuing_authority || '—';
 
             const anchorData = payload.veritas || payload.anchor || {};
             resultLiveness.textContent = anchorData.liveness_completed ? '✅ Completed' : '❌ Not run';
@@ -3032,12 +3061,6 @@
             const assessData = payload.assessment || {};
             resultIndex.textContent = assessData.functionality_index || '—';
             resultIndex.className = 'value';
-
-            const iat = payload.iat || 0;
-            const exp = payload.exp || 0;
-            resultIssued.textContent = iat ? new Date(iat * 1000).toLocaleString() : '—';
-            resultExpires.textContent = exp ? new Date(exp * 1000).toLocaleString() : '—';
-            resultRemaining.textContent = data.remaining;
 
             resultSignature.textContent = data.signatureValid ? '✅ Valid' : '❌ Invalid';
             resultSignature.className = `value ${data.signatureValid ? 'verified' : 'failed'}`;
@@ -3165,10 +3188,9 @@
                 return;
             }
 
-            // Get enhanced patient identifiers (from form or defaults)
-            const dob = document.getElementById('dob') ? document.getElementById('dob').value : '1980-01-01';
-            const insuranceNumber = document.getElementById('insuranceNumber') ? document.getElementById('insuranceNumber')
-                .value : 'INS-123456789';
+            // Get enhanced patient identifiers
+            const dob = latest.dob || document.getElementById('dob')?.value || '1980-01-01';
+            const insuranceNumber = latest.insurance_number || document.getElementById('insuranceNumber')?.value || 'INS-123456789';
 
             const idx = computeCareIndex(latest);
             const tips = generateCareTips(latest, getGoals());
@@ -3193,7 +3215,7 @@
                     '🔴 Patient is in the lower range. This represents an opportunity for intensive, coordinated care to improve outcomes and avoid high-cost events.';
             }
 
-            // ICF domains
+            // ICF domains (compact)
             const icfDomains = [];
             const pain = parseFloat(latest.pain) || 0,
                 mobility = parseFloat(latest.mobility) || 0;
@@ -3229,7 +3251,6 @@
             if (egfr > 0 && egfr < 60) icfDomains.push('Renal function (b610) – reduced');
             if (crp > 10) icfDomains.push('Inflammation (b) – elevated CRP');
             if (ldl > 3.0) icfDomains.push('Lipids (b) – elevated LDL');
-            icfDomains.push('Participation (d920) – community engagement');
 
             // Trend rows
             let trendRows = '';
@@ -3239,8 +3260,6 @@
                     m = parseFloat(enc.mobility) || 0;
                 const f = parseFloat(enc.fatigue) || 0,
                     fn = parseFloat(enc.function) || 0;
-                const g = parseFloat(enc.glucose) || 0,
-                    fe = parseFloat(enc.fev1) || 0;
                 trendRows += `
                     <tr>
                         <td>${enc.date}</td>
@@ -3248,8 +3267,6 @@
                         <td>${m}</td>
                         <td>${f}</td>
                         <td>${fn}</td>
-                        <td>${g || '—'}</td>
-                        <td>${fe || '—'}</td>
                         <td><span style="display:inline-block;padding:2px 12px;border-radius:30px;font-size:0.7rem;font-weight:700;text-transform:uppercase;${i < 40 ? 'background:#f8d7da;color:#721c24;' : i < 65 ? 'background:#fff3cd;color:#856404;' : 'background:#d4edda;color:#155724;'}">${i}</span></td>
                     </tr>
                 `;
@@ -3260,135 +3277,127 @@
             const veritasStatus = anchorVerified ? '✅ VERIFIED' : '⏳ Pending';
             const veritasIcon = anchorVerified ? '🛡️' : '⏳';
 
-            // Concise, single-page report with virtualcaresolution.de branding and VBC focus
+            // Single-page report with virtualcaresolution.de branding and VBC focus
             const reportHTML = `
-                <div style="background:#0b1020; color:#f5f5f5; padding:20px 25px; font-family:'Segoe UI',Roboto,system-ui,sans-serif; max-width:900px; margin:0 auto; font-size:12px;">
+                <div style="background:#0b1020; color:#f5f5f5; padding:16px 20px; font-family:'Segoe UI',Roboto,system-ui,sans-serif; max-width:900px; margin:0 auto; font-size:11px;">
                     <!-- Header: Branding replaced with virtualcaresolution.de -->
-                    <div style="border-bottom:2px solid #005792; padding-bottom:12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <div style="border-bottom:2px solid #005792; padding-bottom:10px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
                         <div style="display:flex; align-items:center; gap:6px;">
-                            <span style="font-size:1.4rem; font-weight:900; color:#00b4d8; line-height:1;">virtual</span>
-                            <span style="font-size:1.1rem; font-weight:300; color:#8892b0;">caresolution</span>
-                            <span style="font-size:0.8rem; font-weight:700; color:#005792;">.de</span>
+                            <span style="font-size:1.2rem; font-weight:900; color:#00b4d8; line-height:1;">virtual</span>
+                            <span style="font-size:1rem; font-weight:300; color:#8892b0;">caresolution</span>
+                            <span style="font-size:0.7rem; font-weight:700; color:#005792;">.de</span>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:0.9rem; font-weight:700; color:#6f42c1;">VERITAS Report</div>
-                            <div style="font-size:0.6rem; color:#8892b0;">${veritasIcon} ${veritasStatus}</div>
+                            <div style="font-size:0.8rem; font-weight:700; color:#6f42c1;">VERITAS Report</div>
+                            <div style="font-size:0.55rem; color:#8892b0;">${veritasIcon} ${veritasStatus}</div>
                         </div>
                     </div>
 
                     <!-- Patient Identifiers: DOB & Insurance -->
-                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:4px 12px; background:#0f1428; padding:6px 10px; border-radius:6px; margin-bottom:10px; font-size:0.65rem;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:4px 10px; background:#0f1428; padding:4px 8px; border-radius:6px; margin-bottom:8px; font-size:0.6rem;">
                         <div><span style="color:#8892b0;">DOB</span> <span style="font-weight:600;">${dob}</span></div>
                         <div><span style="color:#8892b0;">Insurance</span> <span style="font-weight:600;font-family:monospace;">${insuranceNumber}</span></div>
                         <div><span style="color:#8892b0;">Encounter</span> <span style="font-weight:600;">${latest.id}</span></div>
-                        <div><span style="color:#8892b0;">Device</span> <span style="font-weight:600;font-family:monospace;font-size:0.55rem;">${latest.device_id || '—'}</span></div>
+                        <div><span style="color:#8892b0;">Device</span> <span style="font-weight:600;font-family:monospace;font-size:0.5rem;">${latest.device_id || '—'}</span></div>
                     </div>
 
                     <!-- Two-column summary -->
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
                         <!-- Left: Key metrics -->
                         <div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Functionality Index</span>
                                 <span style="font-weight:700; color:#00b4d8;">${adjustedIndex}</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Trend (5 visits)</span>
                                 <span style="font-weight:700; color:${trend.direction === 'up' ? '#28a745' : trend.direction === 'down' ? '#dc3545' : '#ffc107'};">${trend.direction === 'up' ? '📈 Improving' : trend.direction === 'down' ? '📉 Declining' : '➡️ Stable'} (${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts)</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Pain (NRS)</span>
                                 <span style="font-weight:600;">${latest.pain || '—'} / 10</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Mobility</span>
                                 <span style="font-weight:600;">${latest.mobility || '—'} / 10</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Fatigue</span>
                                 <span style="font-weight:600;">${latest.fatigue || '—'} / 10</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Global Function</span>
                                 <span style="font-weight:600;">${latest.function || '—'} / 10</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Heart Rate</span>
                                 <span style="font-weight:600;">${latest.hr || '—'} bpm</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">SBP/DBP</span>
                                 <span style="font-weight:600;">${latest.sbp || '—'}/${latest.dbp || '—'} mmHg</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">Glucose</span>
                                 <span style="font-weight:600;">${latest.glucose || '—'} mmol/L</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">HbA1c</span>
                                 <span style="font-weight:600;">${latest.hba1c || '—'}%</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">eGFR</span>
                                 <span style="font-weight:600;">${latest.egfr || '—'} mL/min/1.73m²</span>
                             </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
+                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
                                 <span style="color:#8892b0;">FEV1</span>
                                 <span style="font-weight:600;">${latest.fev1 || '—'} L</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
-                                <span style="color:#8892b0;">CRP</span>
-                                <span style="font-weight:600;">${latest.crp || '—'} mg/L</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.7rem;">
-                                <span style="color:#8892b0;">Albumin</span>
-                                <span style="font-weight:600;">${latest.albumin || '—'} g/L</span>
                             </div>
                         </div>
 
                         <!-- Right: VBC & Concordance -->
                         <div>
-                            <div style="background:#0f1428; border-left:3px solid #6f42c1; padding:6px 10px; border-radius:4px; margin-bottom:6px;">
-                                <div style="font-size:0.6rem; font-weight:700; color:#6f42c1; text-transform:uppercase; letter-spacing:0.5px;">Value-Based Care Summary</div>
-                                <div style="font-size:0.65rem; margin-top:2px;">${vbcStatement}</div>
+                            <div style="background:#0f1428; border-left:3px solid #6f42c1; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
+                                <div style="font-size:0.55rem; font-weight:700; color:#6f42c1; text-transform:uppercase; letter-spacing:0.5px;">Value-Based Care Summary</div>
+                                <div style="font-size:0.6rem; margin-top:2px;">${vbcStatement}</div>
                             </div>
 
-                            <div style="background:#0f1428; border-left:3px solid ${concordance.alertType === 'silent' ? '#dc3545' : concordance.alertType === 'psychosocial' ? '#ffc107' : '#28a745'}; padding:6px 10px; border-radius:4px; margin-bottom:6px;">
-                                <div style="font-size:0.6rem; font-weight:700; color:#8892b0; text-transform:uppercase; letter-spacing:0.5px;">Concordance</div>
-                                <div style="font-size:0.65rem; margin-top:2px;">${concordance.alert || '✅ Aligned'}</div>
-                                <div style="font-size:0.55rem; color:#8892b0; margin-top:1px;">Subj: ${concordance.subjectiveScore?.toFixed(0) || '—'} | Obj: ${concordance.objectiveScore?.toFixed(0) || '—'} | Δ: ${concordance.discrepancy?.toFixed(1) || '—'} pts</div>
+                            <div style="background:#0f1428; border-left:3px solid ${concordance.alertType === 'silent' ? '#dc3545' : concordance.alertType === 'psychosocial' ? '#ffc107' : '#28a745'}; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
+                                <div style="font-size:0.55rem; font-weight:700; color:#8892b0; text-transform:uppercase; letter-spacing:0.5px;">Concordance</div>
+                                <div style="font-size:0.6rem; margin-top:2px;">${concordance.alert || '✅ Aligned'}</div>
+                                <div style="font-size:0.5rem; color:#8892b0; margin-top:1px;">Subj: ${concordance.subjectiveScore?.toFixed(0) || '—'} | Obj: ${concordance.objectiveScore?.toFixed(0) || '—'} | Δ: ${concordance.discrepancy?.toFixed(1) || '—'} pts</div>
                             </div>
 
-                            <div style="font-size:0.6rem; color:#8892b0; background:#0f1428; padding:4px 8px; border-radius:4px;">
+                            <div style="font-size:0.55rem; color:#8892b0; background:#0f1428; padding:3px 8px; border-radius:4px;">
                                 <span style="font-weight:600; color:#f5f5f5;">Caregiver:</span> ${latest.caregiver_name || '—'} 
-                                <span style="margin-left:8px; font-weight:600; color:#f5f5f5;">License:</span> ${latest.caregiver_license || '—'}
+                                <span style="margin-left:6px; font-weight:600; color:#f5f5f5;">License:</span> ${latest.caregiver_license || '—'}
                             </div>
-                            <div style="font-size:0.55rem; color:#8892b0; margin-top:2px;">
+                            <div style="font-size:0.5rem; color:#8892b0; margin-top:2px;">
                                 <span>Liveness: ${latest.anchor_liveness ? '✅' : '❌'}</span>
-                                <span style="margin-left:6px;">HR: ${latest.anchor_hr_bpm ? latest.anchor_hr_bpm + ' bpm' : '—'}</span>
-                                <span style="margin-left:6px;">VERITAS: ${latest.anchor_verified ? '✅' : '⏳'}</span>
+                                <span style="margin-left:4px;">HR: ${latest.anchor_hr_bpm ? latest.anchor_hr_bpm + ' bpm' : '—'}</span>
+                                <span style="margin-left:4px;">VERITAS: ${latest.anchor_verified ? '✅' : '⏳'}</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- ICF Domains (compact) -->
-                    <div style="background:#0f1428; padding:4px 10px; border-radius:4px; margin-bottom:6px; font-size:0.6rem;">
-                        <span style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.5rem;">ICF Domains:</span>
-                        ${icfDomains.slice(0,6).map(d => `<span style="background:#1a2038; padding:1px 6px; border-radius:12px; margin:0 2px;">${d}</span>`).join('')}
-                        ${icfDomains.length > 6 ? `<span style="color:#8892b0;">+${icfDomains.length - 6} more</span>` : ''}
+                    <div style="background:#0f1428; padding:3px 8px; border-radius:4px; margin-bottom:4px; font-size:0.55rem;">
+                        <span style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.45rem;">ICF Domains:</span>
+                        ${icfDomains.slice(0,6).map(d => `<span style="background:#1a2038; padding:1px 6px; border-radius:12px; margin:0 2px; font-size:0.5rem;">${d}</span>`).join('')}
+                        ${icfDomains.length > 6 ? `<span style="color:#8892b0; font-size:0.5rem;">+${icfDomains.length - 6} more</span>` : ''}
                     </div>
 
                     <!-- Care Tips (compact) -->
-                    <div style="background:#0f1428; border-left:3px solid #00b4d8; padding:4px 10px; border-radius:4px; margin-bottom:6px; font-size:0.6rem;">
-                        <span style="font-weight:600; color:#00b4d8; text-transform:uppercase; font-size:0.5rem;">Care Tips:</span>
-                        <ul style="margin:2px 0 0 14px; padding:0; list-style-type:disc; color:#f5f5f5;">${tipsHtml}</ul>
+                    <div style="background:#0f1428; border-left:3px solid #00b4d8; padding:3px 8px; border-radius:4px; margin-bottom:4px; font-size:0.55rem;">
+                        <span style="font-weight:600; color:#00b4d8; text-transform:uppercase; font-size:0.45rem;">Care Tips:</span>
+                        <ul style="margin:1px 0 0 14px; padding:0; list-style-type:disc; color:#f5f5f5; font-size:0.5rem;">${tipsHtml}</ul>
                     </div>
 
                     <!-- Trend table (compact) -->
                     ${last5.length > 0 ? `
-                    <div style="font-size:0.6rem; margin-top:4px;">
-                        <div style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.5rem; margin-bottom:2px;">Recent Trends (last 5)</div>
-                        <table style="width:100%; border-collapse:collapse; font-size:0.55rem;">
+                    <div style="font-size:0.55rem; margin-top:4px;">
+                        <div style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.45rem; margin-bottom:2px;">Recent Trends (last 5)</div>
+                        <table style="width:100%; border-collapse:collapse; font-size:0.5rem;">
                             <thead><tr style="background:#0f1428;">
                                 <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Date</th>
                                 <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Pain</th>
@@ -3403,7 +3412,7 @@
                     ` : ''}
 
                     <!-- Footer -->
-                    <div style="margin-top:8px; padding-top:6px; border-top:1px solid #1a2038; text-align:center; font-size:0.5rem; color:#8892b0;">
+                    <div style="margin-top:6px; padding-top:4px; border-top:1px solid #1a2038; text-align:center; font-size:0.45rem; color:#8892b0;">
                         <a href="https://virtualcaresolution.de" target="_blank" style="color:#00b4d8; text-decoration:none; font-weight:600;">virtualcaresolution.de</a> · VERITAS · Value-Based Care Report · ${new Date().toISOString().split('T')[0]}
                     </div>
                 </div>
@@ -3413,7 +3422,7 @@
 
             const element = document.getElementById('pdfReportContent');
             const opt = {
-                margin: [0.4, 0.4, 0.4, 0.4],
+                margin: [0.3, 0.3, 0.3, 0.3],
                 filename: `VERITAS_VBC_Report_${new Date().toISOString().split('T')[0]}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0b1020' },
@@ -3495,18 +3504,7 @@
 
             deviceIdDisplay.textContent = deviceId.substring(0, 12) + '…';
 
-            // Add DOB and Insurance fields to the form dynamically
-            const demoBar = document.querySelector('.demo-bar');
-            const dobGroup = document.createElement('div');
-            dobGroup.className = 'demo-group';
-            dobGroup.innerHTML = `<label><i class="fas fa-calendar"></i> DOB</label><input type="date" id="dob" value="1980-01-01" style="width:90px;" />`;
-            demoBar.appendChild(dobGroup);
-
-            const insGroup = document.createElement('div');
-            insGroup.className = 'demo-group';
-            insGroup.innerHTML =
-                `<label><i class="fas fa-id-card"></i> Insurance</label><input type="text" id="insuranceNumber" value="INS-123456789" style="width:80px; font-size:0.55rem;" />`;
-            demoBar.appendChild(insGroup);
+            // DOB and Insurance fields are already in the demo-bar
 
             buildForm();
             renderHistory();

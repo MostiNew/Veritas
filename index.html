@@ -1328,7 +1328,7 @@
         <header class="app-header">
             <div class="brand">
                 <h1><i class="fas fa-heartbeat"></i> MyMedfit BRAVO PRO</h1>
-                <span class="badge"><i class="fas fa-robot"></i> Patient‑Centred Care</span>
+                <span class="badge"><i class="fas fa-robot"></i> <span data-i18n="badge_patient">Patient‑Centred Care</span></span>
                 <span class="badge badge-veritas"><i class="fas fa-shield-alt"></i> VERITAS</span>
             </div>
             <div class="header-controls">
@@ -1336,7 +1336,6 @@
                     <button class="lang-btn active" data-lang="en">EN</button>
                     <button class="lang-btn" data-lang="de">DE</button>
                     <button class="lang-btn" data-lang="es">ES</button>
-                    <button class="lang-btn" data-lang="ar">AR</button>
                 </div>
                 <span class="encounter-id" id="encounterIdDisplay"><i class="fas fa-file-pdf"></i> #<span id="encounterNumber">0000</span></span>
             </div>
@@ -1344,9 +1343,9 @@
 
         <!-- ========== PROFILE SELECTOR ========== -->
         <div class="profile-selector">
-            <button class="profile-btn active" data-profile="acute"><i class="fas fa-bolt"></i> Acute Rehab</button>
-            <button class="profile-btn" data-profile="preventive"><i class="fas fa-shield-alt"></i> Preventive</button>
-            <button class="profile-btn" data-profile="palliative"><i class="fas fa-heart"></i> Palliative</button>
+            <button class="profile-btn active" data-profile="acute"><i class="fas fa-bolt"></i> <span data-i18n="profile_acute">Acute Rehab</span></button>
+            <button class="profile-btn" data-profile="preventive"><i class="fas fa-shield-alt"></i> <span data-i18n="profile_preventive">Preventive</span></button>
+            <button class="profile-btn" data-profile="palliative"><i class="fas fa-heart"></i> <span data-i18n="profile_palliative">Palliative</span></button>
         </div>
 
         <!-- ========== MAIN GRID ========== -->
@@ -1354,31 +1353,31 @@
 
             <!-- ========== LEFT COLUMN: ANCHOR + VERIFIER ========== -->
             <div class="card">
-                <h3><i class="fas fa-camera"></i> ANCHOR · Liveness & HR</h3>
+                <h3><i class="fas fa-camera"></i> <span data-i18n="anchor_title">ANCHOR · Liveness & HR</span></h3>
 
                 <div class="video-container">
                     <video id="video" autoplay playsinline></video>
                     <div id="overlay" class="overlay hidden">
-                        <span id="overlayText">Look straight into the camera</span>
+                        <span id="overlayText" data-i18n="look_straight">Look straight into the camera</span>
                     </div>
                 </div>
 
                 <div class="controls">
-                    <button id="startCameraBtn" class="btn-success">Start Camera</button>
-                    <button id="stopCameraBtn" class="btn-danger" disabled>Stop</button>
-                    <button id="runLivenessBtn" class="btn-success" disabled>Run Liveness</button>
-                    <button id="startHRBtn" class="btn-success" disabled>Start HR</button>
-                    <button id="stopHRBtn" class="btn-danger" disabled>Stop HR</button>
+                    <button id="startCameraBtn" class="btn-success"><span data-i18n="start_camera">Start Camera</span></button>
+                    <button id="stopCameraBtn" class="btn-danger" disabled><span data-i18n="stop">Stop</span></button>
+                    <button id="runLivenessBtn" class="btn-success" disabled><span data-i18n="run_liveness">Run Liveness</span></button>
+                    <button id="startHRBtn" class="btn-success" disabled><span data-i18n="start_hr">Start HR</span></button>
+                    <button id="stopHRBtn" class="btn-danger" disabled><span data-i18n="stop_hr">Stop HR</span></button>
                 </div>
 
                 <div class="status">
                     <div class="status-row">
-                        <span>Status:</span>
-                        <span id="statusText">Idle</span>
+                        <span data-i18n="status">Status:</span>
+                        <span id="statusText" data-i18n="idle">Idle</span>
                     </div>
                     <div class="status-row">
-                        <span>Liveness:</span>
-                        <span id="livenessStatus">Not run</span>
+                        <span data-i18n="liveness">Liveness:</span>
+                        <span id="livenessStatus" data-i18n="not_run">Not run</span>
                     </div>
                     <progress id="progressBar" value="0" max="100"></progress>
                 </div>
@@ -1387,44 +1386,44 @@
                     <div class="hr-top-row">
                         <span>
                             <span id="hrQualityDot" class="quality-dot"></span>
-                            Optical HR (rPPG):
+                            <span data-i18n="optical_hr">Optical HR (rPPG):</span>
                         </span>
                         <span class="hr-value" id="hrValue">-- bpm</span>
                     </div>
-                    <div style="font-size:0.7rem; opacity:0.8;" id="hrStatus">Press "Start HR" and stay still</div>
+                    <div style="font-size:0.7rem; opacity:0.8;" id="hrStatus" data-i18n="hr_press">Press "Start HR" and stay still</div>
                     <div style="font-size:0.6rem; opacity:0.6; margin-top:2px;" id="hrDebug"></div>
                 </div>
 
                 <!-- ANCHOR Status -->
                 <div class="anchor-status">
                     <span class="status-icon pending" id="anchorIcon">⏳</span>
-                    <span id="anchorStatusText">VERITAS verification pending</span>
+                    <span id="anchorStatusText" data-i18n="veritas_pending">VERITAS verification pending</span>
                     <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ Name:❌ License:❌</span>
                 </div>
 
                 <!-- Caregiver Identification -->
                 <div class="caregiver-section" style="margin-top:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> KYC · Caregiver Identity</span>
-                        <span style="font-size:0.5rem; color:#8892b0;">Device: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> <span data-i18n="kyc_title">KYC · Caregiver Identity</span></span>
+                        <span style="font-size:0.5rem; color:#8892b0;"><span data-i18n="device">Device</span>: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
-                            <label>Full Name</label>
+                            <label data-i18n="full_name">Full Name</label>
                             <input id="caregiverName" type="text" placeholder="e.g. Moustafa Mohammed Ali" />
                         </div>
                         <div class="meta-field">
-                            <label>License / ID</label>
+                            <label data-i18n="license_id">License / ID</label>
                             <input id="caregiverLicense" type="text" placeholder="e.g. PT-123456" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
-                            <label>Issuing Authority</label>
+                            <label data-i18n="issuing_authority">Issuing Authority</label>
                             <input id="issuingAuthority" type="text" placeholder="e.g. Klinik Rosenhof" />
                         </div>
                         <div class="meta-field">
-                            <label>Encounter Reference</label>
+                            <label data-i18n="encounter_ref">Encounter Reference</label>
                             <input id="encounterRef" type="text" placeholder="e.g. ENC-2025-0001" />
                         </div>
                     </div>
@@ -1433,13 +1432,13 @@
                 <!-- Token Generation -->
                 <div class="caregiver-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> VERITAS Session Token</span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> <span data-i18n="session_token">VERITAS Session Token</span></span>
                     </div>
                     <div class="meta-actions">
-                        <button class="btn-token" id="generateTokenBtn" disabled><i class="fas fa-key"></i> Generate Token</button>
-                        <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> Copy</button>
-                        <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> Save to Vault</button>
-                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus">Complete VERITAS verification first</span>
+                        <button class="btn-token" id="generateTokenBtn" disabled><i class="fas fa-key"></i> <span data-i18n="generate_token">Generate Token</span></button>
+                        <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> <span data-i18n="copy">Copy</span></button>
+                        <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> <span data-i18n="save_vault">Save to Vault</span></button>
+                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus"><span data-i18n="complete_first">Complete VERITAS verification first</span></span>
                     </div>
                     <div style="margin-top:4px;">
                         <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + KYC"></textarea>
@@ -1447,7 +1446,7 @@
                     <!-- Open Verifier Button -->
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
-                            <i class="fas fa-shield-alt"></i> Open Verifier (Human-in-the-Loop)
+                            <i class="fas fa-shield-alt"></i> <span data-i18n="open_verifier">Open Verifier (Human-in-the-Loop)</span>
                         </button>
                     </div>
                 </div>
@@ -1455,31 +1454,31 @@
                 <!-- Token Vault -->
                 <div class="caregiver-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#28a745;"><i class="fas fa-vault"></i> Token Vault</span>
-                        <span style="font-size:0.5rem; color:#8892b0;" id="vaultCount">0 tokens</span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#28a745;"><i class="fas fa-vault"></i> <span data-i18n="token_vault">Token Vault</span></span>
+                        <span style="font-size:0.5rem; color:#8892b0;" id="vaultCount">0 <span data-i18n="tokens">tokens</span></span>
                     </div>
                     <div class="vault-list" id="vaultList">
-                        <div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;">No tokens in vault.</div>
+                        <div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;" data-i18n="no_tokens">No tokens in vault.</div>
                     </div>
                     <div class="meta-actions" style="margin-top:4px;">
-                        <button class="btn-outline" id="clearVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-trash"></i> Clear</button>
-                        <button class="btn-outline" id="exportVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-file-export"></i> Export</button>
-                        <button class="btn-outline" id="verifyVaultBtn" style="font-size:0.55rem; padding:2px 10px; color:#28a745; border-color:#28a745;"><i class="fas fa-check-circle"></i> Verify All</button>
+                        <button class="btn-outline" id="clearVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-trash"></i> <span data-i18n="clear">Clear</span></button>
+                        <button class="btn-outline" id="exportVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-file-export"></i> <span data-i18n="export">Export</span></button>
+                        <button class="btn-outline" id="verifyVaultBtn" style="font-size:0.55rem; padding:2px 10px; color:#28a745; border-color:#28a745;"><i class="fas fa-check-circle"></i> <span data-i18n="verify_all">Verify All</span></button>
                     </div>
                 </div>
             </div>
 
             <!-- ========== RIGHT COLUMN: PATIENT ASSESSMENT ========== -->
             <div class="card">
-                <h3><i class="fas fa-edit"></i> Patient Assessment & Labs</h3>
+                <h3><i class="fas fa-edit"></i> <span data-i18n="assessment_title">Patient Assessment & Labs</span></h3>
 
                 <div class="demo-bar">
                     <div class="demo-group">
                         <label><i class="fas fa-venus-mars"></i></label>
                         <select id="gender">
-                            <option value="female">♀ Female</option>
-                            <option value="male">♂ Male</option>
-                            <option value="diverse">⚧ Diverse</option>
+                            <option value="female">♀ <span data-i18n="female">Female</span></option>
+                            <option value="male">♂ <span data-i18n="male">Male</span></option>
+                            <option value="diverse">⚧ <span data-i18n="diverse">Diverse</span></option>
                         </select>
                     </div>
                     <div class="demo-group">
@@ -1495,19 +1494,19 @@
                         <input type="number" id="weight" placeholder="72" step="0.1" />
                     </div>
                     <div class="demo-group">
-                        <label><i class="fas fa-calendar"></i> DOB</label>
+                        <label><i class="fas fa-calendar"></i> <span data-i18n="dob">DOB</span></label>
                         <input type="date" id="dob" value="1980-01-01" />
                     </div>
                     <div class="demo-group">
-                        <label><i class="fas fa-id-card"></i> Insurance</label>
+                        <label><i class="fas fa-id-card"></i> <span data-i18n="insurance">Insurance</span></label>
                         <input type="text" id="insuranceNumber" value="INS-123456789" style="width:80px; font-size:0.55rem;" />
                     </div>
                 </div>
 
                 <div class="goals-section">
-                    <div class="goal-item"><i class="fas fa-bullseye"></i> Pain: <input type="number" id="goal_pain" value="2" min="0" max="10" step="1" /></div>
-                    <div class="goal-item"><i class="fas fa-walking"></i> Mobility: <input type="number" id="goal_mobility" value="8" min="0" max="10" step="1" /></div>
-                    <div class="goal-item"><i class="fas fa-battery-half"></i> Energy: <input type="number" id="goal_energy" value="6" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-bullseye"></i> <span data-i18n="goal_pain">Pain</span>: <input type="number" id="goal_pain" value="2" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-walking"></i> <span data-i18n="goal_mobility">Mobility</span>: <input type="number" id="goal_mobility" value="8" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-battery-half"></i> <span data-i18n="goal_energy">Energy</span>: <input type="number" id="goal_energy" value="6" min="0" max="10" step="1" /></div>
                 </div>
 
                 <form id="checkupForm" autocomplete="off">
@@ -1515,19 +1514,19 @@
                         <div class="form-grid" id="formFields"></div>
                     </div>
                     <div class="action-bar">
-                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save Encounter</button>
-                        <button type="reset" class="btn btn-outline" id="clearBtn"><i class="fas fa-undo"></i> Clear</button>
-                        <button type="button" class="btn btn-pdf" id="pdfBtn"><i class="fas fa-file-pdf"></i> PDF Report</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <span data-i18n="save_encounter">Save Encounter</span></button>
+                        <button type="reset" class="btn btn-outline" id="clearBtn"><i class="fas fa-undo"></i> <span data-i18n="clear">Clear</span></button>
+                        <button type="button" class="btn btn-pdf" id="pdfBtn"><i class="fas fa-file-pdf"></i> <span data-i18n="pdf_report">PDF Report</span></button>
                     </div>
                 </form>
 
                 <div style="margin-top:8px;">
-                    <h3 style="font-size:0.8rem;"><i class="fas fa-chart-pie"></i> Care Insights</h3>
+                    <h3 style="font-size:0.8rem;"><i class="fas fa-chart-pie"></i> <span data-i18n="care_insights">Care Insights</span></h3>
                     <div id="riskContainer">
-                        <div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">Save an encounter to see recommendations.</div>
+                        <div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;" data-i18n="save_to_see">Save an encounter to see recommendations.</div>
                     </div>
                     <div class="composite-box">
-                        <span><i class="fas fa-shield-alt"></i> Functionality Index</span>
+                        <span><i class="fas fa-shield-alt"></i> <span data-i18n="functionality_index">Functionality Index</span></span>
                         <span class="composite-score" id="compositeScore">—</span>
                     </div>
                     <!-- Concordance / Dynamic Risk UI -->
@@ -1537,7 +1536,7 @@
                         <canvas id="trendChart"></canvas>
                     </div>
                     <div class="ai-insight" id="aiInsight">
-                        <i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>
+                        <i class="fas fa-robot"></i> <span data-i18n="recommendations_appear">Evidence‑based recommendations appear after saving.</span>
                     </div>
                 </div>
             </div>
@@ -1545,28 +1544,28 @@
 
         <!-- ========== HISTORY ========== -->
         <div class="card history-section">
-            <h3><i class="fas fa-history"></i> Encounter History <span style="font-size:0.55rem; font-weight:400; color:#8892b0;" id="historyCount">0 records</span></h3>
+            <h3><i class="fas fa-history"></i> <span data-i18n="encounter_history">Encounter History</span> <span style="font-size:0.55rem; font-weight:400; color:#8892b0;" id="historyCount">0 <span data-i18n="records">records</span></span></h3>
             <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Date</th>
-                            <th>Profile</th>
-                            <th>Caregiver</th>
-                            <th>Gender</th>
-                            <th>Age</th>
-                            <th>BMI</th>
-                            <th>Pain</th>
-                            <th>Mobility</th>
-                            <th>Fatigue</th>
-                            <th>Function</th>
-                            <th>Index</th>
-                            <th>Action</th>
+                            <th data-i18n="th_id">ID</th>
+                            <th data-i18n="th_date">Date</th>
+                            <th data-i18n="th_profile">Profile</th>
+                            <th data-i18n="th_caregiver">Caregiver</th>
+                            <th data-i18n="th_gender">Gender</th>
+                            <th data-i18n="th_age">Age</th>
+                            <th data-i18n="th_bmi">BMI</th>
+                            <th data-i18n="th_pain">Pain</th>
+                            <th data-i18n="th_mobility">Mobility</th>
+                            <th data-i18n="th_fatigue">Fatigue</th>
+                            <th data-i18n="th_function">Function</th>
+                            <th data-i18n="th_index">Index</th>
+                            <th data-i18n="th_action">Action</th>
                         </tr>
                     </thead>
                     <tbody id="historyBody">
-                        <tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;">No encounters yet.</td></tr>
+                        <tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;" data-i18n="no_encounters">No encounters yet.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1585,31 +1584,31 @@
             <div class="footer-cta-section">
                 <div class="cta-badge">
                     <i class="fas fa-shield-alt veritas-accent"></i>
-                    <span>VERITAS: <span class="veritas-accent">Value-Based Care</span> with <span class="veritas-accent">Anti-Deepfake Verification</span></span>
+                    <span>VERITAS: <span class="veritas-accent" data-i18n="vbc_tag">Value-Based Care</span> with <span class="veritas-accent" data-i18n="anti_deepfake">Anti-Deepfake Verification</span></span>
                     <i class="fas fa-check-circle" style="color:#28a745; font-size:0.7rem;"></i>
                 </div>
 
                 <button class="btn-cta-veritas" id="generateVeritasReport">
                     <span class="cta-main">
                         <i class="fas fa-file-medical-alt"></i>
-                        Generate VERITAS Report
+                        <span data-i18n="generate_report">Generate VERITAS Report</span>
                         <span class="badge-veritas">ANCHOR</span>
                     </span>
-                    <span class="cta-sub">
+                    <span class="cta-sub" data-i18n="report_sub">
                         Anti-Deepfake Verified · Value-Based Outcomes · Reimbursement-Ready · Regulator-Aligned
                     </span>
                 </button>
 
                 <div class="footer-triad">
-                    <span class="triad-item"><span class="provider">🏛️</span> Provider</span>
-                    <span class="triad-item"><span class="payer">💰</span> Payer</span>
-                    <span class="triad-item"><span class="regulator">📋</span> Regulator</span>
-                    <span class="triad-item"><span class="heart">❤️</span> Patient</span>
+                    <span class="triad-item"><span class="provider">🏛️</span> <span data-i18n="provider">Provider</span></span>
+                    <span class="triad-item"><span class="payer">💰</span> <span data-i18n="payer">Payer</span></span>
+                    <span class="triad-item"><span class="regulator">📋</span> <span data-i18n="regulator">Regulator</span></span>
+                    <span class="triad-item"><span class="heart">❤️</span> <span data-i18n="patient">Patient</span></span>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <span class="footer-value-line">Aligns Provider–Payer–Regulator goals around measurable patient outcomes.</span>
+                <span class="footer-value-line" data-i18n="footer_align">Aligns Provider–Payer–Regulator goals around measurable patient outcomes.</span>
                 <span class="footer-separator">·</span>
                 <span class="care-aid-badge">🏠 Pflegehilfsmittel</span>
             </div>
@@ -1620,41 +1619,41 @@
             <div class="verifier-modal-content">
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
 
-                <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> VERITAS Token Verifier</h2>
-                <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;">
+                <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> <span data-i18n="verifier_title">VERITAS Token Verifier</span></h2>
+                <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;" data-i18n="verifier_sub">
                     Human verifier: enter the password to unlock, then verify the token.
                 </p>
 
                 <div class="verifier-field">
-                    <label><i class="fas fa-lock"></i> Human-in-the-Loop Password</label>
+                    <label><i class="fas fa-lock"></i> <span data-i18n="human_password">Human-in-the-Loop Password</span></label>
                     <input type="password" id="verifierPassword" placeholder="Enter password to unlock" />
                     <div class="verifier-password-hint" id="passwordHint">🔑 Required: MoMo123456789@@@</div>
                 </div>
 
                 <div class="verifier-field">
-                    <label><i class="fas fa-key"></i> Session Token</label>
+                    <label><i class="fas fa-key"></i> <span data-i18n="session_token_label">Session Token</span></label>
                     <textarea id="verifierTokenInput" readonly placeholder="Token will auto-populate from the main tool"></textarea>
                 </div>
 
                 <div class="verifier-actions">
-                    <button class="btn-unlock" id="unlockVerifierBtn"><i class="fas fa-unlock"></i> Unlock</button>
-                    <button class="btn-verify" id="verifyTokenBtn" disabled><i class="fas fa-check-circle"></i> Verify Token</button>
-                    <button class="btn-close-verifier" id="closeVerifierBtn2"><i class="fas fa-times"></i> Close</button>
+                    <button class="btn-unlock" id="unlockVerifierBtn"><i class="fas fa-unlock"></i> <span data-i18n="unlock">Unlock</span></button>
+                    <button class="btn-verify" id="verifyTokenBtn" disabled><i class="fas fa-check-circle"></i> <span data-i18n="verify_token">Verify Token</span></button>
+                    <button class="btn-close-verifier" id="closeVerifierBtn2"><i class="fas fa-times"></i> <span data-i18n="close">Close</span></button>
                 </div>
 
                 <div class="verifier-results" id="verifierResults" style="display:none;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:4px;">
-                        <span style="font-weight:700; font-size:0.7rem;">📊 Verification Results</span>
-                        <span class="verifier-status-badge pending" id="verifierStatusBadge">Pending</span>
+                        <span style="font-weight:700; font-size:0.7rem;">📊 <span data-i18n="verification_results">Verification Results</span></span>
+                        <span class="verifier-status-badge pending" id="verifierStatusBadge"><span data-i18n="pending">Pending</span></span>
                     </div>
                     <div id="verifierResultsContent">
-                        <div class="result-item"><span class="label">Status</span><span class="value" id="resultStatus">—</span></div>
-                        <div class="result-item"><span class="label">Caregiver</span><span class="value" id="resultCaregiver">—</span></div>
-                        <div class="result-item"><span class="label">License</span><span class="value" id="resultLicense">—</span></div>
-                        <div class="result-item"><span class="label">Liveness</span><span class="value" id="resultLiveness">—</span></div>
-                        <div class="result-item"><span class="label">Heart Rate</span><span class="value" id="resultHR">—</span></div>
-                        <div class="result-item"><span class="label">Function Index</span><span class="value" id="resultIndex">—</span></div>
-                        <div class="result-item"><span class="label">Signature</span><span class="value" id="resultSignature">—</span></div>
+                        <div class="result-item"><span class="label" data-i18n="status">Status</span><span class="value" id="resultStatus">—</span></div>
+                        <div class="result-item"><span class="label" data-i18n="caregiver">Caregiver</span><span class="value" id="resultCaregiver">—</span></div>
+                        <div class="result-item"><span class="label" data-i18n="license">License</span><span class="value" id="resultLicense">—</span></div>
+                        <div class="result-item"><span class="label" data-i18n="liveness">Liveness</span><span class="value" id="resultLiveness">—</span></div>
+                        <div class="result-item"><span class="label" data-i18n="heart_rate">Heart Rate</span><span class="value" id="resultHR">—</span></div>
+                        <div class="result-item"><span class="label" data-i18n="function_index">Function Index</span><span class="value" id="resultIndex">—</span></div>
+                        <div class="result-item"><span class="label" data-i18n="signature">Signature</span><span class="value" id="resultSignature">—</span></div>
                     </div>
                 </div>
             </div>
@@ -1680,6 +1679,382 @@
         const STORAGE_KEY = 'medfitBravo_encounters';
         const VAULT_KEY = 'medfitBravo_tokenVault';
         const DECAY_LAMBDA = 0.1; // temporal decay rate
+
+        // ========== I18N DICTIONARY ==========
+        const i18n = {
+            en: {
+                // General
+                badge_patient: 'Patient‑Centred Care',
+                profile_acute: 'Acute Rehab',
+                profile_preventive: 'Preventive',
+                profile_palliative: 'Palliative',
+                anchor_title: 'ANCHOR · Liveness & HR',
+                look_straight: 'Look straight into the camera',
+                start_camera: 'Start Camera',
+                stop: 'Stop',
+                run_liveness: 'Run Liveness',
+                start_hr: 'Start HR',
+                stop_hr: 'Stop HR',
+                status: 'Status',
+                idle: 'Idle',
+                liveness: 'Liveness',
+                not_run: 'Not run',
+                optical_hr: 'Optical HR (rPPG)',
+                hr_press: 'Press "Start HR" and stay still',
+                veritas_pending: 'VERITAS verification pending',
+                kyc_title: 'KYC · Caregiver Identity',
+                device: 'Device',
+                full_name: 'Full Name',
+                license_id: 'License / ID',
+                issuing_authority: 'Issuing Authority',
+                encounter_ref: 'Encounter Reference',
+                session_token: 'VERITAS Session Token',
+                generate_token: 'Generate Token',
+                copy: 'Copy',
+                save_vault: 'Save to Vault',
+                complete_first: 'Complete VERITAS verification first',
+                open_verifier: 'Open Verifier (Human-in-the-Loop)',
+                token_vault: 'Token Vault',
+                tokens: 'tokens',
+                no_tokens: 'No tokens in vault.',
+                clear: 'Clear',
+                export: 'Export',
+                verify_all: 'Verify All',
+                assessment_title: 'Patient Assessment & Labs',
+                female: 'Female',
+                male: 'Male',
+                diverse: 'Diverse',
+                dob: 'DOB',
+                insurance: 'Insurance',
+                goal_pain: 'Pain',
+                goal_mobility: 'Mobility',
+                goal_energy: 'Energy',
+                save_encounter: 'Save Encounter',
+                pdf_report: 'PDF Report',
+                care_insights: 'Care Insights',
+                save_to_see: 'Save an encounter to see recommendations.',
+                functionality_index: 'Functionality Index',
+                recommendations_appear: 'Evidence‑based recommendations appear after saving.',
+                encounter_history: 'Encounter History',
+                records: 'records',
+                th_id: 'ID',
+                th_date: 'Date',
+                th_profile: 'Profile',
+                th_caregiver: 'Caregiver',
+                th_gender: 'Gender',
+                th_age: 'Age',
+                th_bmi: 'BMI',
+                th_pain: 'Pain',
+                th_mobility: 'Mobility',
+                th_fatigue: 'Fatigue',
+                th_function: 'Function',
+                th_index: 'Index',
+                th_action: 'Action',
+                no_encounters: 'No encounters yet.',
+                vbc_tag: 'Value-Based Care',
+                anti_deepfake: 'Anti-Deepfake Verification',
+                generate_report: 'Generate VERITAS Report',
+                report_sub: 'Anti-Deepfake Verified · Value-Based Outcomes · Reimbursement-Ready · Regulator-Aligned',
+                provider: 'Provider',
+                payer: 'Payer',
+                regulator: 'Regulator',
+                patient: 'Patient',
+                footer_align: 'Aligns Provider–Payer–Regulator goals around measurable patient outcomes.',
+                verifier_title: 'VERITAS Token Verifier',
+                verifier_sub: 'Human verifier: enter the password to unlock, then verify the token.',
+                human_password: 'Human-in-the-Loop Password',
+                session_token_label: 'Session Token',
+                unlock: 'Unlock',
+                verify_token: 'Verify Token',
+                close: 'Close',
+                verification_results: 'Verification Results',
+                pending: 'Pending',
+                caregiver: 'Caregiver',
+                license: 'License',
+                heart_rate: 'Heart Rate',
+                function_index: 'Function Index',
+                signature: 'Signature',
+                // Care tips
+                pain_above: '🔴 Pain above goal. Consider rest, heat/cold, or prescribed relief.',
+                pain_slightly: '🟡 Pain slightly above goal. Gentle stretching may help.',
+                pain_on_track: '✅ Pain on track.',
+                mobility_below: '🔴 Mobility below goal. Try gentle range‑of‑motion exercises.',
+                mobility_slightly: '🟡 Mobility slightly below goal. A short walk could help.',
+                mobility_good: '✅ Good mobility!',
+                fatigue_high: '🔴 Fatigue high. Prioritise rest and conserve energy.',
+                fatigue_moderate: '🟡 Fatigue moderate. Plan short bursts of activity.',
+                energy_good: '✅ Energy level is good.',
+                function_limited: '💙 Function limited. Consider OT/PT review.',
+                glucose_elevated: '🔴 Glucose elevated (>7.0 mmol/L). Monitor and discuss with care team.',
+                glucose_slightly: '🟡 Glucose slightly elevated. Review diet and activity.',
+                glucose_low: '🟡 Glucose low (<3.9 mmol/L). Have a small snack if symptomatic.',
+                glucose_normal: '✅ Glucose within normal range.',
+                fev1_very_low: '🔴 FEV1 very low (<1.0L). Urgent respiratory review recommended.',
+                fev1_reduced: '🟡 FEV1 reduced. Breathing exercises and review with physio.',
+                fev1_moderate: '🟡 FEV1 moderate. Continue respiratory exercises.',
+                fev1_good: '✅ FEV1 good. Maintain respiratory fitness.',
+                anaemia: (hb) => `🔴 Anaemia (Hb ${hb} g/dL). Investigate iron, B12, folate status.`,
+                low_albumin: (alb) => `🔴 Low albumin (${alb} g/L). Malnutrition risk – consider nutritional assessment.`,
+                elevated_crp: (crp) => `🟡 Elevated CRP (${crp} mg/L). Screen for infection or inflammation.`,
+                reduced_egfr: (egfr) => `🔴 Reduced eGFR (${egfr}). Monitor renal function, adjust medications.`,
+                elevated_ldl: (ldl) => `🟡 Elevated LDL (${ldl} mmol/L). Review diet and consider statin therapy if persistent.`,
+                all_on_track: '✅ All markers on track! Keep it up.',
+                // Concordance alerts
+                silent_deterioration: '⚠️ SILENT DETERIORATION: Objective markers declining despite stable PROMs.',
+                psychosocial_factor: '🧠 PSYCHOSOCIAL FACTOR: PROMs elevated but labs stable. Consider mental health review.',
+                concordant: '✅ Concordant: Subjective and objective signals align.',
+                // VBC statements
+                vbc_high: '✅ Patient is in the top quartile for functional outcomes. This represents high-value care delivery with optimal resource utilization.',
+                vbc_moderate: '🟡 Patient is in the moderate range. Value-based interventions focused on mobility and pain management could improve outcomes and reduce total cost of care.',
+                vbc_low: '🔴 Patient is in the lower range. This represents an opportunity for intensive, coordinated care to improve outcomes and avoid high-cost events.',
+            },
+            de: {
+                badge_patient: 'Patientenzentrierte Versorgung',
+                profile_acute: 'Akut-Reha',
+                profile_preventive: 'Präventiv',
+                profile_palliative: 'Palliativ',
+                anchor_title: 'ANCHOR · Lebendigkeit & Herzfrequenz',
+                look_straight: 'Schauen Sie direkt in die Kamera',
+                start_camera: 'Kamera starten',
+                stop: 'Stopp',
+                run_liveness: 'Lebendigkeit prüfen',
+                start_hr: 'HF starten',
+                stop_hr: 'HF stoppen',
+                status: 'Status',
+                idle: 'Bereit',
+                liveness: 'Lebendigkeit',
+                not_run: 'Nicht durchgeführt',
+                optical_hr: 'Optische HF (rPPG)',
+                hr_press: 'Drücken Sie "HF starten" und bleiben Sie ruhig',
+                veritas_pending: 'VERITAS-Verifizierung ausstehend',
+                kyc_title: 'KYC · Identität des Betreuers',
+                device: 'Gerät',
+                full_name: 'Vollständiger Name',
+                license_id: 'Lizenz / ID',
+                issuing_authority: 'Ausstellende Behörde',
+                encounter_ref: 'Behandlungsreferenz',
+                session_token: 'VERITAS Sitzungstoken',
+                generate_token: 'Token generieren',
+                copy: 'Kopieren',
+                save_vault: 'Im Tresor speichern',
+                complete_first: 'Führen Sie zuerst die VERITAS-Verifizierung durch',
+                open_verifier: 'Verifizierer öffnen (Human-in-the-Loop)',
+                token_vault: 'Token-Tresor',
+                tokens: 'Token',
+                no_tokens: 'Keine Token im Tresor.',
+                clear: 'Leeren',
+                export: 'Exportieren',
+                verify_all: 'Alle verifizieren',
+                assessment_title: 'Patientenbewertung & Laborwerte',
+                female: 'Weiblich',
+                male: 'Männlich',
+                diverse: 'Divers',
+                dob: 'Geburtsdatum',
+                insurance: 'Versicherung',
+                goal_pain: 'Schmerz',
+                goal_mobility: 'Mobilität',
+                goal_energy: 'Energie',
+                save_encounter: 'Behandlung speichern',
+                pdf_report: 'PDF-Bericht',
+                care_insights: 'Versorgungseinblicke',
+                save_to_see: 'Speichern Sie eine Behandlung, um Empfehlungen zu sehen.',
+                functionality_index: 'Funktionalitätsindex',
+                recommendations_appear: 'Evidenzbasierte Empfehlungen erscheinen nach dem Speichern.',
+                encounter_history: 'Behandlungsverlauf',
+                records: 'Einträge',
+                th_id: 'ID',
+                th_date: 'Datum',
+                th_profile: 'Profil',
+                th_caregiver: 'Betreuer',
+                th_gender: 'Geschlecht',
+                th_age: 'Alter',
+                th_bmi: 'BMI',
+                th_pain: 'Schmerz',
+                th_mobility: 'Mobilität',
+                th_fatigue: 'Erschöpfung',
+                th_function: 'Funktion',
+                th_index: 'Index',
+                th_action: 'Aktion',
+                no_encounters: 'Noch keine Behandlungen.',
+                vbc_tag: 'Wertbasierte Versorgung',
+                anti_deepfake: 'Anti-Deepfake-Verifizierung',
+                generate_report: 'VERITAS-Bericht erstellen',
+                report_sub: 'Anti-Deepfake-verifiziert · Wertbasierte Ergebnisse · Abrechnungsbereit · Regulatorisch abgestimmt',
+                provider: 'Anbieter',
+                payer: 'Zahler',
+                regulator: 'Regulierungsbehörde',
+                patient: 'Patient',
+                footer_align: 'Bringt die Ziele von Anbieter, Zahler und Regulierungsbehörde bei messbaren Patientenergebnissen in Einklang.',
+                verifier_title: 'VERITAS Token-Verifizierer',
+                verifier_sub: 'Menschlicher Verifizierer: Geben Sie das Passwort ein, um zu entsperren, dann verifizieren Sie den Token.',
+                human_password: 'Human-in-the-Loop-Passwort',
+                session_token_label: 'Sitzungstoken',
+                unlock: 'Entsperren',
+                verify_token: 'Token verifizieren',
+                close: 'Schließen',
+                verification_results: 'Verifizierungsergebnisse',
+                pending: 'Ausstehend',
+                caregiver: 'Betreuer',
+                license: 'Lizenz',
+                heart_rate: 'Herzfrequenz',
+                function_index: 'Funktionsindex',
+                signature: 'Signatur',
+                pain_above: '🔴 Schmerz über Ziel. Erwägen Sie Ruhe, Wärme/Kälte oder verschriebene Linderung.',
+                pain_slightly: '🟡 Schmerz leicht über Ziel. Sanftes Dehnen könnte helfen.',
+                pain_on_track: '✅ Schmerz im Zielbereich.',
+                mobility_below: '🔴 Mobilität unter Ziel. Versuchen Sie sanfte Bewegungsübungen.',
+                mobility_slightly: '🟡 Mobilität leicht unter Ziel. Ein kurzer Spaziergang könnte helfen.',
+                mobility_good: '✅ Gute Mobilität!',
+                fatigue_high: '🔴 Hohe Erschöpfung. Priorisieren Sie Ruhe und sparen Sie Energie.',
+                fatigue_moderate: '🟡 Mäßige Erschöpfung. Planen Sie kurze Aktivitätsschübe.',
+                energy_good: '✅ Energieniveau ist gut.',
+                function_limited: '💙 Eingeschränkte Funktion. Erwägen Sie OT/PT-Überprüfung.',
+                glucose_elevated: '🔴 Glukose erhöht (>7,0 mmol/L). Überwachen und mit dem Team besprechen.',
+                glucose_slightly: '🟡 Glukose leicht erhöht. Überprüfen Sie Ernährung und Aktivität.',
+                glucose_low: '🟡 Glukose niedrig (<3,9 mmol/L). Bei Symptomen einen kleinen Snack zu sich nehmen.',
+                glucose_normal: '✅ Glukose im Normalbereich.',
+                fev1_very_low: '🔴 FEV1 sehr niedrig (<1,0L). Dringende Atemwegsüberprüfung empfohlen.',
+                fev1_reduced: '🟡 FEV1 reduziert. Atemübungen und Überprüfung mit Physiotherapie.',
+                fev1_moderate: '🟡 FEV1 mäßig. Atemübungen fortsetzen.',
+                fev1_good: '✅ FEV1 gut. Atemfitness erhalten.',
+                anaemia: (hb) => `🔴 Anämie (Hb ${hb} g/dL). Eisen-, B12-, Folsäurestatus untersuchen.`,
+                low_albumin: (alb) => `🔴 Niedriges Albumin (${alb} g/L). Mangelernährungsrisiko – ernährungsmedizinische Bewertung in Betracht ziehen.`,
+                elevated_crp: (crp) => `🟡 Erhöhtes CRP (${crp} mg/L). Auf Infektion oder Entzündung prüfen.`,
+                reduced_egfr: (egfr) => `🔴 Reduzierte eGFR (${egfr}). Nierenfunktion überwachen, Medikamente anpassen.`,
+                elevated_ldl: (ldl) => `🟡 Erhöhtes LDL (${ldl} mmol/L). Ernährung überprüfen und Statintherapie erwägen.`,
+                all_on_track: '✅ Alle Marker im Zielbereich! Weiter so.',
+                silent_deterioration: '⚠️ STILLE VERSCHLECHTERUNG: Objektive Marker verschlechtern sich trotz stabiler PROMs.',
+                psychosocial_factor: '🧠 PSYCHOSOZIALER FAKTOR: PROMs erhöht, aber Laborwerte stabil. Psychische Gesundheit prüfen.',
+                concordant: '✅ Konkordant: Subjektive und objektive Signale stimmen überein.',
+                vbc_high: '✅ Patient befindet sich im obersten Quartil für funktionelle Ergebnisse. Dies stellt eine hochwertige Versorgung mit optimaler Ressourcennutzung dar.',
+                vbc_moderate: '🟡 Patient befindet sich im mittleren Bereich. Wertbasierte Interventionen mit Fokus auf Mobilität und Schmerzmanagement könnten die Ergebnisse verbessern und die Gesamtkosten senken.',
+                vbc_low: '🔴 Patient befindet sich im unteren Bereich. Dies stellt eine Gelegenheit für intensive, koordinierte Versorgung dar, um die Ergebnisse zu verbessern und kostenintensive Ereignisse zu vermeiden.',
+            },
+            es: {
+                badge_patient: 'Atención Centrada en el Paciente',
+                profile_acute: 'Rehabilitación Aguda',
+                profile_preventive: 'Preventivo',
+                profile_palliative: 'Paliativo',
+                anchor_title: 'ANCHOR · Vitalidad y Frecuencia Cardíaca',
+                look_straight: 'Mire directamente a la cámara',
+                start_camera: 'Iniciar Cámara',
+                stop: 'Detener',
+                run_liveness: 'Ejecutar Vitalidad',
+                start_hr: 'Iniciar FC',
+                stop_hr: 'Detener FC',
+                status: 'Estado',
+                idle: 'Inactivo',
+                liveness: 'Vitalidad',
+                not_run: 'No ejecutado',
+                optical_hr: 'FC óptica (rPPG)',
+                hr_press: 'Presione "Iniciar FC" y manténgase quieto',
+                veritas_pending: 'Verificación VERITAS pendiente',
+                kyc_title: 'KYC · Identidad del Cuidador',
+                device: 'Dispositivo',
+                full_name: 'Nombre Completo',
+                license_id: 'Licencia / ID',
+                issuing_authority: 'Autoridad Emisora',
+                encounter_ref: 'Referencia de Consulta',
+                session_token: 'Token de Sesión VERITAS',
+                generate_token: 'Generar Token',
+                copy: 'Copiar',
+                save_vault: 'Guardar en Cofre',
+                complete_first: 'Complete primero la verificación VERITAS',
+                open_verifier: 'Abrir Verificador (Humano en el Bucle)',
+                token_vault: 'Cofre de Tokens',
+                tokens: 'tokens',
+                no_tokens: 'No hay tokens en el cofre.',
+                clear: 'Limpiar',
+                export: 'Exportar',
+                verify_all: 'Verificar Todo',
+                assessment_title: 'Evaluación del Paciente y Laboratorios',
+                female: 'Femenino',
+                male: 'Masculino',
+                diverse: 'Diverso',
+                dob: 'Fecha de Nac.',
+                insurance: 'Seguro',
+                goal_pain: 'Dolor',
+                goal_mobility: 'Movilidad',
+                goal_energy: 'Energía',
+                save_encounter: 'Guardar Consulta',
+                pdf_report: 'Informe PDF',
+                care_insights: 'Perspectivas de Atención',
+                save_to_see: 'Guarde una consulta para ver recomendaciones.',
+                functionality_index: 'Índice de Funcionalidad',
+                recommendations_appear: 'Las recomendaciones basadas en evidencia aparecen después de guardar.',
+                encounter_history: 'Historial de Consultas',
+                records: 'registros',
+                th_id: 'ID',
+                th_date: 'Fecha',
+                th_profile: 'Perfil',
+                th_caregiver: 'Cuidador',
+                th_gender: 'Género',
+                th_age: 'Edad',
+                th_bmi: 'IMC',
+                th_pain: 'Dolor',
+                th_mobility: 'Movilidad',
+                th_fatigue: 'Fatiga',
+                th_function: 'Función',
+                th_index: 'Índice',
+                th_action: 'Acción',
+                no_encounters: 'Aún no hay consultas.',
+                vbc_tag: 'Atención Basada en Valor',
+                anti_deepfake: 'Verificación Anti-Deepfake',
+                generate_report: 'Generar Informe VERITAS',
+                report_sub: 'Verificado Anti-Deepfake · Resultados Basados en Valor · Listo para Reembolso · Alineado con el Regulador',
+                provider: 'Proveedor',
+                payer: 'Pagador',
+                regulator: 'Regulador',
+                patient: 'Paciente',
+                footer_align: 'Alinea los objetivos de Proveedor, Pagador y Regulador en torno a resultados medibles para el paciente.',
+                verifier_title: 'Verificador de Token VERITAS',
+                verifier_sub: 'Verificador humano: ingrese la contraseña para desbloquear, luego verifique el token.',
+                human_password: 'Contraseña Humano en el Bucle',
+                session_token_label: 'Token de Sesión',
+                unlock: 'Desbloquear',
+                verify_token: 'Verificar Token',
+                close: 'Cerrar',
+                verification_results: 'Resultados de Verificación',
+                pending: 'Pendiente',
+                caregiver: 'Cuidador',
+                license: 'Licencia',
+                heart_rate: 'Frecuencia Cardíaca',
+                function_index: 'Índice de Función',
+                signature: 'Firma',
+                pain_above: '🔴 Dolor por encima del objetivo. Considere descanso, calor/frío o alivio recetado.',
+                pain_slightly: '🟡 Dolor ligeramente por encima del objetivo. Estiramientos suaves pueden ayudar.',
+                pain_on_track: '✅ Dolor en objetivo.',
+                mobility_below: '🔴 Movilidad por debajo del objetivo. Intente ejercicios suaves de rango de movimiento.',
+                mobility_slightly: '🟡 Movilidad ligeramente por debajo del objetivo. Un paseo corto podría ayudar.',
+                mobility_good: '✅ ¡Buena movilidad!',
+                fatigue_high: '🔴 Fatiga alta. Priorice el descanso y conserve energía.',
+                fatigue_moderate: '🟡 Fatiga moderada. Planee ráfagas cortas de actividad.',
+                energy_good: '✅ El nivel de energía es bueno.',
+                function_limited: '💙 Función limitada. Considere revisión con TO/FT.',
+                glucose_elevated: '🔴 Glucosa elevada (>7.0 mmol/L). Monitoree y discuta con el equipo.',
+                glucose_slightly: '🟡 Glucosa ligeramente elevada. Revise dieta y actividad.',
+                glucose_low: '🟡 Glucosa baja (<3.9 mmol/L). Tome un pequeño refrigerio si tiene síntomas.',
+                glucose_normal: '✅ Glucosa dentro del rango normal.',
+                fev1_very_low: '🔴 FEV1 muy bajo (<1.0L). Se recomienda revisión respiratoria urgente.',
+                fev1_reduced: '🟡 FEV1 reducido. Ejercicios respiratorios y revisión con fisioterapia.',
+                fev1_moderate: '🟡 FEV1 moderado. Continúe ejercicios respiratorios.',
+                fev1_good: '✅ FEV1 bueno. Mantenga la forma respiratoria.',
+                anaemia: (hb) => `🔴 Anemia (Hb ${hb} g/dL). Investigue estado de hierro, B12, folato.`,
+                low_albumin: (alb) => `🔴 Albúmina baja (${alb} g/L). Riesgo de desnutrición – considere evaluación nutricional.`,
+                elevated_crp: (crp) => `🟡 PCR elevada (${crp} mg/L). Evalúe infección o inflamación.`,
+                reduced_egfr: (egfr) => `🔴 eGFR reducida (${egfr}). Monitoree función renal, ajuste medicamentos.`,
+                elevated_ldl: (ldl) => `🟡 LDL elevado (${ldl} mmol/L). Revise dieta y considere terapia con estatinas.`,
+                all_on_track: '✅ ¡Todos los marcadores en objetivo! Siga así.',
+                silent_deterioration: '⚠️ DETERIORO SILENCIOSO: Los marcadores objetivos empeoran a pesar de PROMs estables.',
+                psychosocial_factor: '🧠 FACTOR PSICOSOCIAL: PROMs elevados pero laboratorios estables. Considere revisión de salud mental.',
+                concordant: '✅ Concordante: Las señales subjetivas y objetivas coinciden.',
+                vbc_high: '✅ El paciente está en el cuartil superior para resultados funcionales. Esto representa una atención de alto valor con utilización óptima de recursos.',
+                vbc_moderate: '🟡 El paciente está en el rango moderado. Las intervenciones basadas en valor centradas en la movilidad y el manejo del dolor podrían mejorar los resultados y reducir el costo total de la atención.',
+                vbc_low: '🔴 El paciente está en el rango inferior. Esto representa una oportunidad para una atención intensiva y coordinada para mejorar los resultados y evitar eventos de alto costo.',
+            }
+        };
+
+        let currentLang = 'en';
 
         // ========== UTILITY FUNCTIONS ==========
         function base64UrlEncode(str) {
@@ -1713,6 +2088,91 @@
             const mins = Math.floor(diff / 60);
             const secs = diff % 60;
             return `${mins}m ${secs}s`;
+        }
+
+        // ========== I18N FUNCTIONS ==========
+        function t(key, ...args) {
+            const langData = i18n[currentLang] || i18n.en;
+            let value = langData[key];
+            if (!value) {
+                // Fallback to English
+                value = i18n.en[key] || key;
+            }
+            if (typeof value === 'function') {
+                return value(...args);
+            }
+            return value;
+        }
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === lang);
+            });
+
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const translation = t(key);
+                if (translation) {
+                    // Preserve child elements (like icons, badges) by only updating text nodes
+                    const textNodes = [];
+                    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+                    let node;
+                    while (node = walker.nextNode()) {
+                        if (node.parentElement === el || node.parentElement?.closest('[data-i18n]') === el) {
+                            textNodes.push(node);
+                        }
+                    }
+                    if (textNodes.length > 0) {
+                        textNodes.forEach((n, idx) => {
+                            if (idx === 0) {
+                                n.textContent = translation;
+                            } else {
+                                n.textContent = '';
+                            }
+                        });
+                    } else {
+                        // Fallback: set innerHTML but preserve children
+                        const originalHTML = el.innerHTML;
+                        // Only replace text content, not HTML structure
+                        const children = el.children;
+                        if (children.length === 0) {
+                            el.textContent = translation;
+                        } else {
+                            // For elements with children, we need to be careful
+                            // Find the first text node and update it
+                            const firstText = el.childNodes[0];
+                            if (firstText && firstText.nodeType === Node.TEXT_NODE) {
+                                firstText.textContent = translation;
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update placeholder texts
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                const translation = t(key);
+                if (translation) el.placeholder = translation;
+            });
+
+            // Update select options
+            document.querySelectorAll('[data-i18n-options]').forEach(el => {
+                const key = el.dataset.i18nOptions;
+                const translation = t(key);
+                if (translation) {
+                    const option = el.querySelector('option');
+                    if (option) option.textContent = translation;
+                }
+            });
+
+            // Re-render insights with new language
+            const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
+            if (latest) {
+                renderInsights(latest);
+            }
         }
 
         // ========== FIELD DEFINITIONS ==========
@@ -2096,15 +2556,15 @@
             if (discrepancy > 15) {
                 if (objectiveScore < subjectiveScore) {
                     riskMultiplier = 1.5;
-                    alert = '⚠️ SILENT DETERIORATION: Objective markers declining despite stable PROMs.';
+                    alert = t('silent_deterioration');
                     alertType = 'silent';
                 } else {
                     riskMultiplier = 0.7;
-                    alert = '🧠 PSYCHOSOCIAL FACTOR: PROMs elevated but labs stable. Consider mental health review.';
+                    alert = t('psychosocial_factor');
                     alertType = 'psychosocial';
                 }
             } else {
-                alert = '✅ Concordant: Subjective and objective signals align.';
+                alert = t('concordant');
                 alertType = 'good';
             }
 
@@ -2188,7 +2648,7 @@
             return Math.min(100, Math.round(raw * 2));
         }
 
-        // ========== GENERATE CARE TIPS ==========
+        // ========== GENERATE CARE TIPS (i18n aware) ==========
         function generateCareTips(data, goals) {
             const n = (v) => parseFloat(v) || 0;
             const pain = n(data.pain);
@@ -2204,34 +2664,34 @@
             const ldl = n(data.ldl);
 
             const tips = [];
-            if (pain > goals.pain + 1) tips.push('🔴 Pain above goal. Consider rest, heat/cold, or prescribed relief.');
-            else if (pain > goals.pain) tips.push('🟡 Pain slightly above goal. Gentle stretching may help.');
-            else tips.push('✅ Pain on track.');
-            if (mobility < goals.mobility - 1) tips.push('🔴 Mobility below goal. Try gentle range‑of‑motion exercises.');
-            else if (mobility < goals.mobility) tips.push('🟡 Mobility slightly below goal. A short walk could help.');
-            else tips.push('✅ Good mobility!');
-            if (fatigue < goals.energy - 1) tips.push('🔴 Fatigue high. Prioritise rest and conserve energy.');
-            else if (fatigue < goals.energy) tips.push('🟡 Fatigue moderate. Plan short bursts of activity.');
-            else tips.push('✅ Energy level is good.');
-            if (func < 4) tips.push('💙 Function limited. Consider OT/PT review.');
+            if (pain > goals.pain + 1) tips.push(t('pain_above'));
+            else if (pain > goals.pain) tips.push(t('pain_slightly'));
+            else tips.push(t('pain_on_track'));
+            if (mobility < goals.mobility - 1) tips.push(t('mobility_below'));
+            else if (mobility < goals.mobility) tips.push(t('mobility_slightly'));
+            else tips.push(t('mobility_good'));
+            if (fatigue < goals.energy - 1) tips.push(t('fatigue_high'));
+            else if (fatigue < goals.energy) tips.push(t('fatigue_moderate'));
+            else tips.push(t('energy_good'));
+            if (func < 4) tips.push(t('function_limited'));
             if (glucose > 0) {
-                if (glucose > 7.0) tips.push('🔴 Glucose elevated (>7.0 mmol/L). Monitor and discuss with care team.');
-                else if (glucose > 5.6) tips.push('🟡 Glucose slightly elevated. Review diet and activity.');
-                else if (glucose < 3.9) tips.push('🟡 Glucose low (<3.9 mmol/L). Have a small snack if symptomatic.');
-                else tips.push('✅ Glucose within normal range.');
+                if (glucose > 7.0) tips.push(t('glucose_elevated'));
+                else if (glucose > 5.6) tips.push(t('glucose_slightly'));
+                else if (glucose < 3.9) tips.push(t('glucose_low'));
+                else tips.push(t('glucose_normal'));
             }
             if (fev1 > 0) {
-                if (fev1 < 1.0) tips.push('🔴 FEV1 very low (<1.0L). Urgent respiratory review recommended.');
-                else if (fev1 < 1.5) tips.push('🟡 FEV1 reduced. Breathing exercises and review with physio.');
-                else if (fev1 < 2.0) tips.push('🟡 FEV1 moderate. Continue respiratory exercises.');
-                else tips.push('✅ FEV1 good. Maintain respiratory fitness.');
+                if (fev1 < 1.0) tips.push(t('fev1_very_low'));
+                else if (fev1 < 1.5) tips.push(t('fev1_reduced'));
+                else if (fev1 < 2.0) tips.push(t('fev1_moderate'));
+                else tips.push(t('fev1_good'));
             }
-            if (hb > 0 && hb < 120) tips.push(`🔴 Anaemia (Hb ${hb} g/dL). Investigate iron, B12, folate status.`);
-            if (albumin > 0 && albumin < 35) tips.push(`🔴 Low albumin (${albumin} g/L). Malnutrition risk – consider nutritional assessment.`);
-            if (crp > 10) tips.push(`🟡 Elevated CRP (${crp} mg/L). Screen for infection or inflammation.`);
-            if (egfr > 0 && egfr < 60) tips.push(`🔴 Reduced eGFR (${egfr}). Monitor renal function, adjust medications.`);
-            if (ldl > 3.0) tips.push(`🟡 Elevated LDL (${ldl} mmol/L). Review diet and consider statin therapy if persistent.`);
-            if (tips.length === 0) tips.push('✅ All markers on track! Keep it up.');
+            if (hb > 0 && hb < 120) tips.push(t('anaemia', hb));
+            if (albumin > 0 && albumin < 35) tips.push(t('low_albumin', albumin));
+            if (crp > 10) tips.push(t('elevated_crp', crp));
+            if (egfr > 0 && egfr < 60) tips.push(t('reduced_egfr', egfr));
+            if (ldl > 3.0) tips.push(t('elevated_ldl', ldl));
+            if (tips.length === 0) tips.push(t('all_on_track'));
             return tips;
         }
 
@@ -2239,10 +2699,10 @@
         function renderInsights(data) {
             if (!data || Object.keys(data).length === 0 || !data.pain) {
                 riskContainer.innerHTML =
-                    `<div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">Save an encounter to see recommendations.</div>`;
+                    `<div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">${t('save_to_see')}</div>`;
                 compositeScore.textContent = '—';
                 aiInsight.innerHTML =
-                    `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
+                    `<i class="fas fa-robot"></i> <span>${t('recommendations_appear')}</span>`;
                 concordanceContainer.innerHTML = '';
                 trendContainer.style.display = 'none';
                 return;
@@ -2751,8 +3211,8 @@
         function renderVault() {
             if (tokenVault.length === 0) {
                 vaultList.innerHTML =
-                    `<div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;">No tokens in vault.</div>`;
-                vaultCount.textContent = '0 tokens';
+                    `<div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;">${t('no_tokens')}</div>`;
+                vaultCount.textContent = '0 ' + t('tokens');
                 return;
             }
             let html = '';
@@ -2760,7 +3220,7 @@
                 const shortToken = entry.token ? entry.token.substring(0, 40) + '...' : '';
                 const isVerified = entry.verified || false;
                 const statusClass = isVerified ? 'verified' : 'pending';
-                const statusText = isVerified ? '✓ VERIFIED' : '⏳ Pending';
+                const statusText = isVerified ? '✓ VERIFIED' : '⏳ ' + t('pending');
                 const dateStr = entry.date ? new Date(entry.date).toLocaleDateString() : '';
                 html += `
                     <div class="vault-item">
@@ -2768,15 +3228,15 @@
                         <span class="vault-status ${statusClass}">${statusText}</span>
                         <span style="font-size:0.5rem; color:#8892b0;">${dateStr}</span>
                         <span class="vault-actions">
-                            <button onclick="copyVaultToken(${idx})" title="Copy token"><i class="fas fa-copy"></i></button>
-                            <button onclick="verifyVaultToken(${idx})" title="Verify token" style="color:#28a745;"><i class="fas fa-check-circle"></i></button>
-                            <button onclick="deleteVaultToken(${idx})" title="Delete token" style="color:#ff6b6b;"><i class="fas fa-trash"></i></button>
+                            <button onclick="copyVaultToken(${idx})" title="${t('copy')}"><i class="fas fa-copy"></i></button>
+                            <button onclick="verifyVaultToken(${idx})" title="${t('verify_token')}" style="color:#28a745;"><i class="fas fa-check-circle"></i></button>
+                            <button onclick="deleteVaultToken(${idx})" title="${t('clear')}" style="color:#ff6b6b;"><i class="fas fa-trash"></i></button>
                         </span>
                     </div>
                 `;
             });
             vaultList.innerHTML = html;
-            vaultCount.textContent = tokenVault.length + ' tokens';
+            vaultCount.textContent = tokenVault.length + ' ' + t('tokens');
         }
 
         function saveTokenToVault() {
@@ -2916,7 +3376,7 @@
             verifyTokenBtn.disabled = true;
             verifierResults.style.display = 'none';
             verifierStatusBadge.className = 'verifier-status-badge pending';
-            verifierStatusBadge.textContent = 'Pending';
+            verifierStatusBadge.textContent = t('pending');
             passwordHint.className = 'verifier-password-hint';
             passwordHint.textContent = '🔑 Required: MoMo123456789@@@';
             verifierPassword.style.borderColor = '#262c4a';
@@ -2984,7 +3444,7 @@
                 const isExpired = exp < now;
 
                 let status = 'pending';
-                let statusText = '⏳ Pending';
+                let statusText = '⏳ ' + t('pending');
                 let badgeClass = 'pending';
 
                 if (signatureValid && !isExpired) {
@@ -3039,9 +3499,8 @@
             if (status === 'failed') {
                 resultStatus.textContent = statusText;
                 resultStatus.className = 'value failed';
-                ['resultCaregiver', 'resultLicense', 'resultAuthority', 'resultLiveness', 'resultHR', 'resultIndex',
-                    'resultIssued', 'resultExpires', 'resultRemaining', 'resultSignature'
-                ].forEach(id => {
+                ['resultCaregiver', 'resultLicense', 'resultLiveness', 'resultHR', 'resultIndex', 'resultSignature']
+                .forEach(id => {
                     document.getElementById(id).textContent = '—';
                     document.getElementById(id).className = 'value';
                 });
@@ -3092,8 +3551,8 @@
         function renderHistory() {
             if (encounters.length === 0) {
                 historyBody.innerHTML =
-                    `<tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;">No encounters yet.</td></tr>`;
-                historyCount.textContent = '0 records';
+                    `<tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;">${t('no_encounters')}</td></tr>`;
+                historyCount.textContent = '0 ' + t('records');
                 updateChart([]);
                 return;
             }
@@ -3132,7 +3591,7 @@
                 `;
             });
             historyBody.innerHTML = html;
-            historyCount.textContent = `${encounters.length} records`;
+            historyCount.textContent = `${encounters.length} ${t('records')}`;
 
             document.querySelectorAll('[data-load]').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -3173,7 +3632,7 @@
             renderInsights(null);
             compositeScore.textContent = '—';
             aiInsight.innerHTML =
-                `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
+                `<i class="fas fa-robot"></i> <span>${t('recommendations_appear')}</span>`;
             concordanceContainer.innerHTML = '';
             trendContainer.style.display = 'none';
             encounterNumberSpan.textContent = '0000';
@@ -3202,17 +3661,14 @@
             const concordance = calculateConcordance(latest, encounters);
             const adjustedIndex = Math.min(100, Math.round(idx * concordance.riskMultiplier));
 
-            // VBC value statement
+            // VBC value statement (i18n aware)
             let vbcStatement = '';
             if (adjustedIndex >= 75) {
-                vbcStatement =
-                    '✅ Patient is in the top quartile for functional outcomes. This represents high-value care delivery with optimal resource utilization.';
+                vbcStatement = t('vbc_high');
             } else if (adjustedIndex >= 50) {
-                vbcStatement =
-                    '🟡 Patient is in the moderate range. Value-based interventions focused on mobility and pain management could improve outcomes and reduce total cost of care.';
+                vbcStatement = t('vbc_moderate');
             } else {
-                vbcStatement =
-                    '🔴 Patient is in the lower range. This represents an opportunity for intensive, coordinated care to improve outcomes and avoid high-cost events.';
+                vbcStatement = t('vbc_low');
             }
 
             // ICF domains (compact)
@@ -3274,7 +3730,7 @@
 
             let tipsHtml = tips.map(t => `<li>${t}</li>`).join('');
 
-            const veritasStatus = anchorVerified ? '✅ VERIFIED' : '⏳ Pending';
+            const veritasStatus = anchorVerified ? '✅ VERIFIED' : '⏳ ' + t('pending');
             const veritasIcon = anchorVerified ? '🛡️' : '⏳';
 
             // Single-page report with virtualcaresolution.de branding and VBC focus
@@ -3306,7 +3762,7 @@
                         <!-- Left: Key metrics -->
                         <div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Functionality Index</span>
+                                <span style="color:#8892b0;">${t('functionality_index')}</span>
                                 <span style="font-weight:700; color:#00b4d8;">${adjustedIndex}</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
@@ -3314,15 +3770,15 @@
                                 <span style="font-weight:700; color:${trend.direction === 'up' ? '#28a745' : trend.direction === 'down' ? '#dc3545' : '#ffc107'};">${trend.direction === 'up' ? '📈 Improving' : trend.direction === 'down' ? '📉 Declining' : '➡️ Stable'} (${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts)</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Pain (NRS)</span>
+                                <span style="color:#8892b0;">${t('goal_pain')} (NRS)</span>
                                 <span style="font-weight:600;">${latest.pain || '—'} / 10</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Mobility</span>
+                                <span style="color:#8892b0;">${t('goal_mobility')}</span>
                                 <span style="font-weight:600;">${latest.mobility || '—'} / 10</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Fatigue</span>
+                                <span style="color:#8892b0;">${t('goal_energy')}</span>
                                 <span style="font-weight:600;">${latest.fatigue || '—'} / 10</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
@@ -3330,7 +3786,7 @@
                                 <span style="font-weight:600;">${latest.function || '—'} / 10</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Heart Rate</span>
+                                <span style="color:#8892b0;">${t('heart_rate')}</span>
                                 <span style="font-weight:600;">${latest.hr || '—'} bpm</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
@@ -3358,7 +3814,7 @@
                         <!-- Right: VBC & Concordance -->
                         <div>
                             <div style="background:#0f1428; border-left:3px solid #6f42c1; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
-                                <div style="font-size:0.55rem; font-weight:700; color:#6f42c1; text-transform:uppercase; letter-spacing:0.5px;">Value-Based Care Summary</div>
+                                <div style="font-size:0.55rem; font-weight:700; color:#6f42c1; text-transform:uppercase; letter-spacing:0.5px;">${t('vbc_tag')}</div>
                                 <div style="font-size:0.6rem; margin-top:2px;">${vbcStatement}</div>
                             </div>
 
@@ -3369,8 +3825,8 @@
                             </div>
 
                             <div style="font-size:0.55rem; color:#8892b0; background:#0f1428; padding:3px 8px; border-radius:4px;">
-                                <span style="font-weight:600; color:#f5f5f5;">Caregiver:</span> ${latest.caregiver_name || '—'} 
-                                <span style="margin-left:6px; font-weight:600; color:#f5f5f5;">License:</span> ${latest.caregiver_license || '—'}
+                                <span style="font-weight:600; color:#f5f5f5;">${t('caregiver')}:</span> ${latest.caregiver_name || '—'} 
+                                <span style="margin-left:6px; font-weight:600; color:#f5f5f5;">${t('license')}:</span> ${latest.caregiver_license || '—'}
                             </div>
                             <div style="font-size:0.5rem; color:#8892b0; margin-top:2px;">
                                 <span>Liveness: ${latest.anchor_liveness ? '✅' : '❌'}</span>
@@ -3480,13 +3936,6 @@
             });
         }
 
-        // ========== I18N ==========
-        function applyLanguage(lang) {
-            document.querySelectorAll('.lang-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.lang === lang);
-            });
-        }
-
         // ========== IP ==========
         async function fetchIP() {
             try {
@@ -3504,7 +3953,15 @@
 
             deviceIdDisplay.textContent = deviceId.substring(0, 12) + '…';
 
-            // DOB and Insurance fields are already in the demo-bar
+            // Set default language
+            applyLanguage('en');
+
+            // Language switcher
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    applyLanguage(this.dataset.lang);
+                });
+            });
 
             buildForm();
             renderHistory();
@@ -3552,7 +4009,7 @@
                 renderInsights(null);
                 compositeScore.textContent = '—';
                 aiInsight.innerHTML =
-                    `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
+                    `<i class="fas fa-robot"></i> <span>${t('recommendations_appear')}</span>`;
                 concordanceContainer.innerHTML = '';
                 trendContainer.style.display = 'none';
                 encounterNumberSpan.textContent = '0000';
@@ -3564,13 +4021,6 @@
                 btn.addEventListener('click', function() {
                     const profile = this.dataset.profile;
                     if (profile !== currentProfile) switchProfile(profile);
-                });
-            });
-
-            // Language buttons
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    applyLanguage(this.dataset.lang);
                 });
             });
 

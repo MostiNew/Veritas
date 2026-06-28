@@ -1078,68 +1078,6 @@
             color: #6f42c1;
         }
 
-        .btn-cta-veritas {
-            background: linear-gradient(135deg, #1a2a5a, #005792);
-            border: none;
-            border-radius: 14px;
-            padding: 14px 20px;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            box-shadow: 0 4px 20px rgba(0, 87, 146, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-cta-veritas::after {
-            content: "🛡️";
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.8rem;
-            opacity: 0.15;
-        }
-        .btn-cta-veritas:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 35px rgba(0, 87, 146, 0.5);
-            background: linear-gradient(135deg, #1e3a7a, #0068b8);
-        }
-        .btn-cta-veritas .cta-main {
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1;
-        }
-        .btn-cta-veritas .cta-main i {
-            font-size: 1.1rem;
-        }
-        .btn-cta-veritas .cta-sub {
-            font-size: 0.6rem;
-            opacity: 0.85;
-            font-weight: 400;
-            z-index: 1;
-            text-align: center;
-        }
-        .badge-veritas {
-            background: #6f42c1;
-            color: white;
-            font-size: 0.5rem;
-            padding: 2px 10px;
-            border-radius: 30px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
         .footer-triad {
             display: flex;
             flex-wrap: wrap;
@@ -1285,12 +1223,6 @@
             }
             .form-scroll {
                 max-height: 320px;
-            }
-            .btn-cta-veritas .cta-main {
-                font-size: 0.85rem;
-            }
-            .btn-cta-veritas .cta-sub {
-                font-size: 0.55rem;
             }
             .footer-triad {
                 gap: 6px;
@@ -1760,7 +1692,6 @@
                 heart_rate: 'Heart Rate',
                 function_index: 'Function Index',
                 signature: 'Signature',
-                // Care tips
                 pain_above: '🔴 Pain above goal. Consider rest, heat/cold, or prescribed relief.',
                 pain_slightly: '🟡 Pain slightly above goal. Gentle stretching may help.',
                 pain_on_track: '✅ Pain on track.',
@@ -1785,11 +1716,9 @@
                 reduced_egfr: (egfr) => `🔴 Reduced eGFR (${egfr}). Monitor renal function, adjust medications.`,
                 elevated_ldl: (ldl) => `🟡 Elevated LDL (${ldl} mmol/L). Review diet and consider statin therapy if persistent.`,
                 all_on_track: '✅ All markers on track! Keep it up.',
-                // Concordance alerts
                 silent_deterioration: '⚠️ SILENT DETERIORATION: Objective markers declining despite stable PROMs.',
                 psychosocial_factor: '🧠 PSYCHOSOCIAL FACTOR: PROMs elevated but labs stable. Consider mental health review.',
                 concordant: '✅ Concordant: Subjective and objective signals align.',
-                // VBC statements
                 vbc_high: '✅ Patient is in the top quartile for functional outcomes. This represents high-value care delivery with optimal resource utilization.',
                 vbc_moderate: '🟡 Patient is in the moderate range. Value-based interventions focused on mobility and pain management could improve outcomes and reduce total cost of care.',
                 vbc_low: '🔴 Patient is in the lower range. This represents an opportunity for intensive, coordinated care to improve outcomes and avoid high-cost events.',
@@ -2125,7 +2054,7 @@
                 }
             });
 
-            // Update password hint based on language - HIDDEN password
+            // Password hint is completely hidden
             const hintEl = document.getElementById('passwordHint');
             if (hintEl) {
                 hintEl.textContent = '';
@@ -2235,6 +2164,7 @@
         let lastHREstimate = null;
         let anchorVerified = false;
         let lastGeneratedToken = null;
+        let humanVerified = false; // NEW: tracks if human verifier verified the token
 
         let faceDetector = null;
         let lastFaceBox = null;
@@ -2409,6 +2339,7 @@
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
             data.anchor_hr_quality = lastHREstimate ? lastHREstimate.quality : null;
             data.anchor_verified = anchorVerified;
+            data.human_verified = humanVerified; // NEW: track human verification
             const dobEl = document.getElementById('dob');
             const insEl = document.getElementById('insuranceNumber');
             data.dob = dobEl ? dobEl.value : '1980-01-01';
@@ -2429,6 +2360,7 @@
             if (data.dob) { const dobEl = document.getElementById('dob'); if (dobEl) dobEl.value = data.dob; }
             if (data.insurance_number) { const insEl = document.getElementById('insuranceNumber'); if (insEl) insEl.value = data
                     .insurance_number; }
+            if (data.human_verified !== undefined) humanVerified = data.human_verified;
         }
 
         function clearFormValues() {
@@ -3047,7 +2979,11 @@
             const hasName = cg.name && cg.name.trim().length > 0;
             const hasLicense = cg.license && cg.license.trim().length > 0;
 
-            const allConditionsMet = livenessCompleted && lastHREstimate && hasName && hasLicense;
+            // ANCHOR verification = liveness + HR + KYC (name + license)
+            const anchorConditionsMet = livenessCompleted && lastHREstimate && hasName && hasLicense;
+
+            // FULL verification = ANCHOR + human verifier
+            const fullVerification = anchorConditionsMet && humanVerified;
 
             if (statusDetails) {
                 statusDetails.innerHTML = `
@@ -3055,20 +2991,28 @@
                     HR: ${lastHREstimate ? '✅' : '❌'} 
                     Name: ${hasName ? '✅' : '❌'} 
                     License: ${hasLicense ? '✅' : '❌'}
+                    Human: ${humanVerified ? '✅' : '❌'}
                 `;
             }
 
-            if (allConditionsMet) {
+            if (fullVerification) {
                 anchorVerified = true;
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ KYC ✓";
-                tokenStatus.textContent = "✅ Ready to generate VERITAS token";
+                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ KYC ✓ Human ✓";
+                tokenStatus.textContent = "✅ VERITAS fully verified!";
                 generateTokenBtn.disabled = false;
 
                 if (!lastGeneratedToken) {
                     generateToken();
                 }
+            } else if (anchorConditionsMet) {
+                anchorVerified = false;
+                anchorIcon.className = "status-icon pending";
+                anchorIcon.textContent = "⏳";
+                anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
+                tokenStatus.textContent = "⏳ ANCHOR verified. Complete human verification in Verifier.";
+                generateTokenBtn.disabled = true;
             } else {
                 anchorVerified = false;
                 anchorIcon.className = "status-icon pending";
@@ -3115,6 +3059,7 @@
                     hr_quality: lastHREstimate ? Math.round(lastHREstimate.quality * 100) : null,
                     verified_at: new Date().toISOString(),
                     device_id: deviceId,
+                    human_verified: humanVerified,
                 },
                 kyc: {
                     caregiver_name: cg.name,
@@ -3188,8 +3133,8 @@
                 date: new Date().toISOString(),
                 caregiver: caregiverName.value || 'Unknown',
                 device: deviceId,
-                verified: anchorVerified,
-                verification_date: anchorVerified ? new Date().toISOString() : null,
+                verified: anchorVerified && humanVerified,
+                verification_date: (anchorVerified && humanVerified) ? new Date().toISOString() : null,
             });
             localStorage.setItem(VAULT_KEY, JSON.stringify(tokenVault));
             renderVault();
@@ -3318,7 +3263,6 @@
             verifierResults.style.display = 'none';
             verifierStatusBadge.className = 'verifier-status-badge pending';
             verifierStatusBadge.textContent = t('pending');
-            // Password hint is hidden - no display
             passwordHint.className = 'verifier-password-hint';
             passwordHint.textContent = '';
             verifierPassword.style.borderColor = '#262c4a';
@@ -3394,6 +3338,9 @@
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
+                    // Set human verified flag
+                    humanVerified = true;
+
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -3409,6 +3356,9 @@
                         anchorStatusText.textContent = "VERITAS Verified: Token verified by second human ✓";
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
                     }
+
+                    // Update anchor status
+                    updateAnchorStatus();
 
                 } else if (!signatureValid) {
                     status = 'failed';
@@ -3667,8 +3617,10 @@
 
             let tipsHtml = tips.map(t => `<li>${t}</li>`).join('');
 
-            const veritasStatus = anchorVerified ? '✅ VERIFIED' : '⏳ ' + t('pending');
-            const veritasIcon = anchorVerified ? '🛡️' : '⏳';
+            // Only show VERIFIED if human verified AND anchor verified
+            const isFullyVerified = latest.anchor_verified && latest.human_verified;
+            const veritasStatus = isFullyVerified ? '✅ VERIFIED' : '⏳ Pending';
+            const veritasIcon = isFullyVerified ? '🛡️' : '⏳';
 
             const reportHTML = `
                 <div style="background:#0b1020; color:#f5f5f5; padding:16px 20px; font-family:'Segoe UI',Roboto,system-ui,sans-serif; max-width:900px; margin:0 auto; font-size:11px;">
@@ -3762,7 +3714,7 @@
                             <div style="font-size:0.5rem; color:#8892b0; margin-top:2px;">
                                 <span>Liveness: ${latest.anchor_liveness ? '✅' : '❌'}</span>
                                 <span style="margin-left:4px;">HR: ${latest.anchor_hr_bpm ? latest.anchor_hr_bpm + ' bpm' : '—'}</span>
-                                <span style="margin-left:4px;">VERITAS: ${latest.anchor_verified ? '✅' : '⏳'}</span>
+                                <span style="margin-left:4px;">Human Verified: ${latest.human_verified ? '✅' : '❌'}</span>
                             </div>
                         </div>
                     </div>
@@ -3895,7 +3847,6 @@
             verifierPassword.addEventListener('keydown', (e) => { if (e.key === 'Enter') unlockVerifier(); });
             verifierTokenInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && isUnlocked) verifyToken(); });
 
-            // Report generation ONLY from the PDF button
             pdfBtn.addEventListener('click', generatePDFReport);
 
             form.addEventListener('submit', saveEncounter);

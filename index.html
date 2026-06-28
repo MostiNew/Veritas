@@ -1286,7 +1286,7 @@
                 <div class="anchor-status">
                     <span class="status-icon pending" id="anchorIcon">⏳</span>
                     <span id="anchorStatusText" data-i18n="veritas_pending">VERITAS verification pending</span>
-                    <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ Name:❌ License:❌ Human:❌</span>
+                    <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ Name:❌ License:❌</span>
                 </div>
 
                 <div class="caregiver-section" style="margin-top:6px;">
@@ -1327,7 +1327,7 @@
                         <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus"><span data-i18n="complete_first">Complete VERITAS verification first</span></span>
                     </div>
                     <div style="margin-top:4px;">
-                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + KYC + Human Verification"></textarea>
+                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + KYC"></textarea>
                     </div>
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
@@ -2097,9 +2097,9 @@
         let hrSignal = [];
         let hrTimestamps = [];
         let lastHREstimate = null;
-        let anchorVerified = false;
-        let lastGeneratedToken = null;
+        let tokenGenerated = false;
         let humanVerified = false;
+        let lastGeneratedToken = null;
 
         let faceDetector = null;
         let lastFaceBox = null;
@@ -2273,7 +2273,7 @@
             data.anchor_liveness_duration = livenessDurationSec;
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
             data.anchor_hr_quality = lastHREstimate ? lastHREstimate.quality : null;
-            data.anchor_verified = anchorVerified;
+            data.token_generated = tokenGenerated;
             data.human_verified = humanVerified;
             const dobEl = document.getElementById('dob');
             const insEl = document.getElementById('insuranceNumber');
@@ -2295,6 +2295,7 @@
             if (data.dob) { const dobEl = document.getElementById('dob'); if (dobEl) dobEl.value = data.dob; }
             if (data.insurance_number) { const insEl = document.getElementById('insuranceNumber'); if (insEl) insEl.value = data
                     .insurance_number; }
+            if (data.token_generated !== undefined) tokenGenerated = data.token_generated;
             if (data.human_verified !== undefined) humanVerified = data.human_verified;
         }
 
@@ -2742,6 +2743,7 @@
                     if (livenessStartTime != null) {
                         livenessDurationSec = (performance.now() / 1000) - livenessStartTime;
                     }
+                    checkAndGenerateToken();
                     updateAnchorStatus();
                     return;
                 }
@@ -2776,7 +2778,6 @@
             hrStatusEl.textContent = "HR idle. Press Start HR again to re-measure.";
             startHRBtn.disabled = !stream;
             stopHRBtn.disabled = true;
-            updateAnchorStatus();
         }
 
         async function sampleHRFrame() {
@@ -2858,6 +2859,10 @@
                     lastHREstimate = { bpm: clampedBpm, quality: quality, durationSec: duration };
                     hrDebugEl.textContent += "\nRaw BPM: " + rawBpm.toFixed(1) + " | Clamped BPM: " + clampedBpm.toFixed(1) +
                         " | Quality: " + (quality * 100).toFixed(1) + "%";
+
+                    // Check if we can generate token after HR is measured
+                    checkAndGenerateToken();
+                    updateAnchorStatus();
                 } else {
                     hrStatusEl.textContent = "No dominant HR frequency found. Improve lighting and stay very still.";
                     hrQualityDot.className = "quality-dot red";
@@ -2919,79 +2924,33 @@
             return { bpm, rawBpm, quality };
         }
 
-        // ========== ANCHOR STATUS ==========
-        function updateAnchorStatus() {
+        // ========== TOKEN GENERATION (AUTO) ==========
+        function checkAndGenerateToken() {
             const cg = getCaregiverData();
             const hasName = cg.name && cg.name.trim().length > 0;
             const hasLicense = cg.license && cg.license.trim().length > 0;
 
-            const anchorConditionsMet = livenessCompleted && lastHREstimate && hasName && hasLicense;
-            const fullVerification = anchorConditionsMet && humanVerified;
-
-            if (statusDetails) {
-                statusDetails.innerHTML = `
-                    Liveness: ${livenessCompleted ? '✅' : '❌'} 
-                    HR: ${lastHREstimate ? '✅' : '❌'} 
-                    Name: ${hasName ? '✅' : '❌'} 
-                    License: ${hasLicense ? '✅' : '❌'}
-                    Human: ${humanVerified ? '✅' : '❌'}
-                `;
-            }
-
-            if (fullVerification) {
-                anchorVerified = true;
-                anchorIcon.className = "status-icon pass";
-                anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ KYC ✓ Human ✓";
-                tokenStatus.textContent = "✅ VERITAS fully verified! Ready to generate token.";
+            // Token can be generated when: liveness done, HR measured, name and license entered
+            if (livenessCompleted && lastHREstimate && hasName && hasLicense) {
+                // Only generate once
+                if (!tokenGenerated) {
+                    generateToken();
+                    tokenGenerated = true;
+                    tokenStatus.textContent = "✅ VERITAS token generated. Waiting for human verification.";
+                }
                 generateTokenBtn.disabled = false;
                 copyTokenBtn.disabled = false;
                 saveToVaultBtn.disabled = false;
-
-                // Auto-generate token if not already generated
-                if (!lastGeneratedToken) {
-                    generateToken();
-                }
-            } else if (anchorConditionsMet) {
-                anchorVerified = false;
-                anchorIcon.className = "status-icon pending";
-                anchorIcon.textContent = "⏳";
-                anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
-                tokenStatus.textContent = "⏳ ANCHOR verified. Complete human verification in Verifier.";
-                generateTokenBtn.disabled = true;
-                copyTokenBtn.disabled = true;
-                saveToVaultBtn.disabled = true;
             } else {
-                anchorVerified = false;
-                anchorIcon.className = "status-icon pending";
-                anchorIcon.textContent = "⏳";
-                let missing = [];
-                if (!livenessCompleted) missing.push("Liveness");
-                if (!lastHREstimate) missing.push("HR");
-                if (!hasName) missing.push("Name");
-                if (!hasLicense) missing.push("License");
-                anchorStatusText.textContent = "VERITAS pending: " + (missing.length > 0 ? missing.join(", ") :
-                    "Complete all steps");
                 generateTokenBtn.disabled = true;
                 copyTokenBtn.disabled = true;
                 saveToVaultBtn.disabled = true;
-                tokenStatus.textContent = "Complete all steps: " + missing.join(", ");
             }
         }
 
         // ========== TOKEN GENERATION ==========
         function generateToken() {
-            // Check both ANCHOR and human verification
             const cg = getCaregiverData();
-            const hasName = cg.name && cg.name.trim().length > 0;
-            const hasLicense = cg.license && cg.license.trim().length > 0;
-            const anchorConditionsMet = livenessCompleted && lastHREstimate && hasName && hasLicense;
-
-            if (!anchorConditionsMet || !humanVerified) {
-                tokenStatus.textContent = "⚠️ Complete both ANCHOR and human verification first";
-                return;
-            }
-
             const formData = getFormData();
             const index = computeCareIndex(formData);
 
@@ -3043,9 +3002,71 @@
             const token = encodedHeader + "." + encodedPayload + "." + signature;
             tokenOutput.value = token;
             lastGeneratedToken = token;
-            tokenStatus.textContent = "✅ VERITAS token generated. Share with verifier.";
-            copyTokenBtn.disabled = false;
-            saveToVaultBtn.disabled = false;
+        }
+
+        // ========== ANCHOR STATUS ==========
+        function updateAnchorStatus() {
+            const cg = getCaregiverData();
+            const hasName = cg.name && cg.name.trim().length > 0;
+            const hasLicense = cg.license && cg.license.trim().length > 0;
+
+            const anchorComplete = livenessCompleted && lastHREstimate && hasName && hasLicense;
+            const fullyVerified = anchorComplete && humanVerified;
+
+            if (statusDetails) {
+                statusDetails.innerHTML = `
+                    Liveness: ${livenessCompleted ? '✅' : '❌'} 
+                    HR: ${lastHREstimate ? '✅' : '❌'} 
+                    Name: ${hasName ? '✅' : '❌'} 
+                    License: ${hasLicense ? '✅' : '❌'}
+                    Human: ${humanVerified ? '✅' : '❌'}
+                `;
+            }
+
+            if (fullyVerified) {
+                anchorIcon.className = "status-icon pass";
+                anchorIcon.textContent = "✅";
+                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ KYC ✓ Human ✓";
+                tokenStatus.textContent = "✅ VERITAS fully verified!";
+                // Update token status in vault if exists
+                updateVaultVerification();
+            } else if (anchorComplete) {
+                anchorIcon.className = "status-icon pending";
+                anchorIcon.textContent = "⏳";
+                anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
+                if (tokenGenerated) {
+                    tokenStatus.textContent = "⏳ Token generated. Complete human verification in Verifier.";
+                } else {
+                    tokenStatus.textContent = "⏳ ANCHOR verified. Generating token...";
+                }
+            } else {
+                anchorIcon.className = "status-icon pending";
+                anchorIcon.textContent = "⏳";
+                let missing = [];
+                if (!livenessCompleted) missing.push("Liveness");
+                if (!lastHREstimate) missing.push("HR");
+                if (!hasName) missing.push("Name");
+                if (!hasLicense) missing.push("License");
+                anchorStatusText.textContent = "VERITAS pending: " + (missing.length > 0 ? missing.join(", ") :
+                    "Complete all steps");
+                tokenStatus.textContent = "Complete all steps: " + missing.join(", ");
+            }
+
+            // Check for token generation
+            checkAndGenerateToken();
+        }
+
+        // ========== VAULT VERIFICATION UPDATE ==========
+        function updateVaultVerification() {
+            if (!tokenOutput.value) return;
+            const token = tokenOutput.value.trim();
+            const idx = tokenVault.findIndex(t => t.token === token);
+            if (idx >= 0) {
+                tokenVault[idx].verified = true;
+                tokenVault[idx].verification_date = new Date().toISOString();
+                localStorage.setItem(VAULT_KEY, JSON.stringify(tokenVault));
+                renderVault();
+            }
         }
 
         // ========== TOKEN VAULT ==========
@@ -3088,8 +3109,8 @@
                 date: new Date().toISOString(),
                 caregiver: caregiverName.value || 'Unknown',
                 device: deviceId,
-                verified: anchorVerified && humanVerified,
-                verification_date: (anchorVerified && humanVerified) ? new Date().toISOString() : null,
+                verified: humanVerified,
+                verification_date: humanVerified ? new Date().toISOString() : null,
             });
             localStorage.setItem(VAULT_KEY, JSON.stringify(tokenVault));
             renderVault();
@@ -3307,14 +3328,10 @@
 
                     // Update main status
                     if (token === tokenOutput.value.trim()) {
-                        anchorVerified = true;
                         anchorIcon.className = "status-icon pass";
                         anchorIcon.textContent = "✅";
                         anchorStatusText.textContent = "VERITAS Verified: Token verified by second human ✓";
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
-                        generateTokenBtn.disabled = false;
-                        copyTokenBtn.disabled = false;
-                        saveToVaultBtn.disabled = false;
                     }
 
                     // Update anchor status
@@ -3578,7 +3595,7 @@
 
             let tipsHtml = tips.map(t => `<li>${t}</li>`).join('');
 
-            const isFullyVerified = latest.anchor_verified && latest.human_verified;
+            const isFullyVerified = latest.human_verified || false;
             const veritasStatus = isFullyVerified ? '✅ VERIFIED' : '⏳ Pending';
             const veritasIcon = isFullyVerified ? '🛡️' : '⏳';
 
@@ -3787,10 +3804,17 @@
             stopHRBtn.addEventListener('click', stopHRMonitoring);
 
             [caregiverName, caregiverLicense, issuingAuthority].forEach(el => {
-                el.addEventListener('input', updateAnchorStatus);
+                el.addEventListener('input', function() {
+                    checkAndGenerateToken();
+                    updateAnchorStatus();
+                });
             });
 
-            generateTokenBtn.addEventListener('click', generateToken);
+            generateTokenBtn.addEventListener('click', function() {
+                // Regenerate token if needed
+                tokenGenerated = false;
+                checkAndGenerateToken();
+            });
             copyTokenBtn.addEventListener('click', copyToken);
             saveToVaultBtn.addEventListener('click', saveTokenToVault);
             clearVaultBtn.addEventListener('click', clearVault);
@@ -3844,6 +3868,7 @@
                 renderInsights(null);
             }
 
+            checkAndGenerateToken();
             updateAnchorStatus();
             console.log('=== Initialization complete ===');
         }

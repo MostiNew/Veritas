@@ -1603,6 +1603,7 @@
                     <div style="font-size:0.6rem; opacity:0.6; margin-top:2px;" id="hrDebug"></div>
                 </div>
 
+                <!-- ANCHOR STATUS - This shows the overall verification status -->
                 <div class="anchor-status">
                     <span class="status-icon pending" id="anchorIcon">⏳</span>
                     <span id="anchorStatusText">VERITAS verification pending</span>
@@ -1865,6 +1866,7 @@
     <script>
         // ============================================================
         //  COMPLETE VERITAS APPLICATION - PROPER VERIFIER FUNCTION
+        //  Status updates in BOTH modal AND main anchor status
         // ============================================================
 
         const TOKEN_KEY_STRING = "local-offline-signature";
@@ -1891,7 +1893,7 @@
         let hrTimestamps = [];
         let lastHREstimate = null;
 
-        // VERIFICATION STATE
+        // VERIFICATION STATE - tracks all required steps
         let verificationState = {
             liveness: false,
             hr: false,
@@ -2042,7 +2044,7 @@
             return ppd.name.trim().length > 0 && ppd.license.trim().length > 0;
         }
 
-        // ========== VERIFICATION STATUS UPDATE ==========
+        // ========== VERIFICATION STATUS UPDATE - UPDATES BOTH MODAL AND MAIN ==========
         function updateVerificationStatus() {
             const ppd = getPPDData();
             const isPPDValid = isPPDComplete();
@@ -2051,6 +2053,7 @@
             verificationState.hr = lastHREstimate !== null;
             verificationState.ppd = isPPDValid;
 
+            // Update status details in main UI
             if (statusDetails) {
                 statusDetails.innerHTML = `
                     Liveness: ${verificationState.liveness ? '✅' : '❌'} 
@@ -2060,6 +2063,7 @@
                 `;
             }
 
+            // Update PPD status
             if (ppdStatus) {
                 if (isPPDValid) {
                     ppdStatus.innerHTML = '✅ PPD complete: Name and License provided';
@@ -2070,15 +2074,22 @@
                 }
             }
 
+            // Determine overall verification status
             const allAnchorSteps = verificationState.liveness && verificationState.hr && verificationState.ppd;
             const fullyVerified = allAnchorSteps && verificationState.human;
 
+            // UPDATE MAIN ANCHOR STATUS - This is what you asked for
             if (fullyVerified) {
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = "VERITAS Fully Verified ✓";
+                anchorStatusText.textContent = "VERITAS FULLY VERIFIED ✓";
                 tokenVerificationBadge.className = "verification-status-badge verified";
                 tokenVerificationBadge.textContent = "VERIFIED";
+                // Also update token status
+                if (tokenGenerated) {
+                    tokenStatus.textContent = "✅ VERITAS fully verified!";
+                    tokenStatus.style.color = "#28a745";
+                }
             } else if (allAnchorSteps) {
                 anchorIcon.className = "status-icon pending";
                 anchorIcon.textContent = "⏳";
@@ -2097,6 +2108,7 @@
                 tokenVerificationBadge.textContent = "PENDING";
             }
 
+            // Enable/disable generate token button
             if (allAnchorSteps && !tokenGenerated) {
                 generateTokenBtn.disabled = false;
                 tokenStatus.textContent = "✅ Ready to generate token";
@@ -3016,10 +3028,7 @@
             return token;
         }
 
-        // ========== VERIFIER FUNCTION ==========
-        // This is the HUMAN-IN-THE-LOOP verification
-        // The password is REQUIRED - no fake verification
-
+        // ========== VERIFIER FUNCTION - UPDATES MAIN STATUS WHEN VERIFIED ==========
         function openVerifier() {
             const tokenTextarea = document.getElementById('tokenOutput');
             if (tokenTextarea && tokenTextarea.value) {
@@ -3113,7 +3122,7 @@
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
-                    // Set human verified flag - THIS IS THE KEY STEP
+                    // CRITICAL: Set human verified flag - THIS UPDATES THE MAIN STATUS
                     verificationState.human = true;
 
                     // Update token vault
@@ -3131,6 +3140,7 @@
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
                     }
 
+                    // THIS UPDATES THE MAIN ANCHOR STATUS TO "VERIFIED"
                     updateVerificationStatus();
 
                 } else if (!signatureValid) {
@@ -3797,6 +3807,7 @@
             console.log('=== Initialization complete ===');
             console.log('Complete ANCHOR + PPD, click "Generate Token", then use Verifier');
             console.log('Verifier Password: MoMo123456789@@@');
+            console.log('When verified, the main ANCHOR status will update to "VERIFIED"');
         }
 
         if (document.readyState === 'loading') {

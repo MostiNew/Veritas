@@ -1520,6 +1520,7 @@
             background: #6f42c1;
             color: white;
         }
+
         .verifier-password-hint {
             font-size: 0.55rem;
             color: #8892b0;
@@ -1530,6 +1531,10 @@
         }
         .verifier-password-hint.error {
             color: #dc3545;
+        }
+        /* Password hint is hidden by default - only shows success/error states */
+        .verifier-password-hint:empty {
+            display: none;
         }
     </style>
 </head>
@@ -1603,14 +1608,12 @@
                     <div style="font-size:0.6rem; opacity:0.6; margin-top:2px;" id="hrDebug"></div>
                 </div>
 
-                <!-- ANCHOR STATUS - This shows the overall verification status -->
                 <div class="anchor-status">
                     <span class="status-icon pending" id="anchorIcon">⏳</span>
                     <span id="anchorStatusText">VERITAS verification pending</span>
                     <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ PPD:❌ Human:❌</span>
                 </div>
 
-                <!-- PPD Section -->
                 <div class="ppd-section" style="margin-top:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> PPD · Personal Professional Details</span>
@@ -1816,18 +1819,17 @@
             </div>
         </footer>
 
-        <!-- VERIFIER MODAL -->
+        <!-- VERIFIER MODAL - NO PASSWORD DISPLAYED -->
         <div class="verifier-modal" id="verifierModal">
             <div class="verifier-modal-content">
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
                 <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> VERITAS Token Verifier</h2>
                 <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;">
                     <strong>Human-in-the-Loop Verification:</strong> Enter the verifier password to unlock, then verify the token.
-                    <br><span style="color:#ffc107; font-size:0.6rem;">Password required: MoMo123456789@@@</span>
                 </p>
                 <div class="verifier-field">
                     <label><i class="fas fa-lock"></i> Verifier Password</label>
-                    <input type="password" id="verifierPassword" placeholder="Enter password to unlock verifier" />
+                    <input type="password" id="verifierPassword" placeholder="Enter verifier password" />
                     <div class="verifier-password-hint" id="passwordHint"></div>
                 </div>
                 <div class="verifier-field">
@@ -1865,12 +1867,15 @@
 
     <script>
         // ============================================================
-        //  COMPLETE VERITAS APPLICATION - PROPER VERIFIER FUNCTION
-        //  Status updates in BOTH modal AND main anchor status
+        //  COMPLETE VERITAS APPLICATION
+        //  Password is hidden - only known to authorized personnel
         // ============================================================
 
-        const TOKEN_KEY_STRING = "local-offline-signature";
+        // ========== CONSTANTS ==========
+        // This password is NOT displayed anywhere in the UI
+        // It must be communicated securely to authorized verifiers
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
+        const TOKEN_KEY_STRING = "local-offline-signature";
         const STORAGE_KEY = 'medfitBravo_encounters';
         const VAULT_KEY = 'medfitBravo_tokenVault';
         const DECAY_LAMBDA = 0.1;
@@ -1893,7 +1898,7 @@
         let hrTimestamps = [];
         let lastHREstimate = null;
 
-        // VERIFICATION STATE - tracks all required steps
+        // VERIFICATION STATE
         let verificationState = {
             liveness: false,
             hr: false,
@@ -2044,7 +2049,7 @@
             return ppd.name.trim().length > 0 && ppd.license.trim().length > 0;
         }
 
-        // ========== VERIFICATION STATUS UPDATE - UPDATES BOTH MODAL AND MAIN ==========
+        // ========== VERIFICATION STATUS UPDATE ==========
         function updateVerificationStatus() {
             const ppd = getPPDData();
             const isPPDValid = isPPDComplete();
@@ -2053,7 +2058,6 @@
             verificationState.hr = lastHREstimate !== null;
             verificationState.ppd = isPPDValid;
 
-            // Update status details in main UI
             if (statusDetails) {
                 statusDetails.innerHTML = `
                     Liveness: ${verificationState.liveness ? '✅' : '❌'} 
@@ -2063,7 +2067,6 @@
                 `;
             }
 
-            // Update PPD status
             if (ppdStatus) {
                 if (isPPDValid) {
                     ppdStatus.innerHTML = '✅ PPD complete: Name and License provided';
@@ -2074,18 +2077,15 @@
                 }
             }
 
-            // Determine overall verification status
             const allAnchorSteps = verificationState.liveness && verificationState.hr && verificationState.ppd;
             const fullyVerified = allAnchorSteps && verificationState.human;
 
-            // UPDATE MAIN ANCHOR STATUS - This is what you asked for
             if (fullyVerified) {
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
                 anchorStatusText.textContent = "VERITAS FULLY VERIFIED ✓";
                 tokenVerificationBadge.className = "verification-status-badge verified";
                 tokenVerificationBadge.textContent = "VERIFIED";
-                // Also update token status
                 if (tokenGenerated) {
                     tokenStatus.textContent = "✅ VERITAS fully verified!";
                     tokenStatus.style.color = "#28a745";
@@ -2108,7 +2108,6 @@
                 tokenVerificationBadge.textContent = "PENDING";
             }
 
-            // Enable/disable generate token button
             if (allAnchorSteps && !tokenGenerated) {
                 generateTokenBtn.disabled = false;
                 tokenStatus.textContent = "✅ Ready to generate token";
@@ -2954,9 +2953,6 @@
             }
 
             console.log("=== GENERATING VERITAS TOKEN ===");
-            console.log("Liveness:", verificationState.liveness);
-            console.log("HR:", verificationState.hr);
-            console.log("PPD:", isPPDValid);
 
             const formData = getFormData();
             const index = computeCareIndex(formData);
@@ -3009,7 +3005,6 @@
             const signature = base64UrlEncode(TOKEN_KEY_STRING);
 
             const token = encodedHeader + "." + encodedPayload + "." + signature;
-            console.log("Token generated, length:", token.length);
 
             tokenOutput.value = token;
             lastGeneratedToken = token;
@@ -3028,7 +3023,7 @@
             return token;
         }
 
-        // ========== VERIFIER FUNCTION - UPDATES MAIN STATUS WHEN VERIFIED ==========
+        // ========== VERIFIER FUNCTIONS ==========
         function openVerifier() {
             const tokenTextarea = document.getElementById('tokenOutput');
             if (tokenTextarea && tokenTextarea.value) {
@@ -3065,7 +3060,8 @@
                 verifyTokenBtn.disabled = true;
                 verifierPassword.style.borderColor = '#dc3545';
                 passwordHint.className = 'verifier-password-hint error';
-                passwordHint.textContent = '❌ Incorrect password. Try: MoMo123456789@@@';
+                passwordHint.textContent = '❌ Incorrect password.';
+                // NO password hint displayed!
                 setTimeout(() => {
                     verifierPassword.style.borderColor = '#262c4a';
                 }, 2000);
@@ -3073,7 +3069,6 @@
         }
 
         function verifyToken() {
-            // Must be unlocked first
             if (!isUnlocked) {
                 alert('Please unlock the verifier with the password first.');
                 return;
@@ -3104,7 +3099,6 @@
                 const header = JSON.parse(headerStr);
                 const payload = JSON.parse(payloadStr);
 
-                // Verify signature
                 const expectedSignature = base64UrlEncode(TOKEN_KEY_STRING);
                 const signatureValid = (signature === expectedSignature);
 
@@ -3116,16 +3110,13 @@
                 let statusText = '⏳ Pending';
                 let badgeClass = 'pending';
 
-                // Only mark as verified if signature is valid AND not expired AND human unlocked
                 if (signatureValid && !isExpired && isUnlocked) {
                     status = 'verified';
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
-                    // CRITICAL: Set human verified flag - THIS UPDATES THE MAIN STATUS
                     verificationState.human = true;
 
-                    // Update token vault
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -3140,7 +3131,6 @@
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
                     }
 
-                    // THIS UPDATES THE MAIN ANCHOR STATUS TO "VERIFIED"
                     updateVerificationStatus();
 
                 } else if (!signatureValid) {
@@ -3806,8 +3796,7 @@
             updateVerificationStatus();
             console.log('=== Initialization complete ===');
             console.log('Complete ANCHOR + PPD, click "Generate Token", then use Verifier');
-            console.log('Verifier Password: MoMo123456789@@@');
-            console.log('When verified, the main ANCHOR status will update to "VERIFIED"');
+            console.log('The verifier password is NOT displayed - only authorized personnel know it.');
         }
 
         if (document.readyState === 'loading') {

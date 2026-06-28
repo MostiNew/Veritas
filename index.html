@@ -1211,6 +1211,291 @@
                 max-height: 500px;
             }
         }
+
+        /* PDF specific styles */
+        .pdf-report {
+            background: #0b1020;
+            color: #f5f5f5;
+            padding: 20px 25px;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 12px;
+        }
+        .pdf-report .header {
+            border-bottom: 2px solid #005792;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pdf-report .header .logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #00b4d8;
+            line-height: 1;
+        }
+        .pdf-report .header .logo-sub {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #8892b0;
+        }
+        .pdf-report .header .logo-domain {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #005792;
+        }
+        .pdf-report .header .report-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #6f42c1;
+            text-align: right;
+        }
+        .pdf-report .header .report-status {
+            font-size: 0.55rem;
+            color: #8892b0;
+        }
+        .pdf-report .patient-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 4px 10px;
+            background: #0f1428;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 0.6rem;
+        }
+        .pdf-report .patient-row .label {
+            color: #8892b0;
+        }
+        .pdf-report .patient-row .value {
+            font-weight: 600;
+        }
+        .pdf-report .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .pdf-report .two-col .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+            border-bottom: 1px solid #1a2038;
+            font-size: 0.65rem;
+        }
+        .pdf-report .two-col .metric .label {
+            color: #8892b0;
+        }
+        .pdf-report .two-col .metric .value {
+            font-weight: 700;
+            color: #00b4d8;
+        }
+        .pdf-report .vbc-box {
+            background: #0f1428;
+            border-left: 3px solid #6f42c1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+        .pdf-report .vbc-box .title {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #6f42c1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .pdf-report .vbc-box .text {
+            font-size: 0.6rem;
+            margin-top: 2px;
+        }
+        .pdf-report .concordance-box {
+            background: #0f1428;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            border-left: 3px solid #28a745;
+        }
+        .pdf-report .concordance-box.silent {
+            border-left-color: #dc3545;
+        }
+        .pdf-report .concordance-box.psychosocial {
+            border-left-color: #ffc107;
+        }
+        .pdf-report .concordance-box .title {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .pdf-report .concordance-box .text {
+            font-size: 0.6rem;
+            margin-top: 2px;
+        }
+        .pdf-report .concordance-box .detail {
+            font-size: 0.5rem;
+            color: #8892b0;
+            margin-top: 1px;
+        }
+        .pdf-report .caregiver-info {
+            font-size: 0.55rem;
+            color: #8892b0;
+            background: #0f1428;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .pdf-report .caregiver-info .strong {
+            font-weight: 600;
+            color: #f5f5f5;
+        }
+        .pdf-report .veritas-status {
+            font-size: 0.5rem;
+            color: #8892b0;
+            margin-top: 2px;
+        }
+        .pdf-report .icf-section {
+            background: #0f1428;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            font-size: 0.55rem;
+        }
+        .pdf-report .icf-section .title {
+            font-weight: 600;
+            color: #8892b0;
+            text-transform: uppercase;
+            font-size: 0.45rem;
+        }
+        .pdf-report .icf-section .tag {
+            background: #1a2038;
+            padding: 1px 6px;
+            border-radius: 12px;
+            margin: 0 2px;
+            font-size: 0.5rem;
+            display: inline-block;
+        }
+        .pdf-report .care-tips {
+            background: #0f1428;
+            border-left: 3px solid #00b4d8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            font-size: 0.55rem;
+        }
+        .pdf-report .care-tips .title {
+            font-weight: 600;
+            color: #00b4d8;
+            text-transform: uppercase;
+            font-size: 0.45rem;
+        }
+        .pdf-report .care-tips ul {
+            margin: 1px 0 0 14px;
+            padding: 0;
+            list-style-type: disc;
+            color: #f5f5f5;
+            font-size: 0.5rem;
+        }
+        .pdf-report .trend-table {
+            font-size: 0.55rem;
+            margin-top: 4px;
+        }
+        .pdf-report .trend-table .title {
+            font-weight: 600;
+            color: #8892b0;
+            text-transform: uppercase;
+            font-size: 0.45rem;
+            margin-bottom: 2px;
+        }
+        .pdf-report .trend-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.5rem;
+        }
+        .pdf-report .trend-table table th {
+            background: #0f1428;
+            padding: 2px 4px;
+            text-align: left;
+            border-bottom: 1px solid #1a2038;
+            color: #8892b0;
+            font-weight: 600;
+        }
+        .pdf-report .trend-table table td {
+            padding: 2px 4px;
+            border-bottom: 1px solid #1a2038;
+        }
+        .pdf-report .trend-table table .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .pdf-report .trend-table table .badge.high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .pdf-report .trend-table table .badge.moderate {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .pdf-report .trend-table table .badge.low {
+            background: #d4edda;
+            color: #155724;
+        }
+        .pdf-report .footer {
+            margin-top: 6px;
+            padding-top: 4px;
+            border-top: 1px solid #1a2038;
+            text-align: center;
+            font-size: 0.45rem;
+            color: #8892b0;
+        }
+        .pdf-report .footer .domain {
+            color: #00b4d8;
+            font-weight: 600;
+        }
+        .pdf-report .footer .ppd-section {
+            margin-top: 4px;
+            padding: 6px 10px;
+            background: #0f1428;
+            border-radius: 4px;
+            border: 1px solid #1a2038;
+            text-align: left;
+            font-size: 0.5rem;
+        }
+        .pdf-report .footer .ppd-section .ppd-title {
+            font-weight: 700;
+            color: #6f42c1;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .pdf-report .footer .ppd-section .ppd-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1px 0;
+            border-bottom: 1px solid #1a2038;
+        }
+        .pdf-report .footer .ppd-section .ppd-row:last-child {
+            border-bottom: none;
+        }
+        .pdf-report .footer .ppd-section .ppd-label {
+            color: #8892b0;
+        }
+        .pdf-report .footer .ppd-section .ppd-value {
+            font-weight: 600;
+            color: #f5f5f5;
+        }
+        .pdf-report .footer .ip-display {
+            margin-top: 3px;
+            font-size: 0.45rem;
+            color: #8892b0;
+        }
     </style>
 </head>
 <body>
@@ -1291,13 +1576,13 @@
 
                 <div class="caregiver-section" style="margin-top:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> <span data-i18n="kyc_title">KYC · Caregiver Identity</span></span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> <span data-i18n="ppd_title">PPD · Personal Professional Details</span></span>
                         <span style="font-size:0.5rem; color:#8892b0;"><span data-i18n="device">Device</span>: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
                             <label data-i18n="full_name">Full Name</label>
-                            <input id="caregiverName" type="text" placeholder="e.g. Moustafa Mohammed Ali" />
+                            <input id="caregiverName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" />
                         </div>
                         <div class="meta-field">
                             <label data-i18n="license_id">License / ID</label>
@@ -1310,8 +1595,18 @@
                             <input id="issuingAuthority" type="text" placeholder="e.g. Klinik Rosenhof" />
                         </div>
                         <div class="meta-field">
-                            <label data-i18n="encounter_ref">Encounter Reference</label>
-                            <input id="encounterRef" type="text" placeholder="e.g. ENC-2025-0001" />
+                            <label data-i18n="professional_role">Professional Role</label>
+                            <input id="professionalRole" type="text" placeholder="e.g. Physiotherapist" />
+                        </div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-field">
+                            <label data-i18n="institution">Institution / Practice</label>
+                            <input id="institution" type="text" placeholder="e.g. Rosenhof Medical Center" />
+                        </div>
+                        <div class="meta-field">
+                            <label data-i18n="contact">Contact / Email</label>
+                            <input id="contact" type="text" placeholder="e.g. info@klinik-rosenhof.de" />
                         </div>
                     </div>
                 </div>
@@ -1558,12 +1853,14 @@
                 optical_hr: 'Optical HR (rPPG)',
                 hr_press: 'Press "Start HR" and stay still',
                 veritas_pending: 'VERITAS verification pending',
-                kyc_title: 'KYC · Caregiver Identity',
+                ppd_title: 'PPD · Personal Professional Details',
                 device: 'Device',
                 full_name: 'Full Name',
                 license_id: 'License / ID',
                 issuing_authority: 'Issuing Authority',
-                encounter_ref: 'Encounter Reference',
+                professional_role: 'Professional Role',
+                institution: 'Institution / Practice',
+                contact: 'Contact / Email',
                 session_token: 'VERITAS Session Token',
                 generate_token: 'Generate Token',
                 copy: 'Copy',
@@ -1678,12 +1975,14 @@
                 optical_hr: 'Optische HF (rPPG)',
                 hr_press: 'Drücken Sie "HF starten" und bleiben Sie ruhig',
                 veritas_pending: 'VERITAS-Verifizierung ausstehend',
-                kyc_title: 'KYC · Identität des Betreuers',
+                ppd_title: 'PPD · Persönliche Berufliche Details',
                 device: 'Gerät',
                 full_name: 'Vollständiger Name',
                 license_id: 'Lizenz / ID',
                 issuing_authority: 'Ausstellende Behörde',
-                encounter_ref: 'Behandlungsreferenz',
+                professional_role: 'Berufliche Rolle',
+                institution: 'Einrichtung / Praxis',
+                contact: 'Kontakt / E-Mail',
                 session_token: 'VERITAS Sitzungstoken',
                 generate_token: 'Token generieren',
                 copy: 'Kopieren',
@@ -1798,12 +2097,14 @@
                 optical_hr: 'FC óptica (rPPG)',
                 hr_press: 'Presione "Iniciar FC" y manténgase quieto',
                 veritas_pending: 'Verificación VERITAS pendiente',
-                kyc_title: 'KYC · Identidad del Cuidador',
+                ppd_title: 'PPD · Detalles Profesionales Personales',
                 device: 'Dispositivo',
                 full_name: 'Nombre Completo',
                 license_id: 'Licencia / ID',
                 issuing_authority: 'Autoridad Emisora',
-                encounter_ref: 'Referencia de Consulta',
+                professional_role: 'Rol Profesional',
+                institution: 'Institución / Consultorio',
+                contact: 'Contacto / Correo',
                 session_token: 'Token de Sesión VERITAS',
                 generate_token: 'Generar Token',
                 copy: 'Copiar',
@@ -2139,6 +2440,9 @@
         const caregiverName = document.getElementById("caregiverName");
         const caregiverLicense = document.getElementById("caregiverLicense");
         const issuingAuthority = document.getElementById("issuingAuthority");
+        const professionalRole = document.getElementById("professionalRole");
+        const institution = document.getElementById("institution");
+        const contact = document.getElementById("contact");
         const encounterRef = document.getElementById("encounterRef");
         const deviceIdDisplay = document.getElementById("deviceIdDisplay");
 
@@ -2226,6 +2530,9 @@
                 name: caregiverName.value || null,
                 license: caregiverLicense.value || null,
                 authority: issuingAuthority.value || null,
+                role: professionalRole.value || null,
+                institution: institution.value || null,
+                contact: contact.value || null,
                 encounter_ref: encounterRef.value || null,
                 device_id: deviceId,
             };
@@ -2267,6 +2574,9 @@
             data.caregiver_name = cg.name;
             data.caregiver_license = cg.license;
             data.caregiver_authority = cg.authority;
+            data.caregiver_role = cg.role;
+            data.caregiver_institution = cg.institution;
+            data.caregiver_contact = cg.contact;
             data.encounter_ref = cg.encounter_ref;
             data.device_id = cg.device_id;
             data.anchor_liveness = livenessCompleted;
@@ -2291,6 +2601,9 @@
             if (data.caregiver_name) caregiverName.value = data.caregiver_name;
             if (data.caregiver_license) caregiverLicense.value = data.caregiver_license;
             if (data.caregiver_authority) issuingAuthority.value = data.caregiver_authority;
+            if (data.caregiver_role) professionalRole.value = data.caregiver_role;
+            if (data.caregiver_institution) institution.value = data.caregiver_institution;
+            if (data.caregiver_contact) contact.value = data.caregiver_contact;
             if (data.encounter_ref) encounterRef.value = data.encounter_ref;
             if (data.dob) { const dobEl = document.getElementById('dob'); if (dobEl) dobEl.value = data.dob; }
             if (data.insurance_number) { const insEl = document.getElementById('insuranceNumber'); if (insEl) insEl.value = data
@@ -2860,7 +3173,6 @@
                     hrDebugEl.textContent += "\nRaw BPM: " + rawBpm.toFixed(1) + " | Clamped BPM: " + clampedBpm.toFixed(1) +
                         " | Quality: " + (quality * 100).toFixed(1) + "%";
 
-                    // Check if we can generate token after HR is measured
                     checkAndGenerateToken();
                     updateAnchorStatus();
                 } else {
@@ -2930,9 +3242,7 @@
             const hasName = cg.name && cg.name.trim().length > 0;
             const hasLicense = cg.license && cg.license.trim().length > 0;
 
-            // Token can be generated when: liveness done, HR measured, name and license entered
             if (livenessCompleted && lastHREstimate && hasName && hasLicense) {
-                // Only generate once
                 if (!tokenGenerated) {
                     generateToken();
                     tokenGenerated = true;
@@ -2948,7 +3258,6 @@
             }
         }
 
-        // ========== TOKEN GENERATION ==========
         function generateToken() {
             const cg = getCaregiverData();
             const formData = getFormData();
@@ -2975,11 +3284,13 @@
                     device_id: deviceId,
                     human_verified: humanVerified,
                 },
-                kyc: {
+                ppd: {
                     caregiver_name: cg.name,
                     caregiver_license: cg.license,
                     issuing_authority: cg.authority,
-                    encounter_ref: cg.encounter_ref,
+                    professional_role: cg.role,
+                    institution: cg.institution,
+                    contact: cg.contact,
                 },
                 assessment: {
                     functionality_index: index,
@@ -3004,7 +3315,6 @@
             lastGeneratedToken = token;
         }
 
-        // ========== ANCHOR STATUS ==========
         function updateAnchorStatus() {
             const cg = getCaregiverData();
             const hasName = cg.name && cg.name.trim().length > 0;
@@ -3026,9 +3336,8 @@
             if (fullyVerified) {
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ KYC ✓ Human ✓";
+                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ PPD ✓ Human ✓";
                 tokenStatus.textContent = "✅ VERITAS fully verified!";
-                // Update token status in vault if exists
                 updateVaultVerification();
             } else if (anchorComplete) {
                 anchorIcon.className = "status-icon pending";
@@ -3052,11 +3361,9 @@
                 tokenStatus.textContent = "Complete all steps: " + missing.join(", ");
             }
 
-            // Check for token generation
             checkAndGenerateToken();
         }
 
-        // ========== VAULT VERIFICATION UPDATE ==========
         function updateVaultVerification() {
             if (!tokenOutput.value) return;
             const token = tokenOutput.value.trim();
@@ -3156,7 +3463,7 @@
                 renderVault();
 
                 tokenStatus.textContent = '✅ Token VERIFIED successfully!';
-                tokenStatus.textContent += ` | Caregiver: ${payload.kyc?.caregiver_name || 'Unknown'}`;
+                tokenStatus.textContent += ` | Caregiver: ${payload.ppd?.caregiver_name || 'Unknown'}`;
                 if (payload.veritas?.liveness_completed) {
                     tokenStatus.textContent += ` | Liveness: ✓ HR: ${payload.veritas?.hr_bpm || '?'} bpm`;
                 }
@@ -3314,10 +3621,8 @@
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
-                    // Set human verified flag
                     humanVerified = true;
 
-                    // Update token vault
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -3326,7 +3631,6 @@
                         renderVault();
                     }
 
-                    // Update main status
                     if (token === tokenOutput.value.trim()) {
                         anchorIcon.className = "status-icon pass";
                         anchorIcon.textContent = "✅";
@@ -3334,7 +3638,6 @@
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
                     }
 
-                    // Update anchor status
                     updateAnchorStatus();
 
                 } else if (!signatureValid) {
@@ -3377,8 +3680,8 @@
             }
 
             const payload = data.payload;
-            resultCaregiver.textContent = payload.kyc?.caregiver_name || payload.caregiver_name || '—';
-            resultLicense.textContent = payload.kyc?.caregiver_license || payload.caregiver_license || '—';
+            resultCaregiver.textContent = payload.ppd?.caregiver_name || payload.caregiver_name || '—';
+            resultLicense.textContent = payload.ppd?.caregiver_license || payload.caregiver_license || '—';
 
             const anchorData = payload.veritas || payload.anchor || {};
             resultLiveness.textContent = anchorData.liveness_completed ? '✅ Completed' : '❌ Not run';
@@ -3518,7 +3821,7 @@
 
             const dob = latest.dob || document.getElementById('dob')?.value || '1980-01-01';
             const insuranceNumber = latest.insurance_number || document.getElementById('insuranceNumber')?.value ||
-            'INS-123456789';
+                'INS-123456789';
 
             const idx = computeCareIndex(latest);
             const tips = generateCareTips(latest, getGoals());
@@ -3581,6 +3884,7 @@
                     m = parseFloat(enc.mobility) || 0;
                 const f = parseFloat(enc.fatigue) || 0,
                     fn = parseFloat(enc.function) || 0;
+                const badgeClass = i < 40 ? 'high' : i < 65 ? 'moderate' : 'low';
                 trendRows += `
                     <tr>
                         <td>${enc.date}</td>
@@ -3588,7 +3892,7 @@
                         <td>${m}</td>
                         <td>${f}</td>
                         <td>${fn}</td>
-                        <td><span style="display:inline-block;padding:2px 12px;border-radius:30px;font-size:0.7rem;font-weight:700;text-transform:uppercase;${i < 40 ? 'background:#f8d7da;color:#721c24;' : i < 65 ? 'background:#fff3cd;color:#856404;' : 'background:#d4edda;color:#155724;'}">${i}</span></td>
+                        <td><span class="badge ${badgeClass}">${i}</span></td>
                     </tr>
                 `;
             });
@@ -3599,96 +3903,69 @@
             const veritasStatus = isFullyVerified ? '✅ VERIFIED' : '⏳ Pending';
             const veritasIcon = isFullyVerified ? '🛡️' : '⏳';
 
+            // Get PPD details from latest encounter
+            const ppdName = latest.caregiver_name || 'Not provided';
+            const ppdLicense = latest.caregiver_license || 'Not provided';
+            const ppdAuthority = latest.caregiver_authority || 'Not provided';
+            const ppdRole = latest.caregiver_role || 'Not provided';
+            const ppdInstitution = latest.caregiver_institution || 'Not provided';
+            const ppdContact = latest.caregiver_contact || 'Not provided';
+
+            // Get IP address from the page
+            const ipAddress = document.getElementById('ipDisplay')?.textContent || 'Not available';
+
             const reportHTML = `
-                <div style="background:#0b1020; color:#f5f5f5; padding:16px 20px; font-family:'Segoe UI',Roboto,system-ui,sans-serif; max-width:900px; margin:0 auto; font-size:11px;">
-                    <div style="border-bottom:2px solid #005792; padding-bottom:10px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-                        <div style="display:flex; align-items:center; gap:6px;">
-                            <span style="font-size:1.2rem; font-weight:900; color:#00b4d8; line-height:1;">virtual</span>
-                            <span style="font-size:1rem; font-weight:300; color:#8892b0;">caresolution</span>
-                            <span style="font-size:0.7rem; font-weight:700; color:#005792;">.de</span>
+                <div class="pdf-report">
+                    <div class="header">
+                        <div>
+                            <span class="logo">virtual</span><span class="logo-sub">caresolution</span><span class="logo-domain">.de</span>
                         </div>
-                        <div style="text-align:right;">
-                            <div style="font-size:0.8rem; font-weight:700; color:#6f42c1;">VERITAS Report</div>
-                            <div style="font-size:0.55rem; color:#8892b0;">${veritasIcon} ${veritasStatus}</div>
+                        <div>
+                            <div class="report-title">VERITAS Report</div>
+                            <div class="report-status">${veritasIcon} ${veritasStatus}</div>
                         </div>
                     </div>
 
-                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:4px 10px; background:#0f1428; padding:4px 8px; border-radius:6px; margin-bottom:8px; font-size:0.6rem;">
-                        <div><span style="color:#8892b0;">DOB</span> <span style="font-weight:600;">${dob}</span></div>
-                        <div><span style="color:#8892b0;">Insurance</span> <span style="font-weight:600;font-family:monospace;">${insuranceNumber}</span></div>
-                        <div><span style="color:#8892b0;">Encounter</span> <span style="font-weight:600;">${latest.id}</span></div>
-                        <div><span style="color:#8892b0;">Device</span> <span style="font-weight:600;font-family:monospace;font-size:0.5rem;">${latest.device_id || '—'}</span></div>
+                    <div class="patient-row">
+                        <div><span class="label">DOB</span> <span class="value">${dob}</span></div>
+                        <div><span class="label">Insurance</span> <span class="value">${insuranceNumber}</span></div>
+                        <div><span class="label">Encounter</span> <span class="value">${latest.id}</span></div>
+                        <div><span class="label">Device</span> <span class="value" style="font-family:monospace;font-size:0.5rem;">${latest.device_id || '—'}</span></div>
                     </div>
 
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+                    <div class="two-col">
                         <div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">${t('functionality_index')}</span>
-                                <span style="font-weight:700; color:#00b4d8;">${adjustedIndex}</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Trend (5 visits)</span>
-                                <span style="font-weight:700; color:${trend.direction === 'up' ? '#28a745' : trend.direction === 'down' ? '#dc3545' : '#ffc107'};">${trend.direction === 'up' ? '📈 Improving' : trend.direction === 'down' ? '📉 Declining' : '➡️ Stable'} (${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts)</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">${t('goal_pain')} (NRS)</span>
-                                <span style="font-weight:600;">${latest.pain || '—'} / 10</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">${t('goal_mobility')}</span>
-                                <span style="font-weight:600;">${latest.mobility || '—'} / 10</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">${t('goal_energy')}</span>
-                                <span style="font-weight:600;">${latest.fatigue || '—'} / 10</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Global Function</span>
-                                <span style="font-weight:600;">${latest.function || '—'} / 10</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">${t('heart_rate')}</span>
-                                <span style="font-weight:600;">${latest.hr || '—'} bpm</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">SBP/DBP</span>
-                                <span style="font-weight:600;">${latest.sbp || '—'}/${latest.dbp || '—'} mmHg</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">Glucose</span>
-                                <span style="font-weight:600;">${latest.glucose || '—'} mmol/L</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">HbA1c</span>
-                                <span style="font-weight:600;">${latest.hba1c || '—'}%</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">eGFR</span>
-                                <span style="font-weight:600;">${latest.egfr || '—'} mL/min/1.73m²</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid #1a2038; font-size:0.65rem;">
-                                <span style="color:#8892b0;">FEV1</span>
-                                <span style="font-weight:600;">${latest.fev1 || '—'} L</span>
-                            </div>
+                            <div class="metric"><span class="label">${t('functionality_index')}</span><span class="value">${adjustedIndex}</span></div>
+                            <div class="metric"><span class="label">Trend (5 visits)</span><span class="value" style="color:${trend.direction === 'up' ? '#28a745' : trend.direction === 'down' ? '#dc3545' : '#ffc107'};">${trend.direction === 'up' ? '📈 Improving' : trend.direction === 'down' ? '📉 Declining' : '➡️ Stable'} (${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts)</span></div>
+                            <div class="metric"><span class="label">${t('goal_pain')} (NRS)</span><span class="value">${latest.pain || '—'} / 10</span></div>
+                            <div class="metric"><span class="label">${t('goal_mobility')}</span><span class="value">${latest.mobility || '—'} / 10</span></div>
+                            <div class="metric"><span class="label">${t('goal_energy')}</span><span class="value">${latest.fatigue || '—'} / 10</span></div>
+                            <div class="metric"><span class="label">Global Function</span><span class="value">${latest.function || '—'} / 10</span></div>
+                            <div class="metric"><span class="label">${t('heart_rate')}</span><span class="value">${latest.hr || '—'} bpm</span></div>
+                            <div class="metric"><span class="label">SBP/DBP</span><span class="value">${latest.sbp || '—'}/${latest.dbp || '—'} mmHg</span></div>
+                            <div class="metric"><span class="label">Glucose</span><span class="value">${latest.glucose || '—'} mmol/L</span></div>
+                            <div class="metric"><span class="label">HbA1c</span><span class="value">${latest.hba1c || '—'}%</span></div>
+                            <div class="metric"><span class="label">eGFR</span><span class="value">${latest.egfr || '—'} mL/min/1.73m²</span></div>
+                            <div class="metric"><span class="label">FEV1</span><span class="value">${latest.fev1 || '—'} L</span></div>
                         </div>
 
                         <div>
-                            <div style="background:#0f1428; border-left:3px solid #6f42c1; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
-                                <div style="font-size:0.55rem; font-weight:700; color:#6f42c1; text-transform:uppercase; letter-spacing:0.5px;">${t('vbc_tag')}</div>
-                                <div style="font-size:0.6rem; margin-top:2px;">${vbcStatement}</div>
+                            <div class="vbc-box">
+                                <div class="title">${t('vbc_tag')}</div>
+                                <div class="text">${vbcStatement}</div>
                             </div>
 
-                            <div style="background:#0f1428; border-left:3px solid ${concordance.alertType === 'silent' ? '#dc3545' : concordance.alertType === 'psychosocial' ? '#ffc107' : '#28a745'}; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
-                                <div style="font-size:0.55rem; font-weight:700; color:#8892b0; text-transform:uppercase; letter-spacing:0.5px;">Concordance</div>
-                                <div style="font-size:0.6rem; margin-top:2px;">${concordance.alert || '✅ Aligned'}</div>
-                                <div style="font-size:0.5rem; color:#8892b0; margin-top:1px;">Subj: ${concordance.subjectiveScore?.toFixed(0) || '—'} | Obj: ${concordance.objectiveScore?.toFixed(0) || '—'} | Δ: ${concordance.discrepancy?.toFixed(1) || '—'} pts</div>
+                            <div class="concordance-box ${concordance.alertType}">
+                                <div class="title">Concordance</div>
+                                <div class="text">${concordance.alert || '✅ Aligned'}</div>
+                                <div class="detail">Subj: ${concordance.subjectiveScore?.toFixed(0) || '—'} | Obj: ${concordance.objectiveScore?.toFixed(0) || '—'} | Δ: ${concordance.discrepancy?.toFixed(1) || '—'} pts</div>
                             </div>
 
-                            <div style="font-size:0.55rem; color:#8892b0; background:#0f1428; padding:3px 8px; border-radius:4px;">
-                                <span style="font-weight:600; color:#f5f5f5;">${t('caregiver')}:</span> ${latest.caregiver_name || '—'} 
-                                <span style="margin-left:6px; font-weight:600; color:#f5f5f5;">${t('license')}:</span> ${latest.caregiver_license || '—'}
+                            <div class="caregiver-info">
+                                <span class="strong">${t('caregiver')}:</span> ${latest.caregiver_name || '—'} 
+                                <span style="margin-left:6px;" class="strong">${t('license')}:</span> ${latest.caregiver_license || '—'}
                             </div>
-                            <div style="font-size:0.5rem; color:#8892b0; margin-top:2px;">
+                            <div class="veritas-status">
                                 <span>Liveness: ${latest.anchor_liveness ? '✅' : '❌'}</span>
                                 <span style="margin-left:4px;">HR: ${latest.anchor_hr_bpm ? latest.anchor_hr_bpm + ' bpm' : '—'}</span>
                                 <span style="margin-left:4px;">Human Verified: ${latest.human_verified ? '✅' : '❌'}</span>
@@ -3696,36 +3973,46 @@
                         </div>
                     </div>
 
-                    <div style="background:#0f1428; padding:3px 8px; border-radius:4px; margin-bottom:4px; font-size:0.55rem;">
-                        <span style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.45rem;">ICF Domains:</span>
-                        ${icfDomains.slice(0,6).map(d => `<span style="background:#1a2038; padding:1px 6px; border-radius:12px; margin:0 2px; font-size:0.5rem;">${d}</span>`).join('')}
-                        ${icfDomains.length > 6 ? `<span style="color:#8892b0; font-size:0.5rem;">+${icfDomains.length - 6} more</span>` : ''}
+                    <div class="icf-section">
+                        <span class="title">ICF Domains:</span>
+                        ${icfDomains.slice(0,8).map(d => `<span class="tag">${d}</span>`).join('')}
+                        ${icfDomains.length > 8 ? `<span style="color:#8892b0;font-size:0.5rem;">+${icfDomains.length - 8} more</span>` : ''}
                     </div>
 
-                    <div style="background:#0f1428; border-left:3px solid #00b4d8; padding:3px 8px; border-radius:4px; margin-bottom:4px; font-size:0.55rem;">
-                        <span style="font-weight:600; color:#00b4d8; text-transform:uppercase; font-size:0.45rem;">Care Tips:</span>
-                        <ul style="margin:1px 0 0 14px; padding:0; list-style-type:disc; color:#f5f5f5; font-size:0.5rem;">${tipsHtml}</ul>
+                    <div class="care-tips">
+                        <span class="title">Care Tips:</span>
+                        <ul>${tipsHtml}</ul>
                     </div>
 
                     ${last5.length > 0 ? `
-                    <div style="font-size:0.55rem; margin-top:4px;">
-                        <div style="font-weight:600; color:#8892b0; text-transform:uppercase; font-size:0.45rem; margin-bottom:2px;">Recent Trends (last 5)</div>
-                        <table style="width:100%; border-collapse:collapse; font-size:0.5rem;">
-                            <thead><tr style="background:#0f1428;">
-                                <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Date</th>
-                                <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Pain</th>
-                                <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Mob</th>
-                                <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Fat</th>
-                                <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Func</th>
-                                <th style="padding:2px 4px; text-align:left; border-bottom:1px solid #1a2038; color:#8892b0;">Index</th>
+                    <div class="trend-table">
+                        <div class="title">Recent Trends (last 5)</div>
+                        <table>
+                            <thead><tr>
+                                <th>Date</th>
+                                <th>Pain</th>
+                                <th>Mob</th>
+                                <th>Fat</th>
+                                <th>Func</th>
+                                <th>Index</th>
                             </tr></thead>
                             <tbody>${trendRows}</tbody>
                         </table>
                     </div>
                     ` : ''}
 
-                    <div style="margin-top:6px; padding-top:4px; border-top:1px solid #1a2038; text-align:center; font-size:0.45rem; color:#8892b0;">
-                        <span style="color:#00b4d8; font-weight:600;">www.virtualcaresolution.de</span> · VERITAS · Value-Based Care Report · ${new Date().toISOString().split('T')[0]}
+                    <div class="footer">
+                        <div><span class="domain">www.virtualcaresolution.de</span> · VERITAS · Value-Based Care Report · ${new Date().toISOString().split('T')[0]}</div>
+                        <div class="ip-display"><i class="fas fa-globe"></i> IP: ${ipAddress}</div>
+                        <div class="ppd-section">
+                            <div class="ppd-title">📋 PPD · Personal Professional Details</div>
+                            <div class="ppd-row"><span class="ppd-label">Full Name</span><span class="ppd-value">${ppdName}</span></div>
+                            <div class="ppd-row"><span class="ppd-label">License / ID</span><span class="ppd-value">${ppdLicense}</span></div>
+                            <div class="ppd-row"><span class="ppd-label">Issuing Authority</span><span class="ppd-value">${ppdAuthority}</span></div>
+                            <div class="ppd-row"><span class="ppd-label">Professional Role</span><span class="ppd-value">${ppdRole}</span></div>
+                            <div class="ppd-row"><span class="ppd-label">Institution / Practice</span><span class="ppd-value">${ppdInstitution}</span></div>
+                            <div class="ppd-row"><span class="ppd-label">Contact / Email</span><span class="ppd-value">${ppdContact}</span></div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -3803,7 +4090,8 @@
             startHRBtn.addEventListener('click', startHRMonitoring);
             stopHRBtn.addEventListener('click', stopHRMonitoring);
 
-            [caregiverName, caregiverLicense, issuingAuthority].forEach(el => {
+            // PPD input listeners
+            [caregiverName, caregiverLicense, issuingAuthority, professionalRole, institution, contact].forEach(el => {
                 el.addEventListener('input', function() {
                     checkAndGenerateToken();
                     updateAnchorStatus();
@@ -3811,7 +4099,6 @@
             });
 
             generateTokenBtn.addEventListener('click', function() {
-                // Regenerate token if needed
                 tokenGenerated = false;
                 checkAndGenerateToken();
             });

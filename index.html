@@ -1520,7 +1520,6 @@
             background: #6f42c1;
             color: white;
         }
-
         .verifier-password-hint {
             font-size: 0.55rem;
             color: #8892b0;
@@ -1532,7 +1531,6 @@
         .verifier-password-hint.error {
             color: #dc3545;
         }
-        /* Password hint is hidden by default - only shows success/error states */
         .verifier-password-hint:empty {
             display: none;
         }
@@ -1819,7 +1817,7 @@
             </div>
         </footer>
 
-        <!-- VERIFIER MODAL - NO PASSWORD DISPLAYED -->
+        <!-- VERIFIER MODAL -->
         <div class="verifier-modal" id="verifierModal">
             <div class="verifier-modal-content">
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
@@ -1868,12 +1866,10 @@
     <script>
         // ============================================================
         //  COMPLETE VERITAS APPLICATION
-        //  Password is hidden - only known to authorized personnel
+        //  FIXED: Token only shows VERIFIED after human verification
         // ============================================================
 
         // ========== CONSTANTS ==========
-        // This password is NOT displayed anywhere in the UI
-        // It must be communicated securely to authorized verifiers
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
         const TOKEN_KEY_STRING = "local-offline-signature";
         const STORAGE_KEY = 'medfitBravo_encounters';
@@ -1898,12 +1894,12 @@
         let hrTimestamps = [];
         let lastHREstimate = null;
 
-        // VERIFICATION STATE
+        // VERIFICATION STATE - track each step independently
         let verificationState = {
             liveness: false,
             hr: false,
             ppd: false,
-            human: false
+            human: false  // This ONLY becomes true when verifier modal is used
         };
 
         let tokenGenerated = false;
@@ -2049,7 +2045,7 @@
             return ppd.name.trim().length > 0 && ppd.license.trim().length > 0;
         }
 
-        // ========== VERIFICATION STATUS UPDATE ==========
+        // ========== VERIFICATION STATUS UPDATE - FIXED ==========
         function updateVerificationStatus() {
             const ppd = getPPDData();
             const isPPDValid = isPPDComplete();
@@ -2057,6 +2053,7 @@
             verificationState.liveness = livenessCompleted;
             verificationState.hr = lastHREstimate !== null;
             verificationState.ppd = isPPDValid;
+            // human is ONLY set in verifyToken() function - never auto-set
 
             if (statusDetails) {
                 statusDetails.innerHTML = `
@@ -2078,6 +2075,7 @@
             }
 
             const allAnchorSteps = verificationState.liveness && verificationState.hr && verificationState.ppd;
+            // FULLY VERIFIED requires ALL steps including HUMAN
             const fullyVerified = allAnchorSteps && verificationState.human;
 
             if (fullyVerified) {
@@ -2096,6 +2094,10 @@
                 anchorStatusText.textContent = "ANCHOR + PPD complete. Awaiting human verification.";
                 tokenVerificationBadge.className = "verification-status-badge partial";
                 tokenVerificationBadge.textContent = "ANCHOR OK";
+                if (tokenGenerated) {
+                    tokenStatus.textContent = "⏳ Token ready. Complete human verification in Verifier.";
+                    tokenStatus.style.color = "#ffc107";
+                }
             } else {
                 anchorIcon.className = "status-icon pending";
                 anchorIcon.textContent = "⏳";
@@ -2114,8 +2116,6 @@
                 tokenStatus.style.color = "#28a745";
             } else if (allAnchorSteps && tokenGenerated) {
                 generateTokenBtn.disabled = true;
-                tokenStatus.textContent = "✅ Token already generated";
-                tokenStatus.style.color = "#28a745";
             } else {
                 generateTokenBtn.disabled = true;
                 tokenStatus.textContent = "Complete ANCHOR + PPD first";
@@ -3010,7 +3010,7 @@
             lastGeneratedToken = token;
             tokenGenerated = true;
 
-            tokenStatus.textContent = "✅ Token generated successfully!";
+            tokenStatus.textContent = "✅ Token generated!";
             tokenStatus.style.color = "#28a745";
             generateTokenBtn.disabled = true;
             copyTokenBtn.disabled = false;
@@ -3061,13 +3061,13 @@
                 verifierPassword.style.borderColor = '#dc3545';
                 passwordHint.className = 'verifier-password-hint error';
                 passwordHint.textContent = '❌ Incorrect password.';
-                // NO password hint displayed!
                 setTimeout(() => {
                     verifierPassword.style.borderColor = '#262c4a';
                 }, 2000);
             }
         }
 
+        // ========== CRITICAL FIX: verifyToken ONLY sets human = true ==========
         function verifyToken() {
             if (!isUnlocked) {
                 alert('Please unlock the verifier with the password first.');
@@ -3115,8 +3115,10 @@
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
+                    // ===== THIS IS THE ONLY PLACE human IS SET TO TRUE =====
                     verificationState.human = true;
 
+                    // Update token vault
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -3131,6 +3133,7 @@
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
                     }
 
+                    // This updates the main UI to show VERIFIED
                     updateVerificationStatus();
 
                 } else if (!signatureValid) {
@@ -3796,7 +3799,7 @@
             updateVerificationStatus();
             console.log('=== Initialization complete ===');
             console.log('Complete ANCHOR + PPD, click "Generate Token", then use Verifier');
-            console.log('The verifier password is NOT displayed - only authorized personnel know it.');
+            console.log('Status only shows VERIFIED AFTER human verification in the modal.');
         }
 
         if (document.readyState === 'loading') {

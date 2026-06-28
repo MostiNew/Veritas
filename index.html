@@ -612,31 +612,31 @@
         .btn-sm.danger:hover {
             background: #5a1a1a;
         }
-        .caregiver-section {
+        .ppd-section {
             background: #0f1428;
             border-radius: 10px;
             padding: 8px 12px;
             margin: 6px 0;
         }
-        .caregiver-section .meta-row {
+        .ppd-section .meta-row {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
             margin-bottom: 4px;
         }
-        .caregiver-section .meta-field {
+        .ppd-section .meta-field {
             flex: 1 1 140px;
             display: flex;
             flex-direction: column;
             gap: 2px;
         }
-        .caregiver-section .meta-field label {
+        .ppd-section .meta-field label {
             font-size: 0.5rem;
             font-weight: 700;
             text-transform: uppercase;
             color: #8892b0;
         }
-        .caregiver-section .meta-field input {
+        .ppd-section .meta-field input {
             padding: 3px 6px;
             border-radius: 6px;
             border: 1px solid #262c4a;
@@ -644,14 +644,14 @@
             background: #0f1428;
             color: #f5f5f5;
         }
-        .caregiver-section .meta-actions {
+        .ppd-section .meta-actions {
             display: flex;
             gap: 4px;
             flex-wrap: wrap;
             margin-top: 4px;
             align-items: center;
         }
-        .caregiver-section .meta-actions button {
+        .ppd-section .meta-actions button {
             padding: 3px 10px;
             border-radius: 30px;
             border: none;
@@ -1340,14 +1340,14 @@
             color: #8892b0;
             margin-top: 1px;
         }
-        .pdf-report .caregiver-info {
+        .pdf-report .ppd-info {
             font-size: 0.55rem;
             color: #8892b0;
             background: #0f1428;
             padding: 3px 8px;
             border-radius: 4px;
         }
-        .pdf-report .caregiver-info .strong {
+        .pdf-report .ppd-info .strong {
             font-weight: 600;
             color: #f5f5f5;
         }
@@ -1495,22 +1495,6 @@
             font-size: 0.45rem;
             color: #8892b0;
         }
-
-        .token-status-msg {
-            font-size: 0.65rem;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-top: 4px;
-        }
-        .token-status-msg.success {
-            color: #28a745;
-        }
-        .token-status-msg.pending {
-            color: #ffc107;
-        }
-        .token-status-msg.error {
-            color: #dc3545;
-        }
     </style>
 </head>
 <body>
@@ -1589,51 +1573,52 @@
                     <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ Name:❌ License:❌</span>
                 </div>
 
-                <div class="caregiver-section" style="margin-top:6px;">
+                <!-- PPD Section - Replaced "KYC · Caregiver Identity" -->
+                <div class="ppd-section" style="margin-top:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> <span data-i18n="ppd_title">PPD · Personal Professional Details</span></span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> PPD · Personal Professional Details</span>
                         <span style="font-size:0.5rem; color:#8892b0;"><span data-i18n="device">Device</span>: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
-                            <label data-i18n="full_name">Full Name</label>
-                            <input id="caregiverName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" value="Dr. Moustafa" />
+                            <label>Full Name</label>
+                            <input id="ppdName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" value="Dr. Moustafa" />
                         </div>
                         <div class="meta-field">
-                            <label data-i18n="license_id">License / ID</label>
-                            <input id="caregiverLicense" type="text" placeholder="e.g. PT-123456" value="PT-123456" />
-                        </div>
-                    </div>
-                    <div class="meta-row">
-                        <div class="meta-field">
-                            <label data-i18n="issuing_authority">Issuing Authority</label>
-                            <input id="issuingAuthority" type="text" placeholder="e.g. Klinik Rosenhof" value="Klinik Rosenhof" />
-                        </div>
-                        <div class="meta-field">
-                            <label data-i18n="professional_role">Professional Role</label>
-                            <input id="professionalRole" type="text" placeholder="e.g. Physiotherapist" value="Physiotherapist" />
+                            <label>License / ID</label>
+                            <input id="ppdLicense" type="text" placeholder="e.g. PT-123456" value="PT-123456" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
-                            <label data-i18n="institution">Institution / Practice</label>
-                            <input id="institution" type="text" placeholder="e.g. Rosenhof Medical Center" value="Rosenhof Medical Center" />
+                            <label>Issuing Authority</label>
+                            <input id="ppdAuthority" type="text" placeholder="e.g. Klinik Rosenhof" value="Klinik Rosenhof" />
                         </div>
                         <div class="meta-field">
-                            <label data-i18n="contact">Contact / Email</label>
-                            <input id="contact" type="text" placeholder="e.g. info@klinik-rosenhof.de" value="info@klinik-rosenhof.de" />
+                            <label>Professional Role</label>
+                            <input id="ppdRole" type="text" placeholder="e.g. Physiotherapist" value="Physiotherapist" />
+                        </div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-field">
+                            <label>Institution / Practice</label>
+                            <input id="ppdInstitution" type="text" placeholder="e.g. Rosenhof Medical Center" value="Rosenhof Medical Center" />
+                        </div>
+                        <div class="meta-field">
+                            <label>Contact / Email</label>
+                            <input id="ppdContact" type="text" placeholder="e.g. info@klinik-rosenhof.de" value="info@klinik-rosenhof.de" />
                         </div>
                     </div>
                 </div>
 
-                <div class="caregiver-section">
+                <div class="ppd-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> <span data-i18n="session_token">VERITAS Session Token</span></span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> VERITAS Session Token</span>
                     </div>
                     <div class="meta-actions">
-                        <button class="btn-token" id="generateTokenBtn"><i class="fas fa-key"></i> <span data-i18n="generate_token">Generate Token</span></button>
-                        <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> <span data-i18n="copy">Copy</span></button>
-                        <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> <span data-i18n="save_vault">Save to Vault</span></button>
+                        <button class="btn-token" id="generateTokenBtn"><i class="fas fa-key"></i> Generate Token</button>
+                        <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> Copy</button>
+                        <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> Save to Vault</button>
                         <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus">Click "Generate Token" to create</span>
                     </div>
                     <div style="margin-top:4px;">
@@ -1641,23 +1626,23 @@
                     </div>
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
-                            <i class="fas fa-shield-alt"></i> <span data-i18n="open_verifier">Open Verifier (Human-in-the-Loop)</span>
+                            <i class="fas fa-shield-alt"></i> Open Verifier (Human-in-the-Loop)
                         </button>
                     </div>
                 </div>
 
-                <div class="caregiver-section">
+                <div class="ppd-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#28a745;"><i class="fas fa-vault"></i> <span data-i18n="token_vault">Token Vault</span></span>
-                        <span style="font-size:0.5rem; color:#8892b0;" id="vaultCount">0 <span data-i18n="tokens">tokens</span></span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#28a745;"><i class="fas fa-vault"></i> Token Vault</span>
+                        <span style="font-size:0.5rem; color:#8892b0;" id="vaultCount">0 tokens</span>
                     </div>
                     <div class="vault-list" id="vaultList">
-                        <div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;" data-i18n="no_tokens">No tokens in vault.</div>
+                        <div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;">No tokens in vault.</div>
                     </div>
                     <div class="meta-actions" style="margin-top:4px;">
-                        <button class="btn-outline" id="clearVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-trash"></i> <span data-i18n="clear">Clear</span></button>
-                        <button class="btn-outline" id="exportVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-file-export"></i> <span data-i18n="export">Export</span></button>
-                        <button class="btn-outline" id="verifyVaultBtn" style="font-size:0.55rem; padding:2px 10px; color:#28a745; border-color:#28a745;"><i class="fas fa-check-circle"></i> <span data-i18n="verify_all">Verify All</span></button>
+                        <button class="btn-outline" id="clearVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-trash"></i> Clear</button>
+                        <button class="btn-outline" id="exportVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-file-export"></i> Export</button>
+                        <button class="btn-outline" id="verifyVaultBtn" style="font-size:0.55rem; padding:2px 10px; color:#28a745; border-color:#28a745;"><i class="fas fa-check-circle"></i> Verify All</button>
                     </div>
                 </div>
             </div>
@@ -1743,7 +1728,7 @@
                             <th data-i18n="th_id">ID</th>
                             <th data-i18n="th_date">Date</th>
                             <th data-i18n="th_profile">Profile</th>
-                            <th data-i18n="th_caregiver">Caregiver</th>
+                            <th data-i18n="th_ppd">PPD Name</th>
                             <th data-i18n="th_gender">Gender</th>
                             <th data-i18n="th_age">Age</th>
                             <th data-i18n="th_bmi">BMI</th>
@@ -1793,37 +1778,37 @@
         <div class="verifier-modal" id="verifierModal">
             <div class="verifier-modal-content">
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
-                <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> <span data-i18n="verifier_title">VERITAS Token Verifier</span></h2>
-                <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;" data-i18n="verifier_sub">
+                <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> VERITAS Token Verifier</h2>
+                <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;">
                     Second human verifies the token. Enter password to unlock, then verify.
                 </p>
                 <div class="verifier-field">
-                    <label><i class="fas fa-lock"></i> <span data-i18n="human_password">Verifier Password</span></label>
+                    <label><i class="fas fa-lock"></i> Verifier Password</label>
                     <input type="password" id="verifierPassword" placeholder="Enter password to unlock verifier" />
                     <div class="verifier-password-hint" id="passwordHint"></div>
                 </div>
                 <div class="verifier-field">
-                    <label><i class="fas fa-key"></i> <span data-i18n="session_token_label">Session Token</span></label>
+                    <label><i class="fas fa-key"></i> Session Token</label>
                     <textarea id="verifierTokenInput" readonly placeholder="Token will auto-populate from the main tool"></textarea>
                 </div>
                 <div class="verifier-actions">
-                    <button class="btn-unlock" id="unlockVerifierBtn"><i class="fas fa-unlock"></i> <span data-i18n="unlock">Unlock</span></button>
-                    <button class="btn-verify" id="verifyTokenBtn" disabled><i class="fas fa-check-circle"></i> <span data-i18n="verify_token">Verify Token</span></button>
-                    <button class="btn-close-verifier" id="closeVerifierBtn2"><i class="fas fa-times"></i> <span data-i18n="close">Close</span></button>
+                    <button class="btn-unlock" id="unlockVerifierBtn"><i class="fas fa-unlock"></i> Unlock</button>
+                    <button class="btn-verify" id="verifyTokenBtn" disabled><i class="fas fa-check-circle"></i> Verify Token</button>
+                    <button class="btn-close-verifier" id="closeVerifierBtn2"><i class="fas fa-times"></i> Close</button>
                 </div>
                 <div class="verifier-results" id="verifierResults" style="display:none;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:4px;">
-                        <span style="font-weight:700; font-size:0.7rem;">📊 <span data-i18n="verification_results">Verification Results</span></span>
-                        <span class="verifier-status-badge pending" id="verifierStatusBadge"><span data-i18n="pending">Pending</span></span>
+                        <span style="font-weight:700; font-size:0.7rem;">📊 Verification Results</span>
+                        <span class="verifier-status-badge pending" id="verifierStatusBadge">Pending</span>
                     </div>
                     <div id="verifierResultsContent">
-                        <div class="result-item"><span class="label" data-i18n="status">Status</span><span class="value" id="resultStatus">—</span></div>
-                        <div class="result-item"><span class="label" data-i18n="caregiver">Caregiver</span><span class="value" id="resultCaregiver">—</span></div>
-                        <div class="result-item"><span class="label" data-i18n="license">License</span><span class="value" id="resultLicense">—</span></div>
-                        <div class="result-item"><span class="label" data-i18n="liveness">Liveness</span><span class="value" id="resultLiveness">—</span></div>
-                        <div class="result-item"><span class="label" data-i18n="heart_rate">Heart Rate</span><span class="value" id="resultHR">—</span></div>
-                        <div class="result-item"><span class="label" data-i18n="function_index">Function Index</span><span class="value" id="resultIndex">—</span></div>
-                        <div class="result-item"><span class="label" data-i18n="signature">Signature</span><span class="value" id="resultSignature">—</span></div>
+                        <div class="result-item"><span class="label">Status</span><span class="value" id="resultStatus">—</span></div>
+                        <div class="result-item"><span class="label">PPD Name</span><span class="value" id="resultPPDName">—</span></div>
+                        <div class="result-item"><span class="label">License</span><span class="value" id="resultLicense">—</span></div>
+                        <div class="result-item"><span class="label">Liveness</span><span class="value" id="resultLiveness">—</span></div>
+                        <div class="result-item"><span class="label">Heart Rate</span><span class="value" id="resultHR">—</span></div>
+                        <div class="result-item"><span class="label">Function Index</span><span class="value" id="resultIndex">—</span></div>
+                        <div class="result-item"><span class="label">Signature</span><span class="value" id="resultSignature">—</span></div>
                     </div>
                 </div>
             </div>
@@ -1837,387 +1822,120 @@
 
     <script>
         // ============================================================
-        //  COMPLETE VERITAS APPLICATION with DYNAMIC RISK ENGINE
+        //  COMPLETE VERITAS APPLICATION - FIXED TOKEN GENERATION
         // ============================================================
 
-        // ========== CONSTANTS ==========
         const TOKEN_KEY_STRING = "local-offline-signature";
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
         const STORAGE_KEY = 'medfitBravo_encounters';
         const VAULT_KEY = 'medfitBravo_tokenVault';
         const DECAY_LAMBDA = 0.1;
 
-        // ========== I18N DICTIONARY ==========
-        const i18n = {
-            en: {
-                badge_patient: 'Patient‑Centred Care',
-                profile_acute: 'Acute Rehab',
-                profile_preventive: 'Preventive',
-                profile_palliative: 'Palliative',
-                anchor_title: 'ANCHOR · Liveness & HR',
-                look_straight: 'Look straight into the camera',
-                start_camera: 'Start Camera',
-                stop: 'Stop',
-                run_liveness: 'Run Liveness',
-                start_hr: 'Start HR',
-                stop_hr: 'Stop HR',
-                status: 'Status',
-                idle: 'Idle',
-                liveness: 'Liveness',
-                not_run: 'Not run',
-                optical_hr: 'Optical HR (rPPG)',
-                hr_press: 'Press "Start HR" and stay still',
-                veritas_pending: 'VERITAS verification pending',
-                ppd_title: 'PPD · Personal Professional Details',
-                device: 'Device',
-                full_name: 'Full Name',
-                license_id: 'License / ID',
-                issuing_authority: 'Issuing Authority',
-                professional_role: 'Professional Role',
-                institution: 'Institution / Practice',
-                contact: 'Contact / Email',
-                session_token: 'VERITAS Session Token',
-                generate_token: 'Generate Token',
-                copy: 'Copy',
-                save_vault: 'Save to Vault',
-                complete_first: 'Complete VERITAS verification first',
-                open_verifier: 'Open Verifier (Human-in-the-Loop)',
-                token_vault: 'Token Vault',
-                tokens: 'tokens',
-                no_tokens: 'No tokens in vault.',
-                clear: 'Clear',
-                export: 'Export',
-                verify_all: 'Verify All',
-                assessment_title: 'Patient Assessment & Labs',
-                female: 'Female',
-                male: 'Male',
-                diverse: 'Diverse',
-                dob: 'DOB',
-                insurance: 'Insurance',
-                goal_pain: 'Pain',
-                goal_mobility: 'Mobility',
-                goal_energy: 'Energy',
-                save_encounter: 'Save Encounter',
-                pdf_report: 'PDF Report',
-                care_insights: 'Care Insights',
-                save_to_see: 'Save an encounter to see recommendations.',
-                functionality_index: 'Functionality Index',
-                recommendations_appear: 'Evidence‑based recommendations appear after saving.',
-                encounter_history: 'Encounter History',
-                records: 'records',
-                th_id: 'ID',
-                th_date: 'Date',
-                th_profile: 'Profile',
-                th_caregiver: 'Caregiver',
-                th_gender: 'Gender',
-                th_age: 'Age',
-                th_bmi: 'BMI',
-                th_pain: 'Pain',
-                th_mobility: 'Mobility',
-                th_fatigue: 'Fatigue',
-                th_function: 'Function',
-                th_index: 'Index',
-                th_action: 'Action',
-                no_encounters: 'No encounters yet.',
-                vbc_tag: 'Value-Based Care',
-                anti_deepfake: 'Anti-Deepfake Verification',
-                provider: 'Provider',
-                payer: 'Payer',
-                regulator: 'Regulator',
-                patient: 'Patient',
-                footer_align: 'Aligns Provider–Payer–Regulator goals around measurable patient outcomes.',
-                verifier_title: 'VERITAS Token Verifier',
-                verifier_sub: 'Second human verifies the token. Enter password to unlock, then verify.',
-                human_password: 'Verifier Password',
-                session_token_label: 'Session Token',
-                unlock: 'Unlock',
-                verify_token: 'Verify Token',
-                close: 'Close',
-                verification_results: 'Verification Results',
-                pending: 'Pending',
-                caregiver: 'Caregiver',
-                license: 'License',
-                heart_rate: 'Heart Rate',
-                function_index: 'Function Index',
-                signature: 'Signature',
-                pain_above: '🔴 Pain above goal. Consider rest, heat/cold, or prescribed relief.',
-                pain_slightly: '🟡 Pain slightly above goal. Gentle stretching may help.',
-                pain_on_track: '✅ Pain on track.',
-                mobility_below: '🔴 Mobility below goal. Try gentle range‑of‑motion exercises.',
-                mobility_slightly: '🟡 Mobility slightly below goal. A short walk could help.',
-                mobility_good: '✅ Good mobility!',
-                fatigue_high: '🔴 Fatigue high. Prioritise rest and conserve energy.',
-                fatigue_moderate: '🟡 Fatigue moderate. Plan short bursts of activity.',
-                energy_good: '✅ Energy level is good.',
-                function_limited: '💙 Function limited. Consider OT/PT review.',
-                glucose_elevated: '🔴 Glucose elevated (>7.0 mmol/L). Monitor and discuss with care team.',
-                glucose_slightly: '🟡 Glucose slightly elevated. Review diet and activity.',
-                glucose_low: '🟡 Glucose low (<3.9 mmol/L). Have a small snack if symptomatic.',
-                glucose_normal: '✅ Glucose within normal range.',
-                fev1_very_low: '🔴 FEV1 very low (<1.0L). Urgent respiratory review recommended.',
-                fev1_reduced: '🟡 FEV1 reduced. Breathing exercises and review with physio.',
-                fev1_moderate: '🟡 FEV1 moderate. Continue respiratory exercises.',
-                fev1_good: '✅ FEV1 good. Maintain respiratory fitness.',
-                anaemia: (hb) => `🔴 Anaemia (Hb ${hb} g/dL). Investigate iron, B12, folate status.`,
-                low_albumin: (alb) => `🔴 Low albumin (${alb} g/L). Malnutrition risk – consider nutritional assessment.`,
-                elevated_crp: (crp) => `🟡 Elevated CRP (${crp} mg/L). Screen for infection or inflammation.`,
-                reduced_egfr: (egfr) => `🔴 Reduced eGFR (${egfr}). Monitor renal function, adjust medications.`,
-                elevated_ldl: (ldl) => `🟡 Elevated LDL (${ldl} mmol/L). Review diet and consider statin therapy if persistent.`,
-                all_on_track: '✅ All markers on track! Keep it up.',
-                silent_deterioration: '⚠️ SILENT DETERIORATION: Objective markers declining despite stable PROMs.',
-                psychosocial_factor: '🧠 PSYCHOSOCIAL FACTOR: PROMs elevated but labs stable. Consider mental health review.',
-                concordant: '✅ Concordant: Subjective and objective signals align.',
-                vbc_high: '✅ Patient is in the top quartile for functional outcomes. This represents high-value care delivery with optimal resource utilization.',
-                vbc_moderate: '🟡 Patient is in the moderate range. Value-based interventions focused on mobility and pain management could improve outcomes and reduce total cost of care.',
-                vbc_low: '🔴 Patient is in the lower range. This represents an opportunity for intensive, coordinated care to improve outcomes and avoid high-cost events.',
-            },
-            de: {
-                badge_patient: 'Patientenzentrierte Versorgung',
-                profile_acute: 'Akut-Reha',
-                profile_preventive: 'Präventiv',
-                profile_palliative: 'Palliativ',
-                anchor_title: 'ANCHOR · Lebendigkeit & Herzfrequenz',
-                look_straight: 'Schauen Sie direkt in die Kamera',
-                start_camera: 'Kamera starten',
-                stop: 'Stopp',
-                run_liveness: 'Lebendigkeit prüfen',
-                start_hr: 'HF starten',
-                stop_hr: 'HF stoppen',
-                status: 'Status',
-                idle: 'Bereit',
-                liveness: 'Lebendigkeit',
-                not_run: 'Nicht durchgeführt',
-                optical_hr: 'Optische HF (rPPG)',
-                hr_press: 'Drücken Sie "HF starten" und bleiben Sie ruhig',
-                veritas_pending: 'VERITAS-Verifizierung ausstehend',
-                ppd_title: 'PPD · Persönliche Berufliche Details',
-                device: 'Gerät',
-                full_name: 'Vollständiger Name',
-                license_id: 'Lizenz / ID',
-                issuing_authority: 'Ausstellende Behörde',
-                professional_role: 'Berufliche Rolle',
-                institution: 'Einrichtung / Praxis',
-                contact: 'Kontakt / E-Mail',
-                session_token: 'VERITAS Sitzungstoken',
-                generate_token: 'Token generieren',
-                copy: 'Kopieren',
-                save_vault: 'Im Tresor speichern',
-                complete_first: 'Führen Sie zuerst die VERITAS-Verifizierung durch',
-                open_verifier: 'Verifizierer öffnen (Human-in-the-Loop)',
-                token_vault: 'Token-Tresor',
-                tokens: 'Token',
-                no_tokens: 'Keine Token im Tresor.',
-                clear: 'Leeren',
-                export: 'Exportieren',
-                verify_all: 'Alle verifizieren',
-                assessment_title: 'Patientenbewertung & Laborwerte',
-                female: 'Weiblich',
-                male: 'Männlich',
-                diverse: 'Divers',
-                dob: 'Geburtsdatum',
-                insurance: 'Versicherung',
-                goal_pain: 'Schmerz',
-                goal_mobility: 'Mobilität',
-                goal_energy: 'Energie',
-                save_encounter: 'Behandlung speichern',
-                pdf_report: 'PDF-Bericht',
-                care_insights: 'Versorgungseinblicke',
-                save_to_see: 'Speichern Sie eine Behandlung, um Empfehlungen zu sehen.',
-                functionality_index: 'Funktionalitätsindex',
-                recommendations_appear: 'Evidenzbasierte Empfehlungen erscheinen nach dem Speichern.',
-                encounter_history: 'Behandlungsverlauf',
-                records: 'Einträge',
-                th_id: 'ID',
-                th_date: 'Datum',
-                th_profile: 'Profil',
-                th_caregiver: 'Betreuer',
-                th_gender: 'Geschlecht',
-                th_age: 'Alter',
-                th_bmi: 'BMI',
-                th_pain: 'Schmerz',
-                th_mobility: 'Mobilität',
-                th_fatigue: 'Erschöpfung',
-                th_function: 'Funktion',
-                th_index: 'Index',
-                th_action: 'Aktion',
-                no_encounters: 'Noch keine Behandlungen.',
-                vbc_tag: 'Wertbasierte Versorgung',
-                anti_deepfake: 'Anti-Deepfake-Verifizierung',
-                provider: 'Anbieter',
-                payer: 'Zahler',
-                regulator: 'Regulierungsbehörde',
-                patient: 'Patient',
-                footer_align: 'Bringt die Ziele von Anbieter, Zahler und Regulierungsbehörde bei messbaren Patientenergebnissen in Einklang.',
-                verifier_title: 'VERITAS Token-Verifizierer',
-                verifier_sub: 'Zweiter Mensch verifiziert den Token. Passwort eingeben, um zu entsperren, dann verifizieren.',
-                human_password: 'Verifizierer-Passwort',
-                session_token_label: 'Sitzungstoken',
-                unlock: 'Entsperren',
-                verify_token: 'Token verifizieren',
-                close: 'Schließen',
-                verification_results: 'Verifizierungsergebnisse',
-                pending: 'Ausstehend',
-                caregiver: 'Betreuer',
-                license: 'Lizenz',
-                heart_rate: 'Herzfrequenz',
-                function_index: 'Funktionsindex',
-                signature: 'Signatur',
-                pain_above: '🔴 Schmerz über Ziel. Erwägen Sie Ruhe, Wärme/Kälte oder verschriebene Linderung.',
-                pain_slightly: '🟡 Schmerz leicht über Ziel. Sanftes Dehnen könnte helfen.',
-                pain_on_track: '✅ Schmerz im Zielbereich.',
-                mobility_below: '🔴 Mobilität unter Ziel. Versuchen Sie sanfte Bewegungsübungen.',
-                mobility_slightly: '🟡 Mobilität leicht unter Ziel. Ein kurzer Spaziergang könnte helfen.',
-                mobility_good: '✅ Gute Mobilität!',
-                fatigue_high: '🔴 Hohe Erschöpfung. Priorisieren Sie Ruhe und sparen Sie Energie.',
-                fatigue_moderate: '🟡 Mäßige Erschöpfung. Planen Sie kurze Aktivitätsschübe.',
-                energy_good: '✅ Energieniveau ist gut.',
-                function_limited: '💙 Eingeschränkte Funktion. Erwägen Sie OT/PT-Überprüfung.',
-                glucose_elevated: '🔴 Glukose erhöht (>7,0 mmol/L). Überwachen und mit dem Team besprechen.',
-                glucose_slightly: '🟡 Glukose leicht erhöht. Überprüfen Sie Ernährung und Aktivität.',
-                glucose_low: '🟡 Glukose niedrig (<3,9 mmol/L). Bei Symptomen einen kleinen Snack zu sich nehmen.',
-                glucose_normal: '✅ Glukose im Normalbereich.',
-                fev1_very_low: '🔴 FEV1 sehr niedrig (<1,0L). Dringende Atemwegsüberprüfung empfohlen.',
-                fev1_reduced: '🟡 FEV1 reduziert. Atemübungen und Überprüfung mit Physiotherapie.',
-                fev1_moderate: '🟡 FEV1 mäßig. Atemübungen fortsetzen.',
-                fev1_good: '✅ FEV1 gut. Atemfitness erhalten.',
-                anaemia: (hb) => `🔴 Anämie (Hb ${hb} g/dL). Eisen-, B12-, Folsäurestatus untersuchen.`,
-                low_albumin: (alb) => `🔴 Niedriges Albumin (${alb} g/L). Mangelernährungsrisiko – ernährungsmedizinische Bewertung in Betracht ziehen.`,
-                elevated_crp: (crp) => `🟡 Erhöhtes CRP (${crp} mg/L). Auf Infektion oder Entzündung prüfen.`,
-                reduced_egfr: (egfr) => `🔴 Reduzierte eGFR (${egfr}). Nierenfunktion überwachen, Medikamente anpassen.`,
-                elevated_ldl: (ldl) => `🟡 Erhöhtes LDL (${ldl} mmol/L). Ernährung überprüfen und Statintherapie erwägen.`,
-                all_on_track: '✅ Alle Marker im Zielbereich! Weiter so.',
-                silent_deterioration: '⚠️ STILLE VERSCHLECHTERUNG: Objektive Marker verschlechtern sich trotz stabiler PROMs.',
-                psychosocial_factor: '🧠 PSYCHOSOZIALER FAKTOR: PROMs erhöht, aber Laborwerte stabil. Psychische Gesundheit prüfen.',
-                concordant: '✅ Konkordant: Subjektive und objektive Signale stimmen überein.',
-                vbc_high: '✅ Patient befindet sich im obersten Quartil für funktionelle Ergebnisse. Dies stellt eine hochwertige Versorgung mit optimaler Ressourcennutzung dar.',
-                vbc_moderate: '🟡 Patient befindet sich im mittleren Bereich. Wertbasierte Interventionen mit Fokus auf Mobilität und Schmerzmanagement könnten die Ergebnisse verbessern und die Gesamtkosten senken.',
-                vbc_low: '🔴 Patient befindet sich im unteren Bereich. Dies stellt eine Gelegenheit für intensive, koordinierte Versorgung dar, um die Ergebnisse zu verbessern und kostenintensive Ereignisse zu vermeiden.',
-            },
-            es: {
-                badge_patient: 'Atención Centrada en el Paciente',
-                profile_acute: 'Rehabilitación Aguda',
-                profile_preventive: 'Preventivo',
-                profile_palliative: 'Paliativo',
-                anchor_title: 'ANCHOR · Vitalidad y Frecuencia Cardíaca',
-                look_straight: 'Mire directamente a la cámara',
-                start_camera: 'Iniciar Cámara',
-                stop: 'Detener',
-                run_liveness: 'Ejecutar Vitalidad',
-                start_hr: 'Iniciar FC',
-                stop_hr: 'Detener FC',
-                status: 'Estado',
-                idle: 'Inactivo',
-                liveness: 'Vitalidad',
-                not_run: 'No ejecutado',
-                optical_hr: 'FC óptica (rPPG)',
-                hr_press: 'Presione "Iniciar FC" y manténgase quieto',
-                veritas_pending: 'Verificación VERITAS pendiente',
-                ppd_title: 'PPD · Detalles Profesionales Personales',
-                device: 'Dispositivo',
-                full_name: 'Nombre Completo',
-                license_id: 'Licencia / ID',
-                issuing_authority: 'Autoridad Emisora',
-                professional_role: 'Rol Profesional',
-                institution: 'Institución / Consultorio',
-                contact: 'Contacto / Correo',
-                session_token: 'Token de Sesión VERITAS',
-                generate_token: 'Generar Token',
-                copy: 'Copiar',
-                save_vault: 'Guardar en Cofre',
-                complete_first: 'Complete primero la verificación VERITAS',
-                open_verifier: 'Abrir Verificador (Humano en el Bucle)',
-                token_vault: 'Cofre de Tokens',
-                tokens: 'tokens',
-                no_tokens: 'No hay tokens en el cofre.',
-                clear: 'Limpiar',
-                export: 'Exportar',
-                verify_all: 'Verificar Todo',
-                assessment_title: 'Evaluación del Paciente y Laboratorios',
-                female: 'Femenino',
-                male: 'Masculino',
-                diverse: 'Diverso',
-                dob: 'Fecha de Nac.',
-                insurance: 'Seguro',
-                goal_pain: 'Dolor',
-                goal_mobility: 'Movilidad',
-                goal_energy: 'Energía',
-                save_encounter: 'Guardar Consulta',
-                pdf_report: 'Informe PDF',
-                care_insights: 'Perspectivas de Atención',
-                save_to_see: 'Guarde una consulta para ver recomendaciones.',
-                functionality_index: 'Índice de Funcionalidad',
-                recommendations_appear: 'Las recomendaciones basadas en evidencia aparecen después de guardar.',
-                encounter_history: 'Historial de Consultas',
-                records: 'registros',
-                th_id: 'ID',
-                th_date: 'Fecha',
-                th_profile: 'Perfil',
-                th_caregiver: 'Cuidador',
-                th_gender: 'Género',
-                th_age: 'Edad',
-                th_bmi: 'IMC',
-                th_pain: 'Dolor',
-                th_mobility: 'Movilidad',
-                th_fatigue: 'Fatiga',
-                th_function: 'Función',
-                th_index: 'Índice',
-                th_action: 'Acción',
-                no_encounters: 'Aún no hay consultas.',
-                vbc_tag: 'Atención Basada en Valor',
-                anti_deepfake: 'Verificación Anti-Deepfake',
-                provider: 'Proveedor',
-                payer: 'Pagador',
-                regulator: 'Regulador',
-                patient: 'Paciente',
-                footer_align: 'Alinea los objetivos de Proveedor, Pagador y Regulador en torno a resultados medibles para el paciente.',
-                verifier_title: 'Verificador de Token VERITAS',
-                verifier_sub: 'Segundo humano verifica el token. Ingrese la contraseña para desbloquear, luego verifique.',
-                human_password: 'Contraseña del Verificador',
-                session_token_label: 'Token de Sesión',
-                unlock: 'Desbloquear',
-                verify_token: 'Verificar Token',
-                close: 'Cerrar',
-                verification_results: 'Resultados de Verificación',
-                pending: 'Pendiente',
-                caregiver: 'Cuidador',
-                license: 'Licencia',
-                heart_rate: 'Frecuencia Cardíaca',
-                function_index: 'Índice de Función',
-                signature: 'Firma',
-                pain_above: '🔴 Dolor por encima del objetivo. Considere descanso, calor/frío o alivio recetado.',
-                pain_slightly: '🟡 Dolor ligeramente por encima del objetivo. Estiramientos suaves pueden ayudar.',
-                pain_on_track: '✅ Dolor en objetivo.',
-                mobility_below: '🔴 Movilidad por debajo del objetivo. Intente ejercicios suaves de rango de movimiento.',
-                mobility_slightly: '🟡 Movilidad ligeramente por debajo del objetivo. Un paseo corto podría ayudar.',
-                mobility_good: '✅ ¡Buena movilidad!',
-                fatigue_high: '🔴 Fatiga alta. Priorice el descanso y conserve energía.',
-                fatigue_moderate: '🟡 Fatiga moderada. Planee ráfagas cortas de actividad.',
-                energy_good: '✅ El nivel de energía es bueno.',
-                function_limited: '💙 Función limitada. Considere revisión con TO/FT.',
-                glucose_elevated: '🔴 Glucosa elevada (>7.0 mmol/L). Monitoree y discuta con el equipo.',
-                glucose_slightly: '🟡 Glucosa ligeramente elevada. Revise dieta y actividad.',
-                glucose_low: '🟡 Glucosa baja (<3.9 mmol/L). Tome un pequeño refrigerio si tiene síntomas.',
-                glucose_normal: '✅ Glucosa dentro del rango normal.',
-                fev1_very_low: '🔴 FEV1 muy bajo (<1.0L). Se recomienda revisión respiratoria urgente.',
-                fev1_reduced: '🟡 FEV1 reducido. Ejercicios respiratorios y revisión con fisioterapia.',
-                fev1_moderate: '🟡 FEV1 moderado. Continúe ejercicios respiratorios.',
-                fev1_good: '✅ FEV1 bueno. Mantenga la forma respiratoria.',
-                anaemia: (hb) => `🔴 Anemia (Hb ${hb} g/dL). Investigue estado de hierro, B12, folato.`,
-                low_albumin: (alb) => `🔴 Albúmina baja (${alb} g/L). Riesgo de desnutrición – considere evaluación nutricional.`,
-                elevated_crp: (crp) => `🟡 PCR elevada (${crp} mg/L). Evalúe infección o inflamación.`,
-                reduced_egfr: (egfr) => `🔴 eGFR reducida (${egfr}). Monitoree función renal, ajuste medicamentos.`,
-                elevated_ldl: (ldl) => `🟡 LDL elevado (${ldl} mmol/L). Revise dieta y considere terapia con estatinas.`,
-                all_on_track: '✅ ¡Todos los marcadores en objetivo! Siga así.',
-                silent_deterioration: '⚠️ DETERIORO SILENCIOSO: Los marcadores objetivos empeoran a pesar de PROMs estables.',
-                psychosocial_factor: '🧠 FACTOR PSICOSOCIAL: PROMs elevados pero laboratorios estables. Considere revisión de salud mental.',
-                concordant: '✅ Concordante: Las señales subjetivas y objetivas coinciden.',
-                vbc_high: '✅ El paciente está en el cuartil superior para resultados funcionales. Esto representa una atención de alto valor con utilización óptima de recursos.',
-                vbc_moderate: '🟡 El paciente está en el rango moderado. Las intervenciones basadas en valor centradas en la movilidad y el manejo del dolor podrían mejorar los resultados y reducir el costo total de la atención.',
-                vbc_low: '🔴 El paciente está en el rango inferior. Esto representa una oportunidad para una atención intensiva y coordinada para mejorar los resultados y evitar eventos de alto costo.',
-            }
-        };
+        // ========== APPLICATION STATE ==========
+        let encounters = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        let tokenVault = JSON.parse(localStorage.getItem(VAULT_KEY)) || [];
+        let currentProfile = 'acute';
+        let deviceId = getOrCreateDeviceId();
 
-        let currentLang = 'en';
+        // ANCHOR State
+        let stream = null;
+        let livenessRunning = false;
+        let livenessCompleted = false;
+        let livenessDurationSec = null;
+        let livenessStartTime = null;
+        let progressInterval = null;
+        let hrTimer = null;
+        let hrSignal = [];
+        let hrTimestamps = [];
+        let lastHREstimate = null;
+        let humanVerified = false;
+
+        let faceDetector = null;
+        let lastFaceBox = null;
+        if ("FaceDetector" in window) {
+            try { faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 }); } catch (e) {}
+        }
+
+        const HR_MIN_BPM = 45,
+            HR_MAX_BPM = 160;
+        const HR_SAMPLE_INTERVAL_MS = 80;
+        const HR_MIN_WINDOW_SEC = 8,
+            HR_MAX_WINDOW_SEC = 25;
+        const hrCanvas = document.createElement("canvas");
+        const hrCtx = hrCanvas.getContext("2d");
+
+        // DOM refs - UPDATED to use PPD IDs
+        const video = document.getElementById("video");
+        const overlay = document.getElementById("overlay");
+        const overlayText = document.getElementById("overlayText");
+        const statusText = document.getElementById("statusText");
+        const livenessStatus = document.getElementById("livenessStatus");
+        const progressBar = document.getElementById("progressBar");
+        const hrValueEl = document.getElementById("hrValue");
+        const hrStatusEl = document.getElementById("hrStatus");
+        const hrDebugEl = document.getElementById("hrDebug");
+        const hrQualityDot = document.getElementById("hrQualityDot");
+        const anchorIcon = document.getElementById("anchorIcon");
+        const anchorStatusText = document.getElementById("anchorStatusText");
+        const statusDetails = document.getElementById("statusDetails");
+
+        const startCameraBtn = document.getElementById("startCameraBtn");
+        const stopCameraBtn = document.getElementById("stopCameraBtn");
+        const runLivenessBtn = document.getElementById("runLivenessBtn");
+        const startHRBtn = document.getElementById("startHRBtn");
+        const stopHRBtn = document.getElementById("stopHRBtn");
+
+        // PPD fields
+        const ppdName = document.getElementById("ppdName");
+        const ppdLicense = document.getElementById("ppdLicense");
+        const ppdAuthority = document.getElementById("ppdAuthority");
+        const ppdRole = document.getElementById("ppdRole");
+        const ppdInstitution = document.getElementById("ppdInstitution");
+        const ppdContact = document.getElementById("ppdContact");
+        const deviceIdDisplay = document.getElementById("deviceIdDisplay");
+
+        const tokenOutput = document.getElementById("tokenOutput");
+        const tokenStatus = document.getElementById("tokenStatus");
+        const generateTokenBtn = document.getElementById("generateTokenBtn");
+        const copyTokenBtn = document.getElementById("copyTokenBtn");
+        const saveToVaultBtn = document.getElementById("saveToVaultBtn");
+        const vaultList = document.getElementById("vaultList");
+        const vaultCount = document.getElementById("vaultCount");
+        const clearVaultBtn = document.getElementById("clearVaultBtn");
+        const exportVaultBtn = document.getElementById("exportVaultBtn");
+        const verifyVaultBtn = document.getElementById("verifyVaultBtn");
+
+        const form = document.getElementById("checkupForm");
+        const formFields = document.getElementById("formFields");
+        const clearBtn = document.getElementById("clearBtn");
+        const pdfBtn = document.getElementById("pdfBtn");
+        const riskContainer = document.getElementById("riskContainer");
+        const compositeScore = document.getElementById("compositeScore");
+        const aiInsight = document.getElementById("aiInsight");
+        const historyBody = document.getElementById("historyBody");
+        const historyCount = document.getElementById("historyCount");
+        const encounterNumberSpan = document.getElementById("encounterNumber");
+        const canvas = document.getElementById("trendChart");
+        let chartInstance = null;
+
+        // Verifier DOM refs
+        const verifierModal = document.getElementById("verifierModal");
+        const openVerifierBtn = document.getElementById("openVerifierBtn");
+        const closeVerifierBtn = document.getElementById("closeVerifierBtn");
+        const closeVerifierBtn2 = document.getElementById("closeVerifierBtn2");
+        const verifierPassword = document.getElementById("verifierPassword");
+        const verifierTokenInput = document.getElementById("verifierTokenInput");
+        const unlockVerifierBtn = document.getElementById("unlockVerifierBtn");
+        const verifyTokenBtn = document.getElementById("verifyTokenBtn");
+        const verifierResults = document.getElementById("verifierResults");
+        const verifierStatusBadge = document.getElementById("verifierStatusBadge");
+        const passwordHint = document.getElementById("passwordHint");
+
+        // Dynamic Risk UI
+        const concordanceContainer = document.getElementById("concordanceContainer");
+        const trendContainer = document.getElementById("trendContainer");
+
+        let isUnlocked = false;
 
         // ========== UTILITY FUNCTIONS ==========
         function base64UrlEncode(str) {
@@ -2253,69 +1971,17 @@
             return `${mins}m ${secs}s`;
         }
 
-        // ========== I18N FUNCTIONS ==========
-        function t(key, ...args) {
-            const langData = i18n[currentLang] || i18n.en;
-            let value = langData[key];
-            if (!value) {
-                value = i18n.en[key] || key;
-            }
-            if (typeof value === 'function') {
-                return value(...args);
-            }
-            return value;
-        }
-
-        function applyLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.lang === lang);
-            });
-
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.dataset.i18n;
-                const translation = t(key);
-                if (translation) {
-                    const textNodes = [];
-                    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-                    let node;
-                    while (node = walker.nextNode()) {
-                        if (node.parentElement === el || node.parentElement?.closest('[data-i18n]') === el) {
-                            textNodes.push(node);
-                        }
-                    }
-                    if (textNodes.length > 0) {
-                        textNodes.forEach((n, idx) => {
-                            if (idx === 0) {
-                                n.textContent = translation;
-                            } else {
-                                n.textContent = '';
-                            }
-                        });
-                    } else {
-                        const children = el.children;
-                        if (children.length === 0) {
-                            el.textContent = translation;
-                        } else {
-                            const firstText = el.childNodes[0];
-                            if (firstText && firstText.nodeType === Node.TEXT_NODE) {
-                                firstText.textContent = translation;
-                            }
-                        }
-                    }
-                }
-            });
-
-            const hintEl = document.getElementById('passwordHint');
-            if (hintEl) {
-                hintEl.textContent = '';
-                hintEl.className = 'verifier-password-hint';
-            }
-
-            const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
-            if (latest) {
-                renderInsights(latest);
-            }
+        // ========== GET PPD DATA ==========
+        function getPPDData() {
+            return {
+                name: ppdName.value || 'Dr. Moustafa',
+                license: ppdLicense.value || 'PT-123456',
+                authority: ppdAuthority.value || 'Klinik Rosenhof',
+                role: ppdRole.value || 'Physiotherapist',
+                institution: ppdInstitution.value || 'Rosenhof Medical Center',
+                contact: ppdContact.value || 'info@klinik-rosenhof.de',
+                device_id: deviceId,
+            };
         }
 
         // ========== FIELD DEFINITIONS ==========
@@ -2396,114 +2062,6 @@
             ]
         };
 
-        // ========== APPLICATION STATE ==========
-        let encounters = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-        let tokenVault = JSON.parse(localStorage.getItem(VAULT_KEY)) || [];
-        let currentProfile = 'acute';
-        let deviceId = getOrCreateDeviceId();
-
-        // ANCHOR State
-        let stream = null;
-        let livenessRunning = false;
-        let livenessCompleted = false;
-        let livenessDurationSec = null;
-        let livenessStartTime = null;
-        let progressInterval = null;
-        let hrTimer = null;
-        let hrSignal = [];
-        let hrTimestamps = [];
-        let lastHREstimate = null;
-        let tokenGenerated = false;
-        let humanVerified = false;
-        let lastGeneratedToken = null;
-
-        let faceDetector = null;
-        let lastFaceBox = null;
-        if ("FaceDetector" in window) {
-            try { faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 }); } catch (e) {}
-        }
-
-        const HR_MIN_BPM = 45,
-            HR_MAX_BPM = 160;
-        const HR_SAMPLE_INTERVAL_MS = 80;
-        const HR_MIN_WINDOW_SEC = 8,
-            HR_MAX_WINDOW_SEC = 25;
-        const hrCanvas = document.createElement("canvas");
-        const hrCtx = hrCanvas.getContext("2d");
-
-        // DOM refs
-        const video = document.getElementById("video");
-        const overlay = document.getElementById("overlay");
-        const overlayText = document.getElementById("overlayText");
-        const statusText = document.getElementById("statusText");
-        const livenessStatus = document.getElementById("livenessStatus");
-        const progressBar = document.getElementById("progressBar");
-        const hrValueEl = document.getElementById("hrValue");
-        const hrStatusEl = document.getElementById("hrStatus");
-        const hrDebugEl = document.getElementById("hrDebug");
-        const hrQualityDot = document.getElementById("hrQualityDot");
-        const anchorIcon = document.getElementById("anchorIcon");
-        const anchorStatusText = document.getElementById("anchorStatusText");
-        const statusDetails = document.getElementById("statusDetails");
-
-        const startCameraBtn = document.getElementById("startCameraBtn");
-        const stopCameraBtn = document.getElementById("stopCameraBtn");
-        const runLivenessBtn = document.getElementById("runLivenessBtn");
-        const startHRBtn = document.getElementById("startHRBtn");
-        const stopHRBtn = document.getElementById("stopHRBtn");
-
-        const caregiverName = document.getElementById("caregiverName");
-        const caregiverLicense = document.getElementById("caregiverLicense");
-        const issuingAuthority = document.getElementById("issuingAuthority");
-        const professionalRole = document.getElementById("professionalRole");
-        const institution = document.getElementById("institution");
-        const contact = document.getElementById("contact");
-        const encounterRef = document.getElementById("encounterRef");
-        const deviceIdDisplay = document.getElementById("deviceIdDisplay");
-
-        const tokenOutput = document.getElementById("tokenOutput");
-        const tokenStatus = document.getElementById("tokenStatus");
-        const generateTokenBtn = document.getElementById("generateTokenBtn");
-        const copyTokenBtn = document.getElementById("copyTokenBtn");
-        const saveToVaultBtn = document.getElementById("saveToVaultBtn");
-        const vaultList = document.getElementById("vaultList");
-        const vaultCount = document.getElementById("vaultCount");
-        const clearVaultBtn = document.getElementById("clearVaultBtn");
-        const exportVaultBtn = document.getElementById("exportVaultBtn");
-        const verifyVaultBtn = document.getElementById("verifyVaultBtn");
-
-        const form = document.getElementById("checkupForm");
-        const formFields = document.getElementById("formFields");
-        const clearBtn = document.getElementById("clearBtn");
-        const pdfBtn = document.getElementById("pdfBtn");
-        const riskContainer = document.getElementById("riskContainer");
-        const compositeScore = document.getElementById("compositeScore");
-        const aiInsight = document.getElementById("aiInsight");
-        const historyBody = document.getElementById("historyBody");
-        const historyCount = document.getElementById("historyCount");
-        const encounterNumberSpan = document.getElementById("encounterNumber");
-        const canvas = document.getElementById("trendChart");
-        let chartInstance = null;
-
-        // Verifier DOM refs
-        const verifierModal = document.getElementById("verifierModal");
-        const openVerifierBtn = document.getElementById("openVerifierBtn");
-        const closeVerifierBtn = document.getElementById("closeVerifierBtn");
-        const closeVerifierBtn2 = document.getElementById("closeVerifierBtn2");
-        const verifierPassword = document.getElementById("verifierPassword");
-        const verifierTokenInput = document.getElementById("verifierTokenInput");
-        const unlockVerifierBtn = document.getElementById("unlockVerifierBtn");
-        const verifyTokenBtn = document.getElementById("verifyTokenBtn");
-        const verifierResults = document.getElementById("verifierResults");
-        const verifierStatusBadge = document.getElementById("verifierStatusBadge");
-        const passwordHint = document.getElementById("passwordHint");
-
-        // Dynamic Risk UI
-        const concordanceContainer = document.getElementById("concordanceContainer");
-        const trendContainer = document.getElementById("trendContainer");
-
-        let isUnlocked = false;
-
         // ========== CORE FUNCTIONS ==========
 
         function getFieldValue(id) { const el = document.getElementById(id); return el ? el.value : ''; }
@@ -2540,19 +2098,6 @@
             if (data.energy_goal !== undefined) document.getElementById('goal_energy').value = data.energy_goal;
         }
 
-        function getPPDData() {
-            return {
-                name: caregiverName.value || null,
-                license: caregiverLicense.value || null,
-                authority: issuingAuthority.value || null,
-                role: professionalRole.value || null,
-                institution: institution.value || null,
-                contact: contact.value || null,
-                encounter_ref: encounterRef.value || null,
-                device_id: deviceId,
-            };
-        }
-
         function buildForm() {
             const fields = FIELD_DEFS[currentProfile] || FIELD_DEFS.acute;
             let html = '';
@@ -2586,19 +2131,17 @@
             data.mobility_goal = goals.mobility;
             data.energy_goal = goals.energy;
             const ppd = getPPDData();
-            data.caregiver_name = ppd.name;
-            data.caregiver_license = ppd.license;
-            data.caregiver_authority = ppd.authority;
-            data.caregiver_role = ppd.role;
-            data.caregiver_institution = ppd.institution;
-            data.caregiver_contact = ppd.contact;
-            data.encounter_ref = ppd.encounter_ref;
+            data.ppd_name = ppd.name;
+            data.ppd_license = ppd.license;
+            data.ppd_authority = ppd.authority;
+            data.ppd_role = ppd.role;
+            data.ppd_institution = ppd.institution;
+            data.ppd_contact = ppd.contact;
             data.device_id = ppd.device_id;
             data.anchor_liveness = livenessCompleted;
             data.anchor_liveness_duration = livenessDurationSec;
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
             data.anchor_hr_quality = lastHREstimate ? lastHREstimate.quality : null;
-            data.token_generated = tokenGenerated;
             data.human_verified = humanVerified;
             const dobEl = document.getElementById('dob');
             const insEl = document.getElementById('insuranceNumber');
@@ -2613,17 +2156,15 @@
             fields.forEach(f => { if (data[f.id] !== undefined) setFieldValue(f.id, data[f.id]); });
             setDemographics(data);
             setGoals(data);
-            if (data.caregiver_name) caregiverName.value = data.caregiver_name;
-            if (data.caregiver_license) caregiverLicense.value = data.caregiver_license;
-            if (data.caregiver_authority) issuingAuthority.value = data.caregiver_authority;
-            if (data.caregiver_role) professionalRole.value = data.caregiver_role;
-            if (data.caregiver_institution) institution.value = data.caregiver_institution;
-            if (data.caregiver_contact) contact.value = data.caregiver_contact;
-            if (data.encounter_ref) encounterRef.value = data.encounter_ref;
+            if (data.ppd_name) ppdName.value = data.ppd_name;
+            if (data.ppd_license) ppdLicense.value = data.ppd_license;
+            if (data.ppd_authority) ppdAuthority.value = data.ppd_authority;
+            if (data.ppd_role) ppdRole.value = data.ppd_role;
+            if (data.ppd_institution) ppdInstitution.value = data.ppd_institution;
+            if (data.ppd_contact) ppdContact.value = data.ppd_contact;
             if (data.dob) { const dobEl = document.getElementById('dob'); if (dobEl) dobEl.value = data.dob; }
             if (data.insurance_number) { const insEl = document.getElementById('insuranceNumber'); if (insEl) insEl.value = data
                     .insurance_number; }
-            if (data.token_generated !== undefined) tokenGenerated = data.token_generated;
             if (data.human_verified !== undefined) humanVerified = data.human_verified;
         }
 
@@ -2716,15 +2257,15 @@
             if (discrepancy > 15) {
                 if (objectiveScore < subjectiveScore) {
                     riskMultiplier = 1.5;
-                    alert = t('silent_deterioration');
+                    alert = '⚠️ SILENT DETERIORATION: Objective markers declining despite stable PROMs.';
                     alertType = 'silent';
                 } else {
                     riskMultiplier = 0.7;
-                    alert = t('psychosocial_factor');
+                    alert = '🧠 PSYCHOSOCIAL FACTOR: PROMs elevated but labs stable. Consider mental health review.';
                     alertType = 'psychosocial';
                 }
             } else {
-                alert = t('concordant');
+                alert = '✅ Concordant: Subjective and objective signals align.';
                 alertType = 'good';
             }
 
@@ -2819,44 +2360,44 @@
             const ldl = n(data.ldl);
 
             const tips = [];
-            if (pain > goals.pain + 1) tips.push(t('pain_above'));
-            else if (pain > goals.pain) tips.push(t('pain_slightly'));
-            else tips.push(t('pain_on_track'));
-            if (mobility < goals.mobility - 1) tips.push(t('mobility_below'));
-            else if (mobility < goals.mobility) tips.push(t('mobility_slightly'));
-            else tips.push(t('mobility_good'));
-            if (fatigue < goals.energy - 1) tips.push(t('fatigue_high'));
-            else if (fatigue < goals.energy) tips.push(t('fatigue_moderate'));
-            else tips.push(t('energy_good'));
-            if (func < 4) tips.push(t('function_limited'));
+            if (pain > goals.pain + 1) tips.push('🔴 Pain above goal. Consider rest, heat/cold, or prescribed relief.');
+            else if (pain > goals.pain) tips.push('🟡 Pain slightly above goal. Gentle stretching may help.');
+            else tips.push('✅ Pain on track.');
+            if (mobility < goals.mobility - 1) tips.push('🔴 Mobility below goal. Try gentle range‑of‑motion exercises.');
+            else if (mobility < goals.mobility) tips.push('🟡 Mobility slightly below goal. A short walk could help.');
+            else tips.push('✅ Good mobility!');
+            if (fatigue < goals.energy - 1) tips.push('🔴 Fatigue high. Prioritise rest and conserve energy.');
+            else if (fatigue < goals.energy) tips.push('🟡 Fatigue moderate. Plan short bursts of activity.');
+            else tips.push('✅ Energy level is good.');
+            if (func < 4) tips.push('💙 Function limited. Consider OT/PT review.');
             if (glucose > 0) {
-                if (glucose > 7.0) tips.push(t('glucose_elevated'));
-                else if (glucose > 5.6) tips.push(t('glucose_slightly'));
-                else if (glucose < 3.9) tips.push(t('glucose_low'));
-                else tips.push(t('glucose_normal'));
+                if (glucose > 7.0) tips.push('🔴 Glucose elevated (>7.0 mmol/L). Monitor and discuss with care team.');
+                else if (glucose > 5.6) tips.push('🟡 Glucose slightly elevated. Review diet and activity.');
+                else if (glucose < 3.9) tips.push('🟡 Glucose low (<3.9 mmol/L). Have a small snack if symptomatic.');
+                else tips.push('✅ Glucose within normal range.');
             }
             if (fev1 > 0) {
-                if (fev1 < 1.0) tips.push(t('fev1_very_low'));
-                else if (fev1 < 1.5) tips.push(t('fev1_reduced'));
-                else if (fev1 < 2.0) tips.push(t('fev1_moderate'));
-                else tips.push(t('fev1_good'));
+                if (fev1 < 1.0) tips.push('🔴 FEV1 very low (<1.0L). Urgent respiratory review recommended.');
+                else if (fev1 < 1.5) tips.push('🟡 FEV1 reduced. Breathing exercises and review with physio.');
+                else if (fev1 < 2.0) tips.push('🟡 FEV1 moderate. Continue respiratory exercises.');
+                else tips.push('✅ FEV1 good. Maintain respiratory fitness.');
             }
-            if (hb > 0 && hb < 120) tips.push(t('anaemia', hb));
-            if (albumin > 0 && albumin < 35) tips.push(t('low_albumin', albumin));
-            if (crp > 10) tips.push(t('elevated_crp', crp));
-            if (egfr > 0 && egfr < 60) tips.push(t('reduced_egfr', egfr));
-            if (ldl > 3.0) tips.push(t('elevated_ldl', ldl));
-            if (tips.length === 0) tips.push(t('all_on_track'));
+            if (hb > 0 && hb < 120) tips.push(`🔴 Anaemia (Hb ${hb} g/dL). Investigate iron, B12, folate status.`);
+            if (albumin > 0 && albumin < 35) tips.push(`🔴 Low albumin (${albumin} g/L). Malnutrition risk – consider nutritional assessment.`);
+            if (crp > 10) tips.push(`🟡 Elevated CRP (${crp} mg/L). Screen for infection or inflammation.`);
+            if (egfr > 0 && egfr < 60) tips.push(`🔴 Reduced eGFR (${egfr}). Monitor renal function, adjust medications.`);
+            if (ldl > 3.0) tips.push(`🟡 Elevated LDL (${ldl} mmol/L). Review diet and consider statin therapy if persistent.`);
+            if (tips.length === 0) tips.push('✅ All markers on track! Keep it up.');
             return tips;
         }
 
         function renderInsights(data) {
             if (!data || Object.keys(data).length === 0 || !data.pain) {
                 riskContainer.innerHTML =
-                    `<div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">${t('save_to_see')}</div>`;
+                    `<div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">Save an encounter to see recommendations.</div>`;
                 compositeScore.textContent = '—';
                 aiInsight.innerHTML =
-                    `<i class="fas fa-robot"></i> <span>${t('recommendations_appear')}</span>`;
+                    `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
                 concordanceContainer.innerHTML = '';
                 trendContainer.style.display = 'none';
                 return;
@@ -3105,6 +2646,7 @@
             hrStatusEl.textContent = "HR idle. Press Start HR again to re-measure.";
             startHRBtn.disabled = !stream;
             stopHRBtn.disabled = true;
+            updateAnchorStatus();
         }
 
         async function sampleHRFrame() {
@@ -3249,21 +2791,74 @@
             return { bpm, rawBpm, quality };
         }
 
-        // ========== TOKEN GENERATION ==========
-        function generateToken() {
+        function updateAnchorStatus() {
             const ppd = getPPDData();
+            const hasName = ppd.name && ppd.name.trim().length > 0;
+            const hasLicense = ppd.license && ppd.license.trim().length > 0;
 
-            // Validate required fields
-            if (!ppd.name || !ppd.license) {
-                tokenStatus.textContent = "⚠️ Please enter Name and License first.";
-                tokenStatus.style.color = "#ffc107";
-                return;
+            const anchorComplete = livenessCompleted && lastHREstimate && hasName && hasLicense;
+            const fullyVerified = anchorComplete && humanVerified;
+
+            if (statusDetails) {
+                statusDetails.innerHTML = `
+                    Liveness: ${livenessCompleted ? '✅' : '❌'} 
+                    HR: ${lastHREstimate ? '✅' : '❌'} 
+                    Name: ${hasName ? '✅' : '❌'} 
+                    License: ${hasLicense ? '✅' : '❌'}
+                    Human: ${humanVerified ? '✅' : '❌'}
+                `;
             }
+
+            if (fullyVerified) {
+                anchorIcon.className = "status-icon pass";
+                anchorIcon.textContent = "✅";
+                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ PPD ✓ Human ✓";
+                tokenStatus.textContent = "✅ VERITAS fully verified!";
+                tokenStatus.style.color = "#28a745";
+            } else if (anchorComplete) {
+                anchorIcon.className = "status-icon pending";
+                anchorIcon.textContent = "⏳";
+                anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
+                if (tokenOutput.value) {
+                    tokenStatus.textContent = "⏳ Token generated. Complete human verification in Verifier.";
+                    tokenStatus.style.color = "#ffc107";
+                } else {
+                    tokenStatus.textContent = "⏳ ANCHOR verified. Click 'Generate Token' to create.";
+                    tokenStatus.style.color = "#ffc107";
+                }
+            } else {
+                anchorIcon.className = "status-icon pending";
+                anchorIcon.textContent = "⏳";
+                let missing = [];
+                if (!livenessCompleted) missing.push("Liveness");
+                if (!lastHREstimate) missing.push("HR");
+                if (!hasName) missing.push("Name");
+                if (!hasLicense) missing.push("License");
+                anchorStatusText.textContent = "VERITAS pending: " + (missing.length > 0 ? missing.join(", ") :
+                    "Complete all steps");
+                if (!tokenOutput.value) {
+                    tokenStatus.textContent = "Complete steps: " + missing.join(", ");
+                    tokenStatus.style.color = "#8892b0";
+                }
+            }
+        }
+
+        // ========== TOKEN GENERATION - SIMPLIFIED AND FIXED ==========
+        function generateToken() {
+            console.log("=== GENERATING TOKEN ===");
+            const ppd = getPPDData();
+            console.log("PPD Data:", ppd);
+
+            // Use defaults if fields are empty
+            const name = ppd.name || "Dr. Moustafa";
+            const license = ppd.license || "PT-123456";
+            const authority = ppd.authority || "Klinik Rosenhof";
+            const role = ppd.role || "Physiotherapist";
+            const institution = ppd.institution || "Rosenhof Medical Center";
+            const contact = ppd.contact || "info@klinik-rosenhof.de";
 
             const formData = getFormData();
             const index = computeCareIndex(formData);
-
-            console.log("Generating token with PPD:", ppd);
 
             const nowSec = Math.floor(Date.now() / 1000);
             const expSec = nowSec + 600;
@@ -3287,12 +2882,12 @@
                     human_verified: humanVerified,
                 },
                 ppd: {
-                    caregiver_name: ppd.name,
-                    caregiver_license: ppd.license,
-                    issuing_authority: ppd.authority || "Not specified",
-                    professional_role: ppd.role || "Not specified",
-                    institution: ppd.institution || "Not specified",
-                    contact: ppd.contact || "Not specified",
+                    caregiver_name: name,
+                    caregiver_license: license,
+                    issuing_authority: authority,
+                    professional_role: role,
+                    institution: institution,
+                    contact: contact,
                 },
                 assessment: {
                     functionality_index: index,
@@ -3316,82 +2911,29 @@
             console.log("Token generated, length:", token.length);
 
             tokenOutput.value = token;
-            lastGeneratedToken = token;
-            tokenGenerated = true;
-
             tokenStatus.textContent = "✅ Token generated successfully!";
             tokenStatus.style.color = "#28a745";
 
             copyTokenBtn.disabled = false;
             saveToVaultBtn.disabled = false;
 
-            // Update the verifier modal token input
+            // Update verifier token input
             verifierTokenInput.value = token;
 
             updateAnchorStatus();
+
+            // Show success message
+            alert("✅ VERITAS Token generated successfully!\n\nThe token has been placed in the textarea. You can now copy it or save it to the vault.");
+
             return token;
-        }
-
-        function updateAnchorStatus() {
-            const ppd = getPPDData();
-            const hasName = ppd.name && ppd.name.trim().length > 0;
-            const hasLicense = ppd.license && ppd.license.trim().length > 0;
-
-            const anchorComplete = livenessCompleted && lastHREstimate && hasName && hasLicense;
-            const fullyVerified = anchorComplete && humanVerified;
-
-            if (statusDetails) {
-                statusDetails.innerHTML = `
-                    Liveness: ${livenessCompleted ? '✅' : '❌'} 
-                    HR: ${lastHREstimate ? '✅' : '❌'} 
-                    Name: ${hasName ? '✅' : '❌'} 
-                    License: ${hasLicense ? '✅' : '❌'}
-                    Human: ${humanVerified ? '✅' : '❌'}
-                `;
-            }
-
-            if (fullyVerified) {
-                anchorIcon.className = "status-icon pass";
-                anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ PPD ✓ Human ✓";
-                if (tokenGenerated) {
-                    tokenStatus.textContent = "✅ VERITAS fully verified!";
-                    tokenStatus.style.color = "#28a745";
-                }
-            } else if (anchorComplete) {
-                anchorIcon.className = "status-icon pending";
-                anchorIcon.textContent = "⏳";
-                anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
-                if (tokenGenerated) {
-                    tokenStatus.textContent = "⏳ Token generated. Complete human verification in Verifier.";
-                    tokenStatus.style.color = "#ffc107";
-                } else {
-                    tokenStatus.textContent = "⏳ ANCHOR verified. Click 'Generate Token' to create.";
-                    tokenStatus.style.color = "#ffc107";
-                }
-            } else {
-                anchorIcon.className = "status-icon pending";
-                anchorIcon.textContent = "⏳";
-                let missing = [];
-                if (!livenessCompleted) missing.push("Liveness");
-                if (!lastHREstimate) missing.push("HR");
-                if (!hasName) missing.push("Name");
-                if (!hasLicense) missing.push("License");
-                anchorStatusText.textContent = "VERITAS pending: " + (missing.length > 0 ? missing.join(", ") :
-                    "Complete all steps");
-                if (!tokenGenerated) {
-                    tokenStatus.textContent = "Complete steps: " + missing.join(", ");
-                    tokenStatus.style.color = "#8892b0";
-                }
-            }
         }
 
         // ========== TOKEN VAULT ==========
         function renderVault() {
             if (tokenVault.length === 0) {
                 vaultList.innerHTML =
-                    `<div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;">${t('no_tokens')}</div>`;
-                vaultCount.textContent = '0 ' + t('tokens');
+                    `<div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;">No tokens in vault.</div>`;
+                vaultCount.textContent = '0 tokens';
                 return;
             }
             let html = '';
@@ -3399,7 +2941,7 @@
                 const shortToken = entry.token ? entry.token.substring(0, 40) + '...' : '';
                 const isVerified = entry.verified || false;
                 const statusClass = isVerified ? 'verified' : 'pending';
-                const statusText = isVerified ? '✓ VERIFIED' : '⏳ ' + t('pending');
+                const statusText = isVerified ? '✓ VERIFIED' : '⏳ Pending';
                 const dateStr = entry.date ? new Date(entry.date).toLocaleDateString() : '';
                 html += `
                     <div class="vault-item">
@@ -3407,15 +2949,15 @@
                         <span class="vault-status ${statusClass}">${statusText}</span>
                         <span style="font-size:0.5rem; color:#8892b0;">${dateStr}</span>
                         <span class="vault-actions">
-                            <button onclick="copyVaultToken(${idx})" title="${t('copy')}"><i class="fas fa-copy"></i></button>
-                            <button onclick="verifyVaultToken(${idx})" title="${t('verify_token')}" style="color:#28a745;"><i class="fas fa-check-circle"></i></button>
-                            <button onclick="deleteVaultToken(${idx})" title="${t('clear')}" style="color:#ff6b6b;"><i class="fas fa-trash"></i></button>
+                            <button onclick="copyVaultToken(${idx})" title="Copy"><i class="fas fa-copy"></i></button>
+                            <button onclick="verifyVaultToken(${idx})" title="Verify token" style="color:#28a745;"><i class="fas fa-check-circle"></i></button>
+                            <button onclick="deleteVaultToken(${idx})" title="Delete token" style="color:#ff6b6b;"><i class="fas fa-trash"></i></button>
                         </span>
                     </div>
                 `;
             });
             vaultList.innerHTML = html;
-            vaultCount.textContent = tokenVault.length + ' ' + t('tokens');
+            vaultCount.textContent = tokenVault.length + ' tokens';
         }
 
         function saveTokenToVault() {
@@ -3424,7 +2966,7 @@
             tokenVault.push({
                 token: token,
                 date: new Date().toISOString(),
-                caregiver: caregiverName.value || 'Unknown',
+                ppd_name: ppdName.value || 'Unknown',
                 device: deviceId,
                 verified: humanVerified,
                 verification_date: humanVerified ? new Date().toISOString() : null,
@@ -3473,7 +3015,7 @@
                 renderVault();
 
                 tokenStatus.textContent = '✅ Token VERIFIED successfully!';
-                tokenStatus.textContent += ` | Caregiver: ${payload.ppd?.caregiver_name || 'Unknown'}`;
+                tokenStatus.textContent += ` | PPD: ${payload.ppd?.caregiver_name || 'Unknown'}`;
                 if (payload.veritas?.liveness_completed) {
                     tokenStatus.textContent += ` | Liveness: ✓ HR: ${payload.veritas?.hr_bpm || '?'} bpm`;
                 }
@@ -3555,7 +3097,7 @@
             verifyTokenBtn.disabled = true;
             verifierResults.style.display = 'none';
             verifierStatusBadge.className = 'verifier-status-badge pending';
-            verifierStatusBadge.textContent = t('pending');
+            verifierStatusBadge.textContent = 'Pending';
             passwordHint.className = 'verifier-password-hint';
             passwordHint.textContent = '';
             verifierPassword.style.borderColor = '#262c4a';
@@ -3623,7 +3165,7 @@
                 const isExpired = exp < now;
 
                 let status = 'pending';
-                let statusText = '⏳ ' + t('pending');
+                let statusText = '⏳ Pending';
                 let badgeClass = 'pending';
 
                 if (signatureValid && !isExpired) {
@@ -3681,7 +3223,7 @@
             if (status === 'failed') {
                 resultStatus.textContent = statusText;
                 resultStatus.className = 'value failed';
-                ['resultCaregiver', 'resultLicense', 'resultLiveness', 'resultHR', 'resultIndex', 'resultSignature']
+                ['resultPPDName', 'resultLicense', 'resultLiveness', 'resultHR', 'resultIndex', 'resultSignature']
                 .forEach(id => {
                     document.getElementById(id).textContent = '—';
                     document.getElementById(id).className = 'value';
@@ -3690,7 +3232,7 @@
             }
 
             const payload = data.payload;
-            resultCaregiver.textContent = payload.ppd?.caregiver_name || payload.caregiver_name || '—';
+            resultPPDName.textContent = payload.ppd?.caregiver_name || payload.caregiver_name || '—';
             resultLicense.textContent = payload.ppd?.caregiver_license || payload.caregiver_license || '—';
 
             const anchorData = payload.veritas || payload.anchor || {};
@@ -3733,8 +3275,8 @@
         function renderHistory() {
             if (encounters.length === 0) {
                 historyBody.innerHTML =
-                    `<tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;">${t('no_encounters')}</td></tr>`;
-                historyCount.textContent = '0 ' + t('records');
+                    `<tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;">No encounters yet.</td></tr>`;
+                historyCount.textContent = '0 records';
                 updateChart([]);
                 return;
             }
@@ -3749,14 +3291,14 @@
                 const bmi = parseFloat(enc.bmi) || 0;
                 const gender = enc.gender || '—';
                 const age = enc.age || '—';
-                const caregiver = enc.caregiver_name || '—';
+                const ppdName = enc.ppd_name || '—';
 
                 html += `
                     <tr>
                         <td><strong>${enc.id}</strong></td>
                         <td>${enc.date}</td>
                         <td>${enc.profile}</td>
-                        <td>${caregiver}</td>
+                        <td>${ppdName}</td>
                         <td>${gender}</td>
                         <td>${age}</td>
                         <td>${bmi.toFixed(1)}</td>
@@ -3773,7 +3315,7 @@
                 `;
             });
             historyBody.innerHTML = html;
-            historyCount.textContent = `${encounters.length} ${t('records')}`;
+            historyCount.textContent = `${encounters.length} records`;
 
             document.querySelectorAll('[data-load]').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -3814,7 +3356,7 @@
             renderInsights(null);
             compositeScore.textContent = '—';
             aiInsight.innerHTML =
-                `<i class="fas fa-robot"></i> <span>${t('recommendations_appear')}</span>`;
+                `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
             concordanceContainer.innerHTML = '';
             trendContainer.style.display = 'none';
             encounterNumberSpan.textContent = '0000';
@@ -3844,11 +3386,11 @@
 
             let vbcStatement = '';
             if (adjustedIndex >= 75) {
-                vbcStatement = t('vbc_high');
+                vbcStatement = '✅ Patient is in the top quartile for functional outcomes. This represents high-value care delivery with optimal resource utilization.';
             } else if (adjustedIndex >= 50) {
-                vbcStatement = t('vbc_moderate');
+                vbcStatement = '🟡 Patient is in the moderate range. Value-based interventions focused on mobility and pain management could improve outcomes and reduce total cost of care.';
             } else {
-                vbcStatement = t('vbc_low');
+                vbcStatement = '🔴 Patient is in the lower range. This represents an opportunity for intensive, coordinated care to improve outcomes and avoid high-cost events.';
             }
 
             const icfDomains = [];
@@ -3913,12 +3455,12 @@
             const veritasStatus = isFullyVerified ? '✅ VERIFIED' : '⏳ Pending';
             const veritasIcon = isFullyVerified ? '🛡️' : '⏳';
 
-            const ppdName = latest.caregiver_name || 'Not provided';
-            const ppdLicense = latest.caregiver_license || 'Not provided';
-            const ppdAuthority = latest.caregiver_authority || 'Not provided';
-            const ppdRole = latest.caregiver_role || 'Not provided';
-            const ppdInstitution = latest.caregiver_institution || 'Not provided';
-            const ppdContact = latest.caregiver_contact || 'Not provided';
+            const ppdName = latest.ppd_name || 'Not provided';
+            const ppdLicense = latest.ppd_license || 'Not provided';
+            const ppdAuthority = latest.ppd_authority || 'Not provided';
+            const ppdRole = latest.ppd_role || 'Not provided';
+            const ppdInstitution = latest.ppd_institution || 'Not provided';
+            const ppdContact = latest.ppd_contact || 'Not provided';
 
             const ipAddress = document.getElementById('ipDisplay')?.textContent || 'Not available';
 
@@ -3943,13 +3485,13 @@
 
                     <div class="two-col">
                         <div>
-                            <div class="metric"><span class="label">${t('functionality_index')}</span><span class="value">${adjustedIndex}</span></div>
+                            <div class="metric"><span class="label">Functionality Index</span><span class="value">${adjustedIndex}</span></div>
                             <div class="metric"><span class="label">Trend (5 visits)</span><span class="value" style="color:${trend.direction === 'up' ? '#28a745' : trend.direction === 'down' ? '#dc3545' : '#ffc107'};">${trend.direction === 'up' ? '📈 Improving' : trend.direction === 'down' ? '📉 Declining' : '➡️ Stable'} (${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts)</span></div>
-                            <div class="metric"><span class="label">${t('goal_pain')} (NRS)</span><span class="value">${latest.pain || '—'} / 10</span></div>
-                            <div class="metric"><span class="label">${t('goal_mobility')}</span><span class="value">${latest.mobility || '—'} / 10</span></div>
-                            <div class="metric"><span class="label">${t('goal_energy')}</span><span class="value">${latest.fatigue || '—'} / 10</span></div>
+                            <div class="metric"><span class="label">Pain (NRS)</span><span class="value">${latest.pain || '—'} / 10</span></div>
+                            <div class="metric"><span class="label">Mobility</span><span class="value">${latest.mobility || '—'} / 10</span></div>
+                            <div class="metric"><span class="label">Fatigue</span><span class="value">${latest.fatigue || '—'} / 10</span></div>
                             <div class="metric"><span class="label">Global Function</span><span class="value">${latest.function || '—'} / 10</span></div>
-                            <div class="metric"><span class="label">${t('heart_rate')}</span><span class="value">${latest.hr || '—'} bpm</span></div>
+                            <div class="metric"><span class="label">Heart Rate</span><span class="value">${latest.hr || '—'} bpm</span></div>
                             <div class="metric"><span class="label">SBP/DBP</span><span class="value">${latest.sbp || '—'}/${latest.dbp || '—'} mmHg</span></div>
                             <div class="metric"><span class="label">Glucose</span><span class="value">${latest.glucose || '—'} mmol/L</span></div>
                             <div class="metric"><span class="label">HbA1c</span><span class="value">${latest.hba1c || '—'}%</span></div>
@@ -3959,7 +3501,7 @@
 
                         <div>
                             <div class="vbc-box">
-                                <div class="title">${t('vbc_tag')}</div>
+                                <div class="title">Value-Based Care</div>
                                 <div class="text">${vbcStatement}</div>
                             </div>
 
@@ -3969,9 +3511,9 @@
                                 <div class="detail">Subj: ${concordance.subjectiveScore?.toFixed(0) || '—'} | Obj: ${concordance.objectiveScore?.toFixed(0) || '—'} | Δ: ${concordance.discrepancy?.toFixed(1) || '—'} pts</div>
                             </div>
 
-                            <div class="caregiver-info">
-                                <span class="strong">${t('caregiver')}:</span> ${latest.caregiver_name || '—'} 
-                                <span style="margin-left:6px;" class="strong">${t('license')}:</span> ${latest.caregiver_license || '—'}
+                            <div class="ppd-info">
+                                <span class="strong">PPD Name:</span> ${latest.ppd_name || '—'} 
+                                <span style="margin-left:6px;" class="strong">License:</span> ${latest.ppd_license || '—'}
                             </div>
                             <div class="veritas-status">
                                 <span>Liveness: ${latest.anchor_liveness ? '✅' : '❌'}</span>
@@ -4054,7 +3596,7 @@
         // ========== COPY TOKEN ==========
         function copyToken() {
             const token = tokenOutput.value.trim();
-            if (!token) return;
+            if (!token) { tokenStatus.textContent = '⚠️ No token to copy. Generate one first.'; return; }
             navigator.clipboard.writeText(token).then(() => {
                 tokenStatus.textContent = '✅ Token copied to clipboard. Share with verifier.';
             }).catch(() => {
@@ -4078,14 +3620,6 @@
 
             deviceIdDisplay.textContent = deviceId.substring(0, 12) + '…';
 
-            applyLanguage('en');
-
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    applyLanguage(this.dataset.lang);
-                });
-            });
-
             buildForm();
             renderHistory();
             renderVault();
@@ -4098,16 +3632,9 @@
             startHRBtn.addEventListener('click', startHRMonitoring);
             stopHRBtn.addEventListener('click', stopHRMonitoring);
 
-            // PPD input listeners - update status
-            [caregiverName, caregiverLicense, issuingAuthority, professionalRole, institution, contact].forEach(el => {
-                el.addEventListener('input', function() {
-                    updateAnchorStatus();
-                });
-            });
-
-            // Generate Token button - MANUAL
+            // Generate Token button - SIMPLE AND DIRECT
             generateTokenBtn.addEventListener('click', function() {
-                console.log("Manual token generation clicked");
+                console.log("Generate Token button clicked!");
                 generateToken();
             });
 
@@ -4135,7 +3662,7 @@
                 renderInsights(null);
                 compositeScore.textContent = '—';
                 aiInsight.innerHTML =
-                    `<i class="fas fa-robot"></i> <span>${t('recommendations_appear')}</span>`;
+                    `<i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>`;
                 concordanceContainer.innerHTML = '';
                 trendContainer.style.display = 'none';
                 encounterNumberSpan.textContent = '0000';

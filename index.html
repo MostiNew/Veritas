@@ -1212,7 +1212,6 @@
             }
         }
 
-        /* PDF specific styles */
         .pdf-report {
             background: #0b1020;
             color: #f5f5f5;
@@ -1622,7 +1621,7 @@
                         <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus"><span data-i18n="complete_first">Complete VERITAS verification first</span></span>
                     </div>
                     <div style="margin-top:4px;">
-                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + KYC"></textarea>
+                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + PPD"></textarea>
                     </div>
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
@@ -2525,7 +2524,7 @@
             if (data.energy_goal !== undefined) document.getElementById('goal_energy').value = data.energy_goal;
         }
 
-        function getCaregiverData() {
+        function getPPDData() {
             return {
                 name: caregiverName.value || null,
                 license: caregiverLicense.value || null,
@@ -2570,15 +2569,15 @@
             data.pain_goal = goals.pain;
             data.mobility_goal = goals.mobility;
             data.energy_goal = goals.energy;
-            const cg = getCaregiverData();
-            data.caregiver_name = cg.name;
-            data.caregiver_license = cg.license;
-            data.caregiver_authority = cg.authority;
-            data.caregiver_role = cg.role;
-            data.caregiver_institution = cg.institution;
-            data.caregiver_contact = cg.contact;
-            data.encounter_ref = cg.encounter_ref;
-            data.device_id = cg.device_id;
+            const ppd = getPPDData();
+            data.caregiver_name = ppd.name;
+            data.caregiver_license = ppd.license;
+            data.caregiver_authority = ppd.authority;
+            data.caregiver_role = ppd.role;
+            data.caregiver_institution = ppd.institution;
+            data.caregiver_contact = ppd.contact;
+            data.encounter_ref = ppd.encounter_ref;
+            data.device_id = ppd.device_id;
             data.anchor_liveness = livenessCompleted;
             data.anchor_liveness_duration = livenessDurationSec;
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
@@ -3238,19 +3237,32 @@
 
         // ========== TOKEN GENERATION (AUTO) ==========
         function checkAndGenerateToken() {
-            const cg = getCaregiverData();
-            const hasName = cg.name && cg.name.trim().length > 0;
-            const hasLicense = cg.license && cg.license.trim().length > 0;
+            const ppd = getPPDData();
+            const hasName = ppd.name && ppd.name.trim().length > 0;
+            const hasLicense = ppd.license && ppd.license.trim().length > 0;
+
+            console.log("Checking token generation:", {
+                liveness: livenessCompleted,
+                hr: !!lastHREstimate,
+                name: hasName,
+                license: hasLicense,
+                tokenGenerated: tokenGenerated
+            });
 
             if (livenessCompleted && lastHREstimate && hasName && hasLicense) {
                 if (!tokenGenerated) {
+                    console.log("Generating token...");
                     generateToken();
                     tokenGenerated = true;
                     tokenStatus.textContent = "✅ VERITAS token generated. Waiting for human verification.";
+                    generateTokenBtn.disabled = false;
+                    copyTokenBtn.disabled = false;
+                    saveToVaultBtn.disabled = false;
+                } else {
+                    generateTokenBtn.disabled = false;
+                    copyTokenBtn.disabled = false;
+                    saveToVaultBtn.disabled = false;
                 }
-                generateTokenBtn.disabled = false;
-                copyTokenBtn.disabled = false;
-                saveToVaultBtn.disabled = false;
             } else {
                 generateTokenBtn.disabled = true;
                 copyTokenBtn.disabled = true;
@@ -3259,9 +3271,11 @@
         }
 
         function generateToken() {
-            const cg = getCaregiverData();
+            const ppd = getPPDData();
             const formData = getFormData();
             const index = computeCareIndex(formData);
+
+            console.log("Generating token with PPD:", ppd);
 
             const nowSec = Math.floor(Date.now() / 1000);
             const expSec = nowSec + 600;
@@ -3285,12 +3299,12 @@
                     human_verified: humanVerified,
                 },
                 ppd: {
-                    caregiver_name: cg.name,
-                    caregiver_license: cg.license,
-                    issuing_authority: cg.authority,
-                    professional_role: cg.role,
-                    institution: cg.institution,
-                    contact: cg.contact,
+                    caregiver_name: ppd.name,
+                    caregiver_license: ppd.license,
+                    issuing_authority: ppd.authority,
+                    professional_role: ppd.role,
+                    institution: ppd.institution,
+                    contact: ppd.contact,
                 },
                 assessment: {
                     functionality_index: index,
@@ -3311,14 +3325,15 @@
             const signature = base64UrlEncode(TOKEN_KEY_STRING);
 
             const token = encodedHeader + "." + encodedPayload + "." + signature;
+            console.log("Token generated, length:", token.length);
             tokenOutput.value = token;
             lastGeneratedToken = token;
         }
 
         function updateAnchorStatus() {
-            const cg = getCaregiverData();
-            const hasName = cg.name && cg.name.trim().length > 0;
-            const hasLicense = cg.license && cg.license.trim().length > 0;
+            const ppd = getPPDData();
+            const hasName = ppd.name && ppd.name.trim().length > 0;
+            const hasLicense = ppd.license && ppd.license.trim().length > 0;
 
             const anchorComplete = livenessCompleted && lastHREstimate && hasName && hasLicense;
             const fullyVerified = anchorComplete && humanVerified;
@@ -3903,7 +3918,6 @@
             const veritasStatus = isFullyVerified ? '✅ VERIFIED' : '⏳ Pending';
             const veritasIcon = isFullyVerified ? '🛡️' : '⏳';
 
-            // Get PPD details from latest encounter
             const ppdName = latest.caregiver_name || 'Not provided';
             const ppdLicense = latest.caregiver_license || 'Not provided';
             const ppdAuthority = latest.caregiver_authority || 'Not provided';
@@ -3911,7 +3925,6 @@
             const ppdInstitution = latest.caregiver_institution || 'Not provided';
             const ppdContact = latest.caregiver_contact || 'Not provided';
 
-            // Get IP address from the page
             const ipAddress = document.getElementById('ipDisplay')?.textContent || 'Not available';
 
             const reportHTML = `
@@ -4093,12 +4106,14 @@
             // PPD input listeners
             [caregiverName, caregiverLicense, issuingAuthority, professionalRole, institution, contact].forEach(el => {
                 el.addEventListener('input', function() {
+                    console.log("PPD input changed, checking token generation...");
                     checkAndGenerateToken();
                     updateAnchorStatus();
                 });
             });
 
             generateTokenBtn.addEventListener('click', function() {
+                console.log("Manual token generation requested");
                 tokenGenerated = false;
                 checkAndGenerateToken();
             });
@@ -4155,8 +4170,12 @@
                 renderInsights(null);
             }
 
-            checkAndGenerateToken();
-            updateAnchorStatus();
+            // Force check on load
+            setTimeout(() => {
+                checkAndGenerateToken();
+                updateAnchorStatus();
+            }, 500);
+
             console.log('=== Initialization complete ===');
         }
 

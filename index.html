@@ -1107,7 +1107,7 @@
             color: #00b4d8;
         }
 
-        /* PDF CONTAINER - VISIBLE FOR RENDERING */
+        /* PDF CONTAINER */
         #pdfContent {
             display: block;
             position: absolute;
@@ -1221,7 +1221,7 @@
             }
         }
 
-        /* ========== PDF STYLES - BLACK & WHITE, A4 FRIENDLY ========== */
+        /* ========== PDF STYLES ========== */
         .pdf-report {
             background: #ffffff;
             color: #000000;
@@ -1560,7 +1560,6 @@
             display: none;
         }
 
-        /* ========== I18N SUPPORT ========== */
         .i18n-text {
             transition: all 0.2s ease;
         }
@@ -1887,7 +1886,7 @@
             </div>
         </div>
 
-        <!-- PDF CONTENT - VISIBLE FOR RENDERING -->
+        <!-- PDF CONTENT -->
         <div id="pdfContent">
             <div id="pdfReportContent"></div>
         </div>
@@ -1897,7 +1896,7 @@
     <script>
         // ============================================================
         //  COMPLETE VERITAS APPLICATION
-        //  LANGUAGE SELECTOR FULLY FUNCTIONAL - EN/DE/ES
+        //  VERIFICATION LOGIC: FULLY VERIFIED ONLY WHEN ALL STEPS COMPLETE
         // ============================================================
 
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
@@ -2295,11 +2294,12 @@
         let hrTimestamps = [];
         let lastHREstimate = null;
 
+        // ========== VERIFICATION STATE - TRACK EACH STEP INDEPENDENTLY ==========
         let verificationState = {
             liveness: false,
             hr: false,
             ppd: false,
-            human: false
+            human: false  // ONLY set to true in verifyToken() with correct password
         };
 
         let tokenGenerated = false;
@@ -2436,21 +2436,15 @@
 
         function applyLanguage(lang) {
             currentLang = lang;
-
-            // Update language buttons
             document.querySelectorAll('.lang-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.lang === lang);
             });
-
-            // Update all elements with data-i18n attribute
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 const translation = t(key);
                 if (translation && translation !== el.textContent) {
-                    // Check if element has child nodes that should be preserved
                     const hasChildren = el.children.length > 0;
                     if (hasChildren) {
-                        // For elements with children, find the text node and update it
                         const childNodes = el.childNodes;
                         for (let i = 0; i < childNodes.length; i++) {
                             if (childNodes[i].nodeType === Node.TEXT_NODE) {
@@ -2458,7 +2452,6 @@
                                 break;
                             }
                         }
-                        // If no text node found, append one
                         if (!el.textContent.includes(translation)) {
                             el.appendChild(document.createTextNode(translation));
                         }
@@ -2467,18 +2460,13 @@
                     }
                 }
             });
-
-            // Update password hint (keep it empty for security)
             const hintEl = document.getElementById('passwordHint');
             if (hintEl) {
                 hintEl.textContent = '';
                 hintEl.className = 'verifier-password-hint';
             }
-
-            // Re-render insights with new language
             const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
             if (latest) renderInsights(latest);
-
             console.log(`Language changed to: ${lang}`);
         }
 
@@ -2499,13 +2487,16 @@
             return ppd.name.trim().length > 0 && ppd.license.trim().length > 0;
         }
 
+        // ========== VERIFICATION STATUS UPDATE - FIXED ==========
         function updateVerificationStatus() {
             const ppd = getPPDData();
             const isPPDValid = isPPDComplete();
 
+            // Update each step independently
             verificationState.liveness = livenessCompleted;
             verificationState.hr = lastHREstimate !== null;
             verificationState.ppd = isPPDValid;
+            // verificationState.human is ONLY set in verifyToken() function
 
             if (statusDetails) {
                 statusDetails.innerHTML =
@@ -2522,25 +2513,34 @@
                 }
             }
 
+            // ========== CRITICAL: FULLY VERIFIED REQUIRES ALL STEPS ==========
             const allAnchorSteps = verificationState.liveness && verificationState.hr && verificationState.ppd;
+            // human must be TRUE for fully verified
             const fullyVerified = allAnchorSteps && verificationState.human;
 
             if (fullyVerified) {
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = t('veritas_pending') + ' ✓';
+                anchorStatusText.textContent = "VERITAS FULLY VERIFIED ✓";
                 tokenVerificationBadge.className = "verification-status-badge verified";
                 tokenVerificationBadge.textContent = "VERIFIED";
-                if (tokenGenerated) { tokenStatus.textContent = "✅ VERITAS fully verified!";
-                    tokenStatus.style.color = "#28a745"; }
+                if (tokenGenerated) {
+                    tokenStatus.textContent = "✅ VERITAS fully verified!";
+                    tokenStatus.style.color = "#28a745";
+                }
             } else if (allAnchorSteps) {
                 anchorIcon.className = "status-icon pending";
                 anchorIcon.textContent = "⏳";
-                anchorStatusText.textContent = t('veritas_pending') + ' · ANCHOR OK';
+                anchorStatusText.textContent = "ANCHOR + PPD complete. Awaiting human verification.";
                 tokenVerificationBadge.className = "verification-status-badge partial";
                 tokenVerificationBadge.textContent = "ANCHOR OK";
-                if (tokenGenerated) { tokenStatus.textContent = "⏳ Token ready. Complete human verification in Verifier.";
-                    tokenStatus.style.color = "#ffc107"; }
+                if (tokenGenerated) {
+                    tokenStatus.textContent = "⏳ Token ready. Complete human verification in Verifier.";
+                    tokenStatus.style.color = "#ffc107";
+                } else {
+                    tokenStatus.textContent = "✅ ANCHOR complete. Click Generate Token.";
+                    tokenStatus.style.color = "#28a745";
+                }
             } else {
                 anchorIcon.className = "status-icon pending";
                 anchorIcon.textContent = "⏳";
@@ -2548,21 +2548,20 @@
                 if (!verificationState.liveness) missing.push("Liveness");
                 if (!verificationState.hr) missing.push("HR");
                 if (!verificationState.ppd) missing.push("PPD");
-                anchorStatusText.textContent = t('veritas_pending') + ': ' + missing.join(", ");
+                anchorStatusText.textContent = "VERITAS pending: " + missing.join(", ");
                 tokenVerificationBadge.className = "verification-status-badge pending";
                 tokenVerificationBadge.textContent = "PENDING";
+                tokenStatus.textContent = "Complete ANCHOR + PPD first";
+                tokenStatus.style.color = "#8892b0";
             }
 
+            // Enable Generate Token button only when anchor steps are complete
             if (allAnchorSteps && !tokenGenerated) {
                 generateTokenBtn.disabled = false;
-                tokenStatus.textContent = "✅ Ready to generate token";
-                tokenStatus.style.color = "#28a745";
             } else if (allAnchorSteps && tokenGenerated) {
                 generateTokenBtn.disabled = true;
             } else {
                 generateTokenBtn.disabled = true;
-                tokenStatus.textContent = t('complete_first');
-                tokenStatus.style.color = "#8892b0";
             }
 
             if (tokenGenerated) {
@@ -3366,6 +3365,7 @@
             return { bpm, rawBpm, quality };
         }
 
+        // ========== TOKEN GENERATION ==========
         function generateToken() {
             const ppd = getPPDData();
             const isPPDValid = isPPDComplete();
@@ -3443,6 +3443,7 @@
             return token;
         }
 
+        // ========== VERIFIER FUNCTIONS ==========
         function openVerifier() {
             const tokenTextarea = document.getElementById('tokenOutput');
             if (tokenTextarea && tokenTextarea.value) verifierTokenInput.value = tokenTextarea.value;
@@ -3481,6 +3482,7 @@
             }
         }
 
+        // ========== CRITICAL: verifyToken ONLY sets human = true ==========
         function verifyToken() {
             if (!isUnlocked) {
                 alert('Please unlock the verifier with the password first.');
@@ -3528,8 +3530,10 @@
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
+                    // ===== ONLY PLACE verificationState.human IS SET TO TRUE =====
                     verificationState.human = true;
 
+                    // Update token vault
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -3544,6 +3548,7 @@
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
                     }
 
+                    // This updates the main UI to show VERIFIED
                     updateVerificationStatus();
 
                 } else if (!signatureValid) {
@@ -4139,9 +4144,15 @@
 
         function init() {
             console.log('=== MyMedfit BRAVO PRO + VERITAS + Dynamic Risk Engine ===');
+            console.log('VERIFICATION LOGIC: ALL steps required for VERIFIED status');
+            console.log('  - Liveness: required');
+            console.log('  - HR: required');
+            console.log('  - PPD: required');
+            console.log('  - Human verification: required (password)');
+
             deviceIdDisplay.textContent = deviceId.substring(0, 12) + '…';
 
-            // Language selector setup
+            // Language selector
             applyLanguage('en');
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -4228,7 +4239,8 @@
 
             updateVerificationStatus();
             console.log('=== Initialization complete ===');
-            console.log('Language selector: EN/DE/ES available');
+            console.log('Status will show VERIFIED only after ALL steps are complete');
+            console.log('Verifier Password: (hidden - known to authorized personnel)');
         }
 
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

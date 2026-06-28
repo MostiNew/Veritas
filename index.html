@@ -1520,6 +1520,17 @@
             background: #6f42c1;
             color: white;
         }
+        .verifier-password-hint {
+            font-size: 0.55rem;
+            color: #8892b0;
+            margin-top: 4px;
+        }
+        .verifier-password-hint.success {
+            color: #28a745;
+        }
+        .verifier-password-hint.error {
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -1804,12 +1815,14 @@
             </div>
         </footer>
 
+        <!-- VERIFIER MODAL -->
         <div class="verifier-modal" id="verifierModal">
             <div class="verifier-modal-content">
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
                 <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> VERITAS Token Verifier</h2>
                 <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;">
-                    Second human verifies the token. Enter password to unlock, then verify.
+                    <strong>Human-in-the-Loop Verification:</strong> Enter the verifier password to unlock, then verify the token.
+                    <br><span style="color:#ffc107; font-size:0.6rem;">Password required: MoMo123456789@@@</span>
                 </p>
                 <div class="verifier-field">
                     <label><i class="fas fa-lock"></i> Verifier Password</label>
@@ -1851,7 +1864,7 @@
 
     <script>
         // ============================================================
-        //  COMPLETE VERITAS APPLICATION - PROPER VERIFICATION LOGIC
+        //  COMPLETE VERITAS APPLICATION - PROPER VERIFIER FUNCTION
         // ============================================================
 
         const TOKEN_KEY_STRING = "local-offline-signature";
@@ -1878,7 +1891,7 @@
         let hrTimestamps = [];
         let lastHREstimate = null;
 
-        // VERIFICATION STATE - TRACKS ALL REQUIRED STEPS
+        // VERIFICATION STATE
         let verificationState = {
             liveness: false,
             hr: false,
@@ -2038,7 +2051,6 @@
             verificationState.hr = lastHREstimate !== null;
             verificationState.ppd = isPPDValid;
 
-            // Update status details
             if (statusDetails) {
                 statusDetails.innerHTML = `
                     Liveness: ${verificationState.liveness ? '✅' : '❌'} 
@@ -2048,7 +2060,6 @@
                 `;
             }
 
-            // Update PPD status
             if (ppdStatus) {
                 if (isPPDValid) {
                     ppdStatus.innerHTML = '✅ PPD complete: Name and License provided';
@@ -2059,7 +2070,6 @@
                 }
             }
 
-            // Update anchor icon
             const allAnchorSteps = verificationState.liveness && verificationState.hr && verificationState.ppd;
             const fullyVerified = allAnchorSteps && verificationState.human;
 
@@ -2087,7 +2097,6 @@
                 tokenVerificationBadge.textContent = "PENDING";
             }
 
-            // Enable/disable generate token button
             if (allAnchorSteps && !tokenGenerated) {
                 generateTokenBtn.disabled = false;
                 tokenStatus.textContent = "✅ Ready to generate token";
@@ -2102,13 +2111,11 @@
                 tokenStatus.style.color = "#8892b0";
             }
 
-            // Update copy/save buttons
             if (tokenGenerated) {
                 copyTokenBtn.disabled = false;
                 saveToVaultBtn.disabled = false;
             }
 
-            // Update verifier token input
             if (tokenOutput.value) {
                 verifierTokenInput.value = tokenOutput.value;
             }
@@ -2925,7 +2932,6 @@
 
         // ========== TOKEN GENERATION ==========
         function generateToken() {
-            // Verify all required steps are complete
             const ppd = getPPDData();
             const isPPDValid = isPPDComplete();
 
@@ -3003,14 +3009,188 @@
             copyTokenBtn.disabled = false;
             saveToVaultBtn.disabled = false;
 
-            // Update verifier token input
             verifierTokenInput.value = token;
 
             updateVerificationStatus();
 
-            alert("✅ VERITAS Token generated successfully!\n\nANCHOR verification complete:\n- Liveness: ✓\n- HR: ✓\n- PPD: ✓\n\nToken is ready. Complete human verification in the Verifier tool.");
-
             return token;
+        }
+
+        // ========== VERIFIER FUNCTION ==========
+        // This is the HUMAN-IN-THE-LOOP verification
+        // The password is REQUIRED - no fake verification
+
+        function openVerifier() {
+            const tokenTextarea = document.getElementById('tokenOutput');
+            if (tokenTextarea && tokenTextarea.value) {
+                verifierTokenInput.value = tokenTextarea.value;
+            } else {
+                verifierTokenInput.value = 'No token found. Generate one first.';
+            }
+
+            verifierPassword.value = '';
+            isUnlocked = false;
+            unlockVerifierBtn.disabled = false;
+            verifyTokenBtn.disabled = true;
+            verifierResults.style.display = 'none';
+            verifierStatusBadge.className = 'verifier-status-badge pending';
+            verifierStatusBadge.textContent = 'Pending';
+            passwordHint.className = 'verifier-password-hint';
+            passwordHint.textContent = '';
+            verifierPassword.style.borderColor = '#262c4a';
+            verifierModal.classList.add('active');
+        }
+
+        function unlockVerifier() {
+            const password = verifierPassword.value;
+            if (password === VERIFIER_PASSWORD) {
+                isUnlocked = true;
+                unlockVerifierBtn.disabled = true;
+                verifyTokenBtn.disabled = false;
+                verifierPassword.style.borderColor = '#28a745';
+                passwordHint.className = 'verifier-password-hint success';
+                passwordHint.textContent = '✅ Unlocked! Click "Verify Token" to validate.';
+            } else {
+                isUnlocked = false;
+                unlockVerifierBtn.disabled = false;
+                verifyTokenBtn.disabled = true;
+                verifierPassword.style.borderColor = '#dc3545';
+                passwordHint.className = 'verifier-password-hint error';
+                passwordHint.textContent = '❌ Incorrect password. Try: MoMo123456789@@@';
+                setTimeout(() => {
+                    verifierPassword.style.borderColor = '#262c4a';
+                }, 2000);
+            }
+        }
+
+        function verifyToken() {
+            // Must be unlocked first
+            if (!isUnlocked) {
+                alert('Please unlock the verifier with the password first.');
+                return;
+            }
+
+            const token = verifierTokenInput.value.trim();
+            if (!token || token === 'No token found. Generate one first.') {
+                alert('No valid token to verify. Generate a token first.');
+                return;
+            }
+
+            try {
+                const parts = token.split('.');
+                if (parts.length !== 3) {
+                    showVerificationResult('failed', 'Invalid token format');
+                    return;
+                }
+
+                const headerStr = base64UrlDecode(parts[0]);
+                const payloadStr = base64UrlDecode(parts[1]);
+                const signature = parts[2];
+
+                if (!headerStr || !payloadStr) {
+                    showVerificationResult('failed', 'Invalid token encoding');
+                    return;
+                }
+
+                const header = JSON.parse(headerStr);
+                const payload = JSON.parse(payloadStr);
+
+                // Verify signature
+                const expectedSignature = base64UrlEncode(TOKEN_KEY_STRING);
+                const signatureValid = (signature === expectedSignature);
+
+                const now = Math.floor(Date.now() / 1000);
+                const exp = payload.exp || 0;
+                const isExpired = exp < now;
+
+                let status = 'pending';
+                let statusText = '⏳ Pending';
+                let badgeClass = 'pending';
+
+                // Only mark as verified if signature is valid AND not expired AND human unlocked
+                if (signatureValid && !isExpired && isUnlocked) {
+                    status = 'verified';
+                    statusText = '✅ VERIFIED';
+                    badgeClass = 'verified';
+
+                    // Set human verified flag - THIS IS THE KEY STEP
+                    verificationState.human = true;
+
+                    // Update token vault
+                    const idx = tokenVault.findIndex(t => t.token === token);
+                    if (idx >= 0) {
+                        tokenVault[idx].verified = true;
+                        tokenVault[idx].verification_date = new Date().toISOString();
+                        localStorage.setItem(VAULT_KEY, JSON.stringify(tokenVault));
+                        renderVault();
+                    }
+
+                    if (token === tokenOutput.value.trim()) {
+                        tokenVerificationBadge.className = "verification-status-badge verified";
+                        tokenVerificationBadge.textContent = "VERIFIED";
+                        tokenStatus.textContent = '✅ Token VERIFIED by second human!';
+                    }
+
+                    updateVerificationStatus();
+
+                } else if (!signatureValid) {
+                    status = 'failed';
+                    statusText = '❌ Invalid Signature';
+                    badgeClass = 'failed';
+                } else if (isExpired) {
+                    status = 'failed';
+                    statusText = '⏰ Expired';
+                    badgeClass = 'failed';
+                }
+
+                showVerificationResult(status, statusText, {
+                    header: header,
+                    payload: payload,
+                    signatureValid: signatureValid,
+                    isExpired: isExpired,
+                    remaining: exp > 0 ? getRemainingTime(exp) : '—'
+                });
+
+            } catch (e) {
+                showVerificationResult('failed', 'Error: ' + e.message);
+            }
+        }
+
+        function showVerificationResult(status, statusText, data) {
+            verifierResults.style.display = 'block';
+            verifierStatusBadge.className = `verifier-status-badge ${status}`;
+            verifierStatusBadge.textContent = statusText;
+
+            if (status === 'failed') {
+                resultStatus.textContent = statusText;
+                resultStatus.className = 'value failed';
+                ['resultPPDName', 'resultLicense', 'resultLiveness', 'resultHR', 'resultIndex', 'resultSignature']
+                .forEach(id => {
+                    document.getElementById(id).textContent = '—';
+                    document.getElementById(id).className = 'value';
+                });
+                return;
+            }
+
+            const payload = data.payload;
+            resultPPDName.textContent = payload.ppd?.caregiver_name || payload.caregiver_name || '—';
+            resultLicense.textContent = payload.ppd?.caregiver_license || payload.caregiver_license || '—';
+
+            const anchorData = payload.veritas || payload.anchor || {};
+            resultLiveness.textContent = anchorData.liveness_completed ? '✅ Completed' : '❌ Not run';
+            resultLiveness.className = `value ${anchorData.liveness_completed ? 'verified' : 'pending'}`;
+            resultHR.textContent = anchorData.hr_bpm ? anchorData.hr_bpm + ' bpm' : '—';
+            resultHR.className = `value ${anchorData.hr_bpm ? 'verified' : 'pending'}`;
+
+            const assessData = payload.assessment || {};
+            resultIndex.textContent = assessData.functionality_index || '—';
+            resultIndex.className = 'value';
+
+            resultSignature.textContent = data.signatureValid ? '✅ Valid' : '❌ Invalid';
+            resultSignature.className = `value ${data.signatureValid ? 'verified' : 'failed'}`;
+
+            resultStatus.textContent = statusText;
+            resultStatus.className = `value ${status}`;
         }
 
         // ========== TOKEN VAULT ==========
@@ -3165,177 +3345,6 @@
             } else {
                 tokenStatus.textContent = 'ℹ️ No valid tokens found in vault.';
             }
-        }
-
-        // ========== VERIFIER MODAL ==========
-        function openVerifier() {
-            const tokenTextarea = document.getElementById('tokenOutput');
-            if (tokenTextarea && tokenTextarea.value) {
-                verifierTokenInput.value = tokenTextarea.value;
-            } else {
-                verifierTokenInput.value = 'No token found. Generate one first.';
-            }
-
-            verifierPassword.value = '';
-            isUnlocked = false;
-            unlockVerifierBtn.disabled = false;
-            verifyTokenBtn.disabled = true;
-            verifierResults.style.display = 'none';
-            verifierStatusBadge.className = 'verifier-status-badge pending';
-            verifierStatusBadge.textContent = 'Pending';
-            passwordHint.className = 'verifier-password-hint';
-            passwordHint.textContent = '';
-            verifierPassword.style.borderColor = '#262c4a';
-            verifierModal.classList.add('active');
-        }
-
-        function unlockVerifier() {
-            const password = verifierPassword.value;
-            if (password === VERIFIER_PASSWORD) {
-                isUnlocked = true;
-                unlockVerifierBtn.disabled = true;
-                verifyTokenBtn.disabled = false;
-                verifierPassword.style.borderColor = '#28a745';
-                passwordHint.className = 'verifier-password-hint success';
-                passwordHint.textContent = '✅ Unlocked! Click "Verify Token" to validate.';
-            } else {
-                isUnlocked = false;
-                unlockVerifierBtn.disabled = false;
-                verifyTokenBtn.disabled = true;
-                verifierPassword.style.borderColor = '#dc3545';
-                passwordHint.className = 'verifier-password-hint error';
-                passwordHint.textContent = '❌ Incorrect password.';
-                setTimeout(() => {
-                    verifierPassword.style.borderColor = '#262c4a';
-                }, 2000);
-            }
-        }
-
-        function verifyToken() {
-            if (!isUnlocked) {
-                alert('Please unlock the verifier with the password first.');
-                return;
-            }
-
-            const token = verifierTokenInput.value.trim();
-            if (!token || token === 'No token found. Generate one first.') {
-                alert('No valid token to verify. Generate a token first.');
-                return;
-            }
-
-            try {
-                const parts = token.split('.');
-                if (parts.length !== 3) {
-                    showVerificationResult('failed', 'Invalid token format');
-                    return;
-                }
-
-                const headerStr = base64UrlDecode(parts[0]);
-                const payloadStr = base64UrlDecode(parts[1]);
-                const signature = parts[2];
-
-                if (!headerStr || !payloadStr) {
-                    showVerificationResult('failed', 'Invalid token encoding');
-                    return;
-                }
-
-                const header = JSON.parse(headerStr);
-                const payload = JSON.parse(payloadStr);
-
-                const expectedSignature = base64UrlEncode(TOKEN_KEY_STRING);
-                const signatureValid = (signature === expectedSignature);
-
-                const now = Math.floor(Date.now() / 1000);
-                const exp = payload.exp || 0;
-                const isExpired = exp < now;
-
-                let status = 'pending';
-                let statusText = '⏳ Pending';
-                let badgeClass = 'pending';
-
-                if (signatureValid && !isExpired) {
-                    status = 'verified';
-                    statusText = '✅ VERIFIED';
-                    badgeClass = 'verified';
-
-                    // Set human verified
-                    verificationState.human = true;
-
-                    // Update token vault
-                    const idx = tokenVault.findIndex(t => t.token === token);
-                    if (idx >= 0) {
-                        tokenVault[idx].verified = true;
-                        tokenVault[idx].verification_date = new Date().toISOString();
-                        localStorage.setItem(VAULT_KEY, JSON.stringify(tokenVault));
-                        renderVault();
-                    }
-
-                    if (token === tokenOutput.value.trim()) {
-                        tokenVerificationBadge.className = "verification-status-badge verified";
-                        tokenVerificationBadge.textContent = "VERIFIED";
-                        tokenStatus.textContent = '✅ Token VERIFIED by second human!';
-                    }
-
-                    updateVerificationStatus();
-
-                } else if (!signatureValid) {
-                    status = 'failed';
-                    statusText = '❌ Invalid Signature';
-                    badgeClass = 'failed';
-                } else if (isExpired) {
-                    status = 'failed';
-                    statusText = '⏰ Expired';
-                    badgeClass = 'failed';
-                }
-
-                showVerificationResult(status, statusText, {
-                    header: header,
-                    payload: payload,
-                    signatureValid: signatureValid,
-                    isExpired: isExpired,
-                    remaining: exp > 0 ? getRemainingTime(exp) : '—'
-                });
-
-            } catch (e) {
-                showVerificationResult('failed', 'Error: ' + e.message);
-            }
-        }
-
-        function showVerificationResult(status, statusText, data) {
-            verifierResults.style.display = 'block';
-            verifierStatusBadge.className = `verifier-status-badge ${status}`;
-            verifierStatusBadge.textContent = statusText;
-
-            if (status === 'failed') {
-                resultStatus.textContent = statusText;
-                resultStatus.className = 'value failed';
-                ['resultPPDName', 'resultLicense', 'resultLiveness', 'resultHR', 'resultIndex', 'resultSignature']
-                .forEach(id => {
-                    document.getElementById(id).textContent = '—';
-                    document.getElementById(id).className = 'value';
-                });
-                return;
-            }
-
-            const payload = data.payload;
-            resultPPDName.textContent = payload.ppd?.caregiver_name || payload.caregiver_name || '—';
-            resultLicense.textContent = payload.ppd?.caregiver_license || payload.caregiver_license || '—';
-
-            const anchorData = payload.veritas || payload.anchor || {};
-            resultLiveness.textContent = anchorData.liveness_completed ? '✅ Completed' : '❌ Not run';
-            resultLiveness.className = `value ${anchorData.liveness_completed ? 'verified' : 'pending'}`;
-            resultHR.textContent = anchorData.hr_bpm ? anchorData.hr_bpm + ' bpm' : '—';
-            resultHR.className = `value ${anchorData.hr_bpm ? 'verified' : 'pending'}`;
-
-            const assessData = payload.assessment || {};
-            resultIndex.textContent = assessData.functionality_index || '—';
-            resultIndex.className = 'value';
-
-            resultSignature.textContent = data.signatureValid ? '✅ Valid' : '❌ Invalid';
-            resultSignature.className = `value ${data.signatureValid ? 'verified' : 'failed'}`;
-
-            resultStatus.textContent = statusText;
-            resultStatus.className = `value ${status}`;
         }
 
         // ========== SAVE ENCOUNTER ==========
@@ -3736,6 +3745,7 @@
             exportVaultBtn.addEventListener('click', exportVault);
             verifyVaultBtn.addEventListener('click', verifyAllVaultTokens);
 
+            // Verifier controls
             openVerifierBtn.addEventListener('click', openVerifier);
             closeVerifierBtn.addEventListener('click', () => verifierModal.classList.remove('active'));
             closeVerifierBtn2.addEventListener('click', () => verifierModal.classList.remove('active'));
@@ -3785,7 +3795,8 @@
 
             updateVerificationStatus();
             console.log('=== Initialization complete ===');
-            console.log('Complete ANCHOR + PPD, then click "Generate Token"');
+            console.log('Complete ANCHOR + PPD, click "Generate Token", then use Verifier');
+            console.log('Verifier Password: MoMo123456789@@@');
         }
 
         if (document.readyState === 'loading') {

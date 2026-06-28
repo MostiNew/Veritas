@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
+        /* ========== RESET & BASE ========== */
         * {
             margin: 0;
             padding: 0;
@@ -1105,9 +1106,16 @@
             font-weight: 600;
             color: #00b4d8;
         }
+
+        /* PDF CONTAINER - VISIBLE FOR RENDERING */
         #pdfContent {
-            display: none;
+            display: block;
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 100%;
         }
+
         .concordance-box {
             background: #0f1428;
             border-radius: 8px;
@@ -1155,6 +1163,7 @@
         .trend-indicator .stable {
             color: #ffc107;
         }
+
         @media (max-width: 480px) {
             .form-grid {
                 grid-template-columns: 1fr 1fr;
@@ -1212,61 +1221,62 @@
             }
         }
 
-        /* ========== PDF STYLES - BLACK & WHITE ========== */
+        /* ========== PDF STYLES - BLACK & WHITE, A4 FRIENDLY ========== */
         .pdf-report {
             background: #ffffff;
             color: #000000;
-            padding: 20px 25px;
+            padding: 15px 20px;
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            max-width: 900px;
+            max-width: 100%;
             margin: 0 auto;
-            font-size: 11px;
+            font-size: 10px;
+            line-height: 1.4;
         }
         .pdf-report .header {
             border-bottom: 2px solid #000000;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 4px;
         }
         .pdf-report .header .logo {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: #000000;
             line-height: 1;
         }
         .pdf-report .header .logo-sub {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 300;
             color: #555555;
         }
         .pdf-report .header .logo-domain {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             color: #000000;
         }
         .pdf-report .header .report-title {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: #000000;
             text-align: right;
         }
         .pdf-report .header .report-status {
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             color: #555555;
         }
         .pdf-report .patient-row {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 4px 10px;
+            gap: 2px 8px;
             background: #f0f0f0;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-bottom: 8px;
-            font-size: 0.55rem;
+            padding: 3px 6px;
+            border-radius: 3px;
+            margin-bottom: 6px;
+            font-size: 0.5rem;
             border: 1px solid #cccccc;
         }
         .pdf-report .patient-row .label {
@@ -1279,15 +1289,15 @@
         .pdf-report .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 6px;
+            margin-bottom: 6px;
         }
         .pdf-report .two-col .metric {
             display: flex;
             justify-content: space-between;
-            padding: 2px 0;
+            padding: 1px 0;
             border-bottom: 1px solid #dddddd;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
         }
         .pdf-report .two-col .metric .label {
             color: #555555;
@@ -1299,31 +1309,31 @@
         .pdf-report .vbc-box {
             background: #f5f5f5;
             border-left: 3px solid #000000;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-bottom: 4px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            margin-bottom: 3px;
             border: 1px solid #cccccc;
-            border-left-width: 4px;
+            border-left-width: 3px;
         }
         .pdf-report .vbc-box .title {
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             font-weight: 700;
             color: #000000;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .pdf-report .vbc-box .text {
-            font-size: 0.55rem;
-            margin-top: 2px;
+            font-size: 0.5rem;
+            margin-top: 1px;
             color: #000000;
         }
         .pdf-report .concordance-box {
             background: #f5f5f5;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-bottom: 4px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            margin-bottom: 3px;
             border: 1px solid #cccccc;
-            border-left-width: 4px;
+            border-left-width: 3px;
         }
         .pdf-report .concordance-box.silent {
             border-left-color: #000000;
@@ -1332,28 +1342,28 @@
             border-left-color: #666666;
         }
         .pdf-report .concordance-box .title {
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             font-weight: 700;
             color: #000000;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .pdf-report .concordance-box .text {
-            font-size: 0.55rem;
-            margin-top: 2px;
+            font-size: 0.5rem;
+            margin-top: 1px;
             color: #000000;
         }
         .pdf-report .concordance-box .detail {
-            font-size: 0.45rem;
+            font-size: 0.4rem;
             color: #555555;
             margin-top: 1px;
         }
         .pdf-report .ppd-info {
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             color: #000000;
             background: #f5f5f5;
-            padding: 3px 8px;
-            border-radius: 4px;
+            padding: 2px 6px;
+            border-radius: 3px;
             border: 1px solid #cccccc;
         }
         .pdf-report .ppd-info .strong {
@@ -1361,30 +1371,30 @@
             color: #000000;
         }
         .pdf-report .veritas-status {
-            font-size: 0.45rem;
+            font-size: 0.4rem;
             color: #555555;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         .pdf-report .icf-section {
             background: #f5f5f5;
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-bottom: 4px;
-            font-size: 0.5rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-bottom: 3px;
+            font-size: 0.45rem;
             border: 1px solid #cccccc;
         }
         .pdf-report .icf-section .title {
             font-weight: 600;
             color: #000000;
             text-transform: uppercase;
-            font-size: 0.4rem;
+            font-size: 0.35rem;
         }
         .pdf-report .icf-section .tag {
             background: #e0e0e0;
-            padding: 1px 6px;
-            border-radius: 12px;
-            margin: 0 2px;
-            font-size: 0.45rem;
+            padding: 1px 4px;
+            border-radius: 10px;
+            margin: 0 1px;
+            font-size: 0.4rem;
             display: inline-block;
             color: #000000;
             border: 1px solid #cccccc;
@@ -1392,60 +1402,60 @@
         .pdf-report .care-tips {
             background: #f5f5f5;
             border-left: 3px solid #000000;
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-bottom: 4px;
-            font-size: 0.5rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-bottom: 3px;
+            font-size: 0.45rem;
             border: 1px solid #cccccc;
-            border-left-width: 4px;
+            border-left-width: 3px;
         }
         .pdf-report .care-tips .title {
             font-weight: 600;
             color: #000000;
             text-transform: uppercase;
-            font-size: 0.4rem;
+            font-size: 0.35rem;
         }
         .pdf-report .care-tips ul {
-            margin: 1px 0 0 14px;
+            margin: 1px 0 0 12px;
             padding: 0;
             list-style-type: disc;
             color: #000000;
-            font-size: 0.45rem;
+            font-size: 0.4rem;
         }
         .pdf-report .trend-table {
-            font-size: 0.5rem;
-            margin-top: 4px;
+            font-size: 0.45rem;
+            margin-top: 3px;
         }
         .pdf-report .trend-table .title {
             font-weight: 600;
             color: #000000;
             text-transform: uppercase;
-            font-size: 0.4rem;
-            margin-bottom: 2px;
+            font-size: 0.35rem;
+            margin-bottom: 1px;
         }
         .pdf-report .trend-table table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.45rem;
+            font-size: 0.4rem;
         }
         .pdf-report .trend-table table th {
             background: #e0e0e0;
-            padding: 2px 4px;
+            padding: 1px 3px;
             text-align: left;
             border-bottom: 1px solid #999999;
             color: #000000;
             font-weight: 600;
         }
         .pdf-report .trend-table table td {
-            padding: 2px 4px;
+            padding: 1px 3px;
             border-bottom: 1px solid #dddddd;
             color: #000000;
         }
         .pdf-report .trend-table table .badge {
             display: inline-block;
-            padding: 2px 12px;
-            border-radius: 30px;
-            font-size: 0.5rem;
+            padding: 1px 8px;
+            border-radius: 20px;
+            font-size: 0.4rem;
             font-weight: 700;
             text-transform: uppercase;
         }
@@ -1462,11 +1472,11 @@
             color: #000000;
         }
         .pdf-report .footer {
-            margin-top: 6px;
-            padding-top: 4px;
+            margin-top: 4px;
+            padding-top: 3px;
             border-top: 1px solid #000000;
             text-align: center;
-            font-size: 0.4rem;
+            font-size: 0.35rem;
             color: #555555;
         }
         .pdf-report .footer .domain {
@@ -1474,18 +1484,18 @@
             font-weight: 600;
         }
         .pdf-report .footer .ppd-section {
-            margin-top: 4px;
-            padding: 6px 10px;
+            margin-top: 3px;
+            padding: 4px 8px;
             background: #f5f5f5;
-            border-radius: 4px;
+            border-radius: 3px;
             border: 1px solid #cccccc;
             text-align: left;
-            font-size: 0.45rem;
+            font-size: 0.4rem;
         }
         .pdf-report .footer .ppd-section .ppd-title {
             font-weight: 700;
             color: #000000;
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -1506,8 +1516,8 @@
             color: #000000;
         }
         .pdf-report .footer .ip-display {
-            margin-top: 3px;
-            font-size: 0.4rem;
+            margin-top: 2px;
+            font-size: 0.35rem;
             color: #555555;
         }
 
@@ -1872,6 +1882,7 @@
             </div>
         </div>
 
+        <!-- PDF CONTENT - VISIBLE FOR RENDERING, HIDDEN WITH CSS OFFSET -->
         <div id="pdfContent">
             <div id="pdfReportContent"></div>
         </div>
@@ -1881,7 +1892,7 @@
     <script>
         // ============================================================
         //  COMPLETE VERITAS APPLICATION
-        //  PDF is BLACK & WHITE
+        //  PDF FIXED: Proper rendering, A4 margins, B&W
         // ============================================================
 
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
@@ -3841,7 +3852,7 @@
             renderHistory();
         }
 
-        // ========== PDF / VERITAS REPORT - BLACK & WHITE ==========
+        // ========== PDF / VERITAS REPORT - FIXED: BLACK & WHITE, A4 FRIENDLY ==========
         function generatePDFReport() {
             const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
             if (!latest) {
@@ -3857,7 +3868,6 @@
             const tips = generateCareTips(latest, getGoals());
             const last5 = [...encounters].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
 
-            const decayedIndex = calculateDecayedIndex(encounters);
             const trend = detectTrend(encounters);
             const concordance = calculateConcordance(latest, encounters);
             const adjustedIndex = Math.min(100, Math.round(idx * concordance.riskMultiplier));
@@ -3938,7 +3948,7 @@
 
             const ipAddress = document.getElementById('ipDisplay')?.textContent || 'Not available';
 
-            // ========== BLACK & WHITE PDF REPORT ==========
+            // ========== BLACK & WHITE PDF REPORT - FIXED ==========
             const reportHTML = `
                 <div class="pdf-report">
                     <div class="header">
@@ -3955,13 +3965,13 @@
                         <div><span class="label">DOB</span> <span class="value">${dob}</span></div>
                         <div><span class="label">Insurance</span> <span class="value">${insuranceNumber}</span></div>
                         <div><span class="label">Encounter</span> <span class="value">${latest.id}</span></div>
-                        <div><span class="label">Device</span> <span class="value" style="font-family:monospace;font-size:0.5rem;">${latest.device_id || '—'}</span></div>
+                        <div><span class="label">Device</span> <span class="value" style="font-family:monospace;font-size:0.45rem;">${latest.device_id || '—'}</span></div>
                     </div>
 
                     <div class="two-col">
                         <div>
                             <div class="metric"><span class="label">${t('functionality_index')}</span><span class="value">${adjustedIndex}</span></div>
-                            <div class="metric"><span class="label">Trend (5 visits)</span><span class="value" style="color:#000000;">${trend.direction === 'up' ? '📈 Improving' : trend.direction === 'down' ? '📉 Declining' : '➡️ Stable'} (${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts)</span></div>
+                            <div class="metric"><span class="label">Trend (5 visits)</span><span class="value">${trend.direction === 'up' ? '📈 Improving' : trend.direction === 'down' ? '📉 Declining' : '➡️ Stable'} (${trend.change > 0 ? '+' : ''}${trend.change.toFixed(1)} pts)</span></div>
                             <div class="metric"><span class="label">${t('goal_pain')} (NRS)</span><span class="value">${latest.pain || '—'} / 10</span></div>
                             <div class="metric"><span class="label">${t('goal_mobility')}</span><span class="value">${latest.mobility || '—'} / 10</span></div>
                             <div class="metric"><span class="label">${t('goal_energy')}</span><span class="value">${latest.fatigue || '—'} / 10</span></div>
@@ -3988,7 +3998,7 @@
 
                             <div class="ppd-info">
                                 <span class="strong">PPD Name:</span> ${latest.ppd_name || '—'} 
-                                <span style="margin-left:6px;" class="strong">License:</span> ${latest.ppd_license || '—'}
+                                <span style="margin-left:4px;" class="strong">License:</span> ${latest.ppd_license || '—'}
                             </div>
                             <div class="veritas-status">
                                 <span>Liveness: ${latest.anchor_liveness ? '✅' : '❌'}</span>
@@ -4001,7 +4011,7 @@
                     <div class="icf-section">
                         <span class="title">ICF Domains:</span>
                         ${icfDomains.slice(0,8).map(d => `<span class="tag">${d}</span>`).join('')}
-                        ${icfDomains.length > 8 ? `<span style="color:#555555;font-size:0.5rem;">+${icfDomains.length - 8} more</span>` : ''}
+                        ${icfDomains.length > 8 ? `<span style="color:#555555;">+${icfDomains.length - 8} more</span>` : ''}
                     </div>
 
                     <div class="care-tips">
@@ -4042,29 +4052,58 @@
                 </div>
             `;
 
-            document.getElementById('pdfReportContent').innerHTML = reportHTML;
+            // Put content in the PDF container
+            const pdfContent = document.getElementById('pdfReportContent');
+            pdfContent.innerHTML = reportHTML;
 
-            const element = document.getElementById('pdfReportContent');
+            // Make the PDF container visible for rendering
+            const container = document.getElementById('pdfContent');
+            container.style.position = 'static';
+            container.style.left = 'auto';
+            container.style.display = 'block';
+            container.style.background = '#ffffff';
+            container.style.padding = '20px';
+            container.style.maxWidth = '800px';
+            container.style.margin = '0 auto';
+
             const opt = {
-                margin: [0.3, 0.3, 0.3, 0.3],
+                margin: [0.4, 0.4, 0.4, 0.4],
                 filename: `VERITAS_VBC_Report_${new Date().toISOString().split('T')[0]}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    width: 800,
+                    height: 1100
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'a4',
+                    orientation: 'portrait'
+                },
                 pagebreak: { mode: 'avoid-all' }
             };
 
             pdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
             pdfBtn.disabled = true;
 
-            html2pdf().set(opt).from(element).save().then(() => {
+            // Use the container directly
+            html2pdf().set(opt).from(container).save().then(() => {
                 pdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> PDF Report';
                 pdfBtn.disabled = false;
+                // Reset container position
+                container.style.position = 'absolute';
+                container.style.left = '-9999px';
+                container.style.display = 'block';
             }).catch((err) => {
                 console.error('PDF generation error:', err);
                 alert('PDF generation failed. Please try again.');
                 pdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> PDF Report';
                 pdfBtn.disabled = false;
+                container.style.position = 'absolute';
+                container.style.left = '-9999px';
+                container.style.display = 'block';
             });
         }
 

@@ -1559,6 +1559,11 @@
         .verifier-password-hint:empty {
             display: none;
         }
+
+        /* ========== I18N SUPPORT ========== */
+        .i18n-text {
+            transition: all 0.2s ease;
+        }
     </style>
 </head>
 <body>
@@ -1568,7 +1573,7 @@
         <header class="app-header">
             <div class="brand">
                 <h1><i class="fas fa-heartbeat"></i> MyMedfit BRAVO PRO</h1>
-                <span class="badge"><i class="fas fa-robot"></i> Patient‑Centred Care</span>
+                <span class="badge"><i class="fas fa-robot"></i> <span class="i18n-text" data-i18n="badge_patient">Patient‑Centred Care</span></span>
                 <span class="badge badge-veritas"><i class="fas fa-shield-alt"></i> VERITAS</span>
             </div>
             <div class="header-controls">
@@ -1582,39 +1587,39 @@
         </header>
 
         <div class="profile-selector">
-            <button class="profile-btn active" data-profile="acute"><i class="fas fa-bolt"></i> Acute Rehab</button>
-            <button class="profile-btn" data-profile="preventive"><i class="fas fa-shield-alt"></i> Preventive</button>
-            <button class="profile-btn" data-profile="palliative"><i class="fas fa-heart"></i> Palliative</button>
+            <button class="profile-btn active" data-profile="acute"><i class="fas fa-bolt"></i> <span class="i18n-text" data-i18n="profile_acute">Acute Rehab</span></button>
+            <button class="profile-btn" data-profile="preventive"><i class="fas fa-shield-alt"></i> <span class="i18n-text" data-i18n="profile_preventive">Preventive</span></button>
+            <button class="profile-btn" data-profile="palliative"><i class="fas fa-heart"></i> <span class="i18n-text" data-i18n="profile_palliative">Palliative</span></button>
         </div>
 
         <div class="grid-2">
 
             <div class="card">
-                <h3><i class="fas fa-camera"></i> ANCHOR · Liveness & HR</h3>
+                <h3><i class="fas fa-camera"></i> <span class="i18n-text" data-i18n="anchor_title">ANCHOR · Liveness & HR</span></h3>
 
                 <div class="video-container">
                     <video id="video" autoplay playsinline></video>
                     <div id="overlay" class="overlay hidden">
-                        <span id="overlayText">Look straight into the camera</span>
+                        <span id="overlayText" class="i18n-text" data-i18n="look_straight">Look straight into the camera</span>
                     </div>
                 </div>
 
                 <div class="controls">
-                    <button id="startCameraBtn" class="btn-success">Start Camera</button>
-                    <button id="stopCameraBtn" class="btn-danger" disabled>Stop</button>
-                    <button id="runLivenessBtn" class="btn-success" disabled>Run Liveness</button>
-                    <button id="startHRBtn" class="btn-success" disabled>Start HR</button>
-                    <button id="stopHRBtn" class="btn-danger" disabled>Stop HR</button>
+                    <button id="startCameraBtn" class="btn-success"><span class="i18n-text" data-i18n="start_camera">Start Camera</span></button>
+                    <button id="stopCameraBtn" class="btn-danger" disabled><span class="i18n-text" data-i18n="stop">Stop</span></button>
+                    <button id="runLivenessBtn" class="btn-success" disabled><span class="i18n-text" data-i18n="run_liveness">Run Liveness</span></button>
+                    <button id="startHRBtn" class="btn-success" disabled><span class="i18n-text" data-i18n="start_hr">Start HR</span></button>
+                    <button id="stopHRBtn" class="btn-danger" disabled><span class="i18n-text" data-i18n="stop_hr">Stop HR</span></button>
                 </div>
 
                 <div class="status">
                     <div class="status-row">
-                        <span>Status:</span>
-                        <span id="statusText">Idle</span>
+                        <span class="i18n-text" data-i18n="status">Status:</span>
+                        <span id="statusText" class="i18n-text" data-i18n="idle">Idle</span>
                     </div>
                     <div class="status-row">
-                        <span>Liveness:</span>
-                        <span id="livenessStatus">Not run</span>
+                        <span class="i18n-text" data-i18n="liveness">Liveness:</span>
+                        <span id="livenessStatus" class="i18n-text" data-i18n="not_run">Not run</span>
                     </div>
                     <progress id="progressBar" value="0" max="100"></progress>
                 </div>
@@ -1623,52 +1628,52 @@
                     <div class="hr-top-row">
                         <span>
                             <span id="hrQualityDot" class="quality-dot"></span>
-                            Optical HR (rPPG):
+                            <span class="i18n-text" data-i18n="optical_hr">Optical HR (rPPG):</span>
                         </span>
                         <span class="hr-value" id="hrValue">-- bpm</span>
                     </div>
-                    <div style="font-size:0.7rem; opacity:0.8;" id="hrStatus">Press "Start HR" and stay still</div>
+                    <div style="font-size:0.7rem; opacity:0.8;" id="hrStatus" class="i18n-text" data-i18n="hr_press">Press "Start HR" and stay still</div>
                     <div style="font-size:0.6rem; opacity:0.6; margin-top:2px;" id="hrDebug"></div>
                 </div>
 
                 <div class="anchor-status">
                     <span class="status-icon pending" id="anchorIcon">⏳</span>
-                    <span id="anchorStatusText">VERITAS verification pending</span>
+                    <span id="anchorStatusText" class="i18n-text" data-i18n="veritas_pending">VERITAS verification pending</span>
                     <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ PPD:❌ Human:❌</span>
                 </div>
 
                 <div class="ppd-section" style="margin-top:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> PPD · Personal Professional Details</span>
-                        <span style="font-size:0.5rem; color:#8892b0;">Device: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> <span class="i18n-text" data-i18n="ppd_title">PPD · Personal Professional Details</span></span>
+                        <span style="font-size:0.5rem; color:#8892b0;"><span class="i18n-text" data-i18n="device">Device</span>: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
-                            <label>Full Name</label>
+                            <label class="i18n-text" data-i18n="full_name">Full Name</label>
                             <input id="ppdName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" />
                         </div>
                         <div class="meta-field">
-                            <label>License / ID</label>
+                            <label class="i18n-text" data-i18n="license_id">License / ID</label>
                             <input id="ppdLicense" type="text" placeholder="e.g. PT-123456" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
-                            <label>Issuing Authority</label>
+                            <label class="i18n-text" data-i18n="issuing_authority">Issuing Authority</label>
                             <input id="ppdAuthority" type="text" placeholder="e.g. Klinik Rosenhof" />
                         </div>
                         <div class="meta-field">
-                            <label>Professional Role</label>
+                            <label class="i18n-text" data-i18n="professional_role">Professional Role</label>
                             <input id="ppdRole" type="text" placeholder="e.g. Physiotherapist" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
-                            <label>Institution / Practice</label>
+                            <label class="i18n-text" data-i18n="institution">Institution / Practice</label>
                             <input id="ppdInstitution" type="text" placeholder="e.g. Rosenhof Medical Center" />
                         </div>
                         <div class="meta-field">
-                            <label>Contact / Email</label>
+                            <label class="i18n-text" data-i18n="contact">Contact / Email</label>
                             <input id="ppdContact" type="text" placeholder="e.g. info@klinik-rosenhof.de" />
                         </div>
                     </div>
@@ -1679,51 +1684,51 @@
 
                 <div class="ppd-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> VERITAS Session Token</span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> <span class="i18n-text" data-i18n="session_token">VERITAS Session Token</span></span>
                         <span class="verification-status-badge pending" id="tokenVerificationBadge">PENDING</span>
                     </div>
                     <div class="meta-actions">
-                        <button class="btn-token" id="generateTokenBtn" disabled><i class="fas fa-key"></i> Generate Token</button>
-                        <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> Copy</button>
-                        <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> Save to Vault</button>
-                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus">Complete ANCHOR + PPD first</span>
+                        <button class="btn-token" id="generateTokenBtn" disabled><i class="fas fa-key"></i> <span class="i18n-text" data-i18n="generate_token">Generate Token</span></button>
+                        <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> <span class="i18n-text" data-i18n="copy">Copy</span></button>
+                        <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> <span class="i18n-text" data-i18n="save_vault">Save to Vault</span></button>
+                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus"><span class="i18n-text" data-i18n="complete_first">Complete ANCHOR + PPD first</span></span>
                     </div>
                     <div style="margin-top:4px;">
                         <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after ANCHOR + PPD are complete"></textarea>
                     </div>
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
-                            <i class="fas fa-shield-alt"></i> Open Verifier (Human-in-the-Loop)
+                            <i class="fas fa-shield-alt"></i> <span class="i18n-text" data-i18n="open_verifier">Open Verifier (Human-in-the-Loop)</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="ppd-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="font-weight:700; font-size:0.7rem; color:#28a745;"><i class="fas fa-vault"></i> Token Vault</span>
-                        <span style="font-size:0.5rem; color:#8892b0;" id="vaultCount">0 tokens</span>
+                        <span style="font-weight:700; font-size:0.7rem; color:#28a745;"><i class="fas fa-vault"></i> <span class="i18n-text" data-i18n="token_vault">Token Vault</span></span>
+                        <span style="font-size:0.5rem; color:#8892b0;" id="vaultCount">0 <span class="i18n-text" data-i18n="tokens">tokens</span></span>
                     </div>
                     <div class="vault-list" id="vaultList">
-                        <div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;">No tokens in vault.</div>
+                        <div style="color:#8892b0; font-size:0.6rem; text-align:center; padding:4px 0;" class="i18n-text" data-i18n="no_tokens">No tokens in vault.</div>
                     </div>
                     <div class="meta-actions" style="margin-top:4px;">
-                        <button class="btn-outline" id="clearVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-trash"></i> Clear</button>
-                        <button class="btn-outline" id="exportVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-file-export"></i> Export</button>
-                        <button class="btn-outline" id="verifyVaultBtn" style="font-size:0.55rem; padding:2px 10px; color:#28a745; border-color:#28a745;"><i class="fas fa-check-circle"></i> Verify All</button>
+                        <button class="btn-outline" id="clearVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-trash"></i> <span class="i18n-text" data-i18n="clear">Clear</span></button>
+                        <button class="btn-outline" id="exportVaultBtn" style="font-size:0.55rem; padding:2px 10px;"><i class="fas fa-file-export"></i> <span class="i18n-text" data-i18n="export">Export</span></button>
+                        <button class="btn-outline" id="verifyVaultBtn" style="font-size:0.55rem; padding:2px 10px; color:#28a745; border-color:#28a745;"><i class="fas fa-check-circle"></i> <span class="i18n-text" data-i18n="verify_all">Verify All</span></button>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-edit"></i> Patient Assessment & Labs</h3>
+                <h3><i class="fas fa-edit"></i> <span class="i18n-text" data-i18n="assessment_title">Patient Assessment & Labs</span></h3>
 
                 <div class="demo-bar">
                     <div class="demo-group">
                         <label><i class="fas fa-venus-mars"></i></label>
                         <select id="gender">
-                            <option value="female">♀ Female</option>
-                            <option value="male">♂ Male</option>
-                            <option value="diverse">⚧ Diverse</option>
+                            <option value="female">♀ <span class="i18n-text" data-i18n="female">Female</span></option>
+                            <option value="male">♂ <span class="i18n-text" data-i18n="male">Male</span></option>
+                            <option value="diverse">⚧ <span class="i18n-text" data-i18n="diverse">Diverse</span></option>
                         </select>
                     </div>
                     <div class="demo-group">
@@ -1739,19 +1744,19 @@
                         <input type="number" id="weight" placeholder="72" step="0.1" />
                     </div>
                     <div class="demo-group">
-                        <label><i class="fas fa-calendar"></i> DOB</label>
+                        <label><i class="fas fa-calendar"></i> <span class="i18n-text" data-i18n="dob">DOB</span></label>
                         <input type="date" id="dob" value="1980-01-01" />
                     </div>
                     <div class="demo-group">
-                        <label><i class="fas fa-id-card"></i> Insurance</label>
+                        <label><i class="fas fa-id-card"></i> <span class="i18n-text" data-i18n="insurance">Insurance</span></label>
                         <input type="text" id="insuranceNumber" value="INS-123456789" style="width:80px; font-size:0.55rem;" />
                     </div>
                 </div>
 
                 <div class="goals-section">
-                    <div class="goal-item"><i class="fas fa-bullseye"></i> Pain: <input type="number" id="goal_pain" value="2" min="0" max="10" step="1" /></div>
-                    <div class="goal-item"><i class="fas fa-walking"></i> Mobility: <input type="number" id="goal_mobility" value="8" min="0" max="10" step="1" /></div>
-                    <div class="goal-item"><i class="fas fa-battery-half"></i> Energy: <input type="number" id="goal_energy" value="6" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-bullseye"></i> <span class="i18n-text" data-i18n="goal_pain">Pain</span>: <input type="number" id="goal_pain" value="2" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-walking"></i> <span class="i18n-text" data-i18n="goal_mobility">Mobility</span>: <input type="number" id="goal_mobility" value="8" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-battery-half"></i> <span class="i18n-text" data-i18n="goal_energy">Energy</span>: <input type="number" id="goal_energy" value="6" min="0" max="10" step="1" /></div>
                 </div>
 
                 <form id="checkupForm" autocomplete="off">
@@ -1759,19 +1764,19 @@
                         <div class="form-grid" id="formFields"></div>
                     </div>
                     <div class="action-bar">
-                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save Encounter</button>
-                        <button type="reset" class="btn btn-outline" id="clearBtn"><i class="fas fa-undo"></i> Clear</button>
-                        <button type="button" class="btn btn-pdf" id="pdfBtn"><i class="fas fa-file-pdf"></i> PDF Report</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <span class="i18n-text" data-i18n="save_encounter">Save Encounter</span></button>
+                        <button type="reset" class="btn btn-outline" id="clearBtn"><i class="fas fa-undo"></i> <span class="i18n-text" data-i18n="clear">Clear</span></button>
+                        <button type="button" class="btn btn-pdf" id="pdfBtn"><i class="fas fa-file-pdf"></i> <span class="i18n-text" data-i18n="pdf_report">PDF Report</span></button>
                     </div>
                 </form>
 
                 <div style="margin-top:8px;">
-                    <h3 style="font-size:0.8rem;"><i class="fas fa-chart-pie"></i> Care Insights</h3>
+                    <h3 style="font-size:0.8rem;"><i class="fas fa-chart-pie"></i> <span class="i18n-text" data-i18n="care_insights">Care Insights</span></h3>
                     <div id="riskContainer">
-                        <div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">Save an encounter to see recommendations.</div>
+                        <div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;" class="i18n-text" data-i18n="save_to_see">Save an encounter to see recommendations.</div>
                     </div>
                     <div class="composite-box">
-                        <span><i class="fas fa-shield-alt"></i> Functionality Index</span>
+                        <span><i class="fas fa-shield-alt"></i> <span class="i18n-text" data-i18n="functionality_index">Functionality Index</span></span>
                         <span class="composite-score" id="compositeScore">—</span>
                     </div>
                     <div id="concordanceContainer" style="margin:4px 0;"></div>
@@ -1780,35 +1785,35 @@
                         <canvas id="trendChart"></canvas>
                     </div>
                     <div class="ai-insight" id="aiInsight">
-                        <i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>
+                        <i class="fas fa-robot"></i> <span class="i18n-text" data-i18n="recommendations_appear">Evidence‑based recommendations appear after saving.</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="card history-section">
-            <h3><i class="fas fa-history"></i> Encounter History <span style="font-size:0.55rem; font-weight:400; color:#8892b0;" id="historyCount">0 records</span></h3>
+            <h3><i class="fas fa-history"></i> <span class="i18n-text" data-i18n="encounter_history">Encounter History</span> <span style="font-size:0.55rem; font-weight:400; color:#8892b0;" id="historyCount">0 <span class="i18n-text" data-i18n="records">records</span></span></h3>
             <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Date</th>
-                            <th>Profile</th>
-                            <th>PPD Name</th>
-                            <th>Gender</th>
-                            <th>Age</th>
-                            <th>BMI</th>
-                            <th>Pain</th>
-                            <th>Mobility</th>
-                            <th>Fatigue</th>
-                            <th>Function</th>
-                            <th>Index</th>
-                            <th>Action</th>
+                            <th class="i18n-text" data-i18n="th_id">ID</th>
+                            <th class="i18n-text" data-i18n="th_date">Date</th>
+                            <th class="i18n-text" data-i18n="th_profile">Profile</th>
+                            <th class="i18n-text" data-i18n="th_ppd">PPD Name</th>
+                            <th class="i18n-text" data-i18n="th_gender">Gender</th>
+                            <th class="i18n-text" data-i18n="th_age">Age</th>
+                            <th class="i18n-text" data-i18n="th_bmi">BMI</th>
+                            <th class="i18n-text" data-i18n="th_pain">Pain</th>
+                            <th class="i18n-text" data-i18n="th_mobility">Mobility</th>
+                            <th class="i18n-text" data-i18n="th_fatigue">Fatigue</th>
+                            <th class="i18n-text" data-i18n="th_function">Function</th>
+                            <th class="i18n-text" data-i18n="th_index">Index</th>
+                            <th class="i18n-text" data-i18n="th_action">Action</th>
                         </tr>
                     </thead>
                     <tbody id="historyBody">
-                        <tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;">No encounters yet.</td></tr>
+                        <tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;" class="i18n-text" data-i18n="no_encounters">No encounters yet.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1825,18 +1830,18 @@
             <div class="footer-cta-section">
                 <div class="cta-badge">
                     <i class="fas fa-shield-alt veritas-accent"></i>
-                    <span>VERITAS: <span class="veritas-accent">Value-Based Care</span> with <span class="veritas-accent">Anti-Deepfake Verification</span></span>
+                    <span>VERITAS: <span class="veritas-accent" class="i18n-text" data-i18n="vbc_tag">Value-Based Care</span> with <span class="veritas-accent" class="i18n-text" data-i18n="anti_deepfake">Anti-Deepfake Verification</span></span>
                     <i class="fas fa-check-circle" style="color:#28a745; font-size:0.7rem;"></i>
                 </div>
                 <div class="footer-triad">
-                    <span class="triad-item"><span class="provider">🏛️</span> Provider</span>
-                    <span class="triad-item"><span class="payer">💰</span> Payer</span>
-                    <span class="triad-item"><span class="regulator">📋</span> Regulator</span>
-                    <span class="triad-item"><span class="heart">❤️</span> Patient</span>
+                    <span class="triad-item"><span class="provider">🏛️</span> <span class="i18n-text" data-i18n="provider">Provider</span></span>
+                    <span class="triad-item"><span class="payer">💰</span> <span class="i18n-text" data-i18n="payer">Payer</span></span>
+                    <span class="triad-item"><span class="regulator">📋</span> <span class="i18n-text" data-i18n="regulator">Regulator</span></span>
+                    <span class="triad-item"><span class="heart">❤️</span> <span class="i18n-text" data-i18n="patient">Patient</span></span>
                 </div>
             </div>
             <div class="footer-bottom">
-                <span class="footer-value-line">Aligns Provider–Payer–Regulator goals around measurable patient outcomes.</span>
+                <span class="footer-value-line" class="i18n-text" data-i18n="footer_align">Aligns Provider–Payer–Regulator goals around measurable patient outcomes.</span>
                 <span class="footer-separator">·</span>
                 <span class="care-aid-badge">🏠 Pflegehilfsmittel</span>
             </div>
@@ -1846,43 +1851,43 @@
         <div class="verifier-modal" id="verifierModal">
             <div class="verifier-modal-content">
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
-                <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> VERITAS Token Verifier</h2>
-                <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;">
-                    <strong>Human-in-the-Loop Verification:</strong> Enter the verifier password to unlock, then verify the token.
+                <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> <span class="i18n-text" data-i18n="verifier_title">VERITAS Token Verifier</span></h2>
+                <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;" class="i18n-text" data-i18n="verifier_sub">
+                    Second human verifies the token. Enter password to unlock, then verify.
                 </p>
                 <div class="verifier-field">
-                    <label><i class="fas fa-lock"></i> Verifier Password</label>
+                    <label><i class="fas fa-lock"></i> <span class="i18n-text" data-i18n="human_password">Verifier Password</span></label>
                     <input type="password" id="verifierPassword" placeholder="Enter verifier password" />
                     <div class="verifier-password-hint" id="passwordHint"></div>
                 </div>
                 <div class="verifier-field">
-                    <label><i class="fas fa-key"></i> Session Token</label>
+                    <label><i class="fas fa-key"></i> <span class="i18n-text" data-i18n="session_token_label">Session Token</span></label>
                     <textarea id="verifierTokenInput" readonly placeholder="Token will auto-populate from the main tool"></textarea>
                 </div>
                 <div class="verifier-actions">
-                    <button class="btn-unlock" id="unlockVerifierBtn"><i class="fas fa-unlock"></i> Unlock</button>
-                    <button class="btn-verify" id="verifyTokenBtn" disabled><i class="fas fa-check-circle"></i> Verify Token</button>
-                    <button class="btn-close-verifier" id="closeVerifierBtn2"><i class="fas fa-times"></i> Close</button>
+                    <button class="btn-unlock" id="unlockVerifierBtn"><i class="fas fa-unlock"></i> <span class="i18n-text" data-i18n="unlock">Unlock</span></button>
+                    <button class="btn-verify" id="verifyTokenBtn" disabled><i class="fas fa-check-circle"></i> <span class="i18n-text" data-i18n="verify_token">Verify Token</span></button>
+                    <button class="btn-close-verifier" id="closeVerifierBtn2"><i class="fas fa-times"></i> <span class="i18n-text" data-i18n="close">Close</span></button>
                 </div>
                 <div class="verifier-results" id="verifierResults" style="display:none;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:4px;">
-                        <span style="font-weight:700; font-size:0.7rem;">📊 Verification Results</span>
-                        <span class="verifier-status-badge pending" id="verifierStatusBadge">Pending</span>
+                        <span style="font-weight:700; font-size:0.7rem;">📊 <span class="i18n-text" data-i18n="verification_results">Verification Results</span></span>
+                        <span class="verifier-status-badge pending" id="verifierStatusBadge"><span class="i18n-text" data-i18n="pending">Pending</span></span>
                     </div>
                     <div id="verifierResultsContent">
-                        <div class="result-item"><span class="label">Status</span><span class="value" id="resultStatus">—</span></div>
-                        <div class="result-item"><span class="label">PPD Name</span><span class="value" id="resultPPDName">—</span></div>
-                        <div class="result-item"><span class="label">License</span><span class="value" id="resultLicense">—</span></div>
-                        <div class="result-item"><span class="label">Liveness</span><span class="value" id="resultLiveness">—</span></div>
-                        <div class="result-item"><span class="label">Heart Rate</span><span class="value" id="resultHR">—</span></div>
-                        <div class="result-item"><span class="label">Function Index</span><span class="value" id="resultIndex">—</span></div>
-                        <div class="result-item"><span class="label">Signature</span><span class="value" id="resultSignature">—</span></div>
+                        <div class="result-item"><span class="label" class="i18n-text" data-i18n="status">Status</span><span class="value" id="resultStatus">—</span></div>
+                        <div class="result-item"><span class="label" class="i18n-text" data-i18n="caregiver">PPD Name</span><span class="value" id="resultPPDName">—</span></div>
+                        <div class="result-item"><span class="label" class="i18n-text" data-i18n="license">License</span><span class="value" id="resultLicense">—</span></div>
+                        <div class="result-item"><span class="label" class="i18n-text" data-i18n="liveness">Liveness</span><span class="value" id="resultLiveness">—</span></div>
+                        <div class="result-item"><span class="label" class="i18n-text" data-i18n="heart_rate">Heart Rate</span><span class="value" id="resultHR">—</span></div>
+                        <div class="result-item"><span class="label" class="i18n-text" data-i18n="function_index">Function Index</span><span class="value" id="resultIndex">—</span></div>
+                        <div class="result-item"><span class="label" class="i18n-text" data-i18n="signature">Signature</span><span class="value" id="resultSignature">—</span></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PDF CONTENT - VISIBLE FOR RENDERING, HIDDEN WITH CSS OFFSET -->
+        <!-- PDF CONTENT - VISIBLE FOR RENDERING -->
         <div id="pdfContent">
             <div id="pdfReportContent"></div>
         </div>
@@ -1892,7 +1897,7 @@
     <script>
         // ============================================================
         //  COMPLETE VERITAS APPLICATION
-        //  PDF FIXED: Proper rendering, A4 margins, B&W
+        //  LANGUAGE SELECTOR FULLY FUNCTIONAL - EN/DE/ES
         // ============================================================
 
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
@@ -1934,7 +1939,7 @@
                 generate_token: 'Generate Token',
                 copy: 'Copy',
                 save_vault: 'Save to Vault',
-                complete_first: 'Complete VERITAS verification first',
+                complete_first: 'Complete ANCHOR + PPD first',
                 open_verifier: 'Open Verifier (Human-in-the-Loop)',
                 token_vault: 'Token Vault',
                 tokens: 'tokens',
@@ -1989,7 +1994,7 @@
                 close: 'Close',
                 verification_results: 'Verification Results',
                 pending: 'Pending',
-                caregiver: 'Caregiver',
+                caregiver: 'PPD Name',
                 license: 'License',
                 heart_rate: 'Heart Rate',
                 function_index: 'Function Index',
@@ -2056,7 +2061,7 @@
                 generate_token: 'Token generieren',
                 copy: 'Kopieren',
                 save_vault: 'Im Tresor speichern',
-                complete_first: 'Führen Sie zuerst die VERITAS-Verifizierung durch',
+                complete_first: 'Führen Sie zuerst ANCHOR + PPD durch',
                 open_verifier: 'Verifizierer öffnen (Human-in-the-Loop)',
                 token_vault: 'Token-Tresor',
                 tokens: 'Token',
@@ -2111,7 +2116,7 @@
                 close: 'Schließen',
                 verification_results: 'Verifizierungsergebnisse',
                 pending: 'Ausstehend',
-                caregiver: 'Betreuer',
+                caregiver: 'PPD Name',
                 license: 'Lizenz',
                 heart_rate: 'Herzfrequenz',
                 function_index: 'Funktionsindex',
@@ -2178,7 +2183,7 @@
                 generate_token: 'Generar Token',
                 copy: 'Copiar',
                 save_vault: 'Guardar en Cofre',
-                complete_first: 'Complete primero la verificación VERITAS',
+                complete_first: 'Complete ANCHOR + PPD primero',
                 open_verifier: 'Abrir Verificador (Humano en el Bucle)',
                 token_vault: 'Cofre de Tokens',
                 tokens: 'tokens',
@@ -2233,7 +2238,7 @@
                 close: 'Cerrar',
                 verification_results: 'Resultados de Verificación',
                 pending: 'Pendiente',
-                caregiver: 'Cuidador',
+                caregiver: 'PPD Nombre',
                 license: 'Licencia',
                 heart_rate: 'Frecuencia Cardíaca',
                 function_index: 'Índice de Función',
@@ -2420,6 +2425,7 @@
             return `${mins}m ${secs}s`;
         }
 
+        // ========== I18N FUNCTIONS ==========
         function t(key, ...args) {
             const langData = i18n[currentLang] || i18n.en;
             let value = langData[key];
@@ -2430,39 +2436,50 @@
 
         function applyLanguage(lang) {
             currentLang = lang;
+
+            // Update language buttons
             document.querySelectorAll('.lang-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.lang === lang);
             });
+
+            // Update all elements with data-i18n attribute
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 const translation = t(key);
-                if (translation) {
-                    const textNodes = [];
-                    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-                    let node;
-                    while (node = walker.nextNode()) {
-                        if (node.parentElement === el || node.parentElement?.closest('[data-i18n]') === el) {
-                            textNodes.push(node);
+                if (translation && translation !== el.textContent) {
+                    // Check if element has child nodes that should be preserved
+                    const hasChildren = el.children.length > 0;
+                    if (hasChildren) {
+                        // For elements with children, find the text node and update it
+                        const childNodes = el.childNodes;
+                        for (let i = 0; i < childNodes.length; i++) {
+                            if (childNodes[i].nodeType === Node.TEXT_NODE) {
+                                childNodes[i].textContent = translation;
+                                break;
+                            }
                         }
-                    }
-                    if (textNodes.length > 0) {
-                        textNodes.forEach((n, idx) => { if (idx === 0) n.textContent = translation;
-                            else n.textContent = ''; });
+                        // If no text node found, append one
+                        if (!el.textContent.includes(translation)) {
+                            el.appendChild(document.createTextNode(translation));
+                        }
                     } else {
-                        const children = el.children;
-                        if (children.length === 0) el.textContent = translation;
-                        else {
-                            const firstText = el.childNodes[0];
-                            if (firstText && firstText.nodeType === Node.TEXT_NODE) firstText.textContent = translation;
-                        }
+                        el.textContent = translation;
                     }
                 }
             });
+
+            // Update password hint (keep it empty for security)
             const hintEl = document.getElementById('passwordHint');
-            if (hintEl) { hintEl.textContent = '';
-                hintEl.className = 'verifier-password-hint'; }
+            if (hintEl) {
+                hintEl.textContent = '';
+                hintEl.className = 'verifier-password-hint';
+            }
+
+            // Re-render insights with new language
             const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
             if (latest) renderInsights(latest);
+
+            console.log(`Language changed to: ${lang}`);
         }
 
         function getPPDData() {
@@ -2511,7 +2528,7 @@
             if (fullyVerified) {
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = "VERITAS FULLY VERIFIED ✓";
+                anchorStatusText.textContent = t('veritas_pending') + ' ✓';
                 tokenVerificationBadge.className = "verification-status-badge verified";
                 tokenVerificationBadge.textContent = "VERIFIED";
                 if (tokenGenerated) { tokenStatus.textContent = "✅ VERITAS fully verified!";
@@ -2519,7 +2536,7 @@
             } else if (allAnchorSteps) {
                 anchorIcon.className = "status-icon pending";
                 anchorIcon.textContent = "⏳";
-                anchorStatusText.textContent = "ANCHOR + PPD complete. Awaiting human verification.";
+                anchorStatusText.textContent = t('veritas_pending') + ' · ANCHOR OK';
                 tokenVerificationBadge.className = "verification-status-badge partial";
                 tokenVerificationBadge.textContent = "ANCHOR OK";
                 if (tokenGenerated) { tokenStatus.textContent = "⏳ Token ready. Complete human verification in Verifier.";
@@ -2531,7 +2548,7 @@
                 if (!verificationState.liveness) missing.push("Liveness");
                 if (!verificationState.hr) missing.push("HR");
                 if (!verificationState.ppd) missing.push("PPD");
-                anchorStatusText.textContent = "VERITAS pending: " + missing.join(", ");
+                anchorStatusText.textContent = t('veritas_pending') + ': ' + missing.join(", ");
                 tokenVerificationBadge.className = "verification-status-badge pending";
                 tokenVerificationBadge.textContent = "PENDING";
             }
@@ -2544,7 +2561,7 @@
                 generateTokenBtn.disabled = true;
             } else {
                 generateTokenBtn.disabled = true;
-                tokenStatus.textContent = "Complete ANCHOR + PPD first";
+                tokenStatus.textContent = t('complete_first');
                 tokenStatus.style.color = "#8892b0";
             }
 
@@ -3437,7 +3454,7 @@
             verifyTokenBtn.disabled = true;
             verifierResults.style.display = 'none';
             verifierStatusBadge.className = 'verifier-status-badge pending';
-            verifierStatusBadge.textContent = 'Pending';
+            verifierStatusBadge.textContent = t('pending');
             passwordHint.className = 'verifier-password-hint';
             passwordHint.textContent = '';
             verifierPassword.style.borderColor = '#262c4a';
@@ -3503,7 +3520,7 @@
                 const isExpired = exp < now;
 
                 let status = 'pending';
-                let statusText = '⏳ Pending';
+                let statusText = '⏳ ' + t('pending');
                 let badgeClass = 'pending';
 
                 if (signatureValid && !isExpired && isUnlocked) {
@@ -3852,7 +3869,7 @@
             renderHistory();
         }
 
-        // ========== PDF / VERITAS REPORT - FIXED: BLACK & WHITE, A4 FRIENDLY ==========
+        // ========== PDF / VERITAS REPORT ==========
         function generatePDFReport() {
             const latest = encounters.length > 0 ? encounters[encounters.length - 1] : null;
             if (!latest) {
@@ -3948,7 +3965,6 @@
 
             const ipAddress = document.getElementById('ipDisplay')?.textContent || 'Not available';
 
-            // ========== BLACK & WHITE PDF REPORT - FIXED ==========
             const reportHTML = `
                 <div class="pdf-report">
                     <div class="header">
@@ -4052,11 +4068,9 @@
                 </div>
             `;
 
-            // Put content in the PDF container
             const pdfContent = document.getElementById('pdfReportContent');
             pdfContent.innerHTML = reportHTML;
 
-            // Make the PDF container visible for rendering
             const container = document.getElementById('pdfContent');
             container.style.position = 'static';
             container.style.left = 'auto';
@@ -4088,11 +4102,9 @@
             pdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
             pdfBtn.disabled = true;
 
-            // Use the container directly
             html2pdf().set(opt).from(container).save().then(() => {
                 pdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> PDF Report';
                 pdfBtn.disabled = false;
-                // Reset container position
                 container.style.position = 'absolute';
                 container.style.left = '-9999px';
                 container.style.display = 'block';
@@ -4129,10 +4141,13 @@
             console.log('=== MyMedfit BRAVO PRO + VERITAS + Dynamic Risk Engine ===');
             deviceIdDisplay.textContent = deviceId.substring(0, 12) + '…';
 
-            // Language
+            // Language selector setup
             applyLanguage('en');
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', function() { applyLanguage(this.dataset.lang); });
+                btn.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    applyLanguage(lang);
+                });
             });
 
             buildForm();
@@ -4213,6 +4228,7 @@
 
             updateVerificationStatus();
             console.log('=== Initialization complete ===');
+            console.log('Language selector: EN/DE/ES available');
         }
 
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

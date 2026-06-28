@@ -1495,6 +1495,22 @@
             font-size: 0.45rem;
             color: #8892b0;
         }
+
+        .token-status-msg {
+            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-top: 4px;
+        }
+        .token-status-msg.success {
+            color: #28a745;
+        }
+        .token-status-msg.pending {
+            color: #ffc107;
+        }
+        .token-status-msg.error {
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -1581,31 +1597,31 @@
                     <div class="meta-row">
                         <div class="meta-field">
                             <label data-i18n="full_name">Full Name</label>
-                            <input id="caregiverName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" />
+                            <input id="caregiverName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" value="Dr. Moustafa" />
                         </div>
                         <div class="meta-field">
                             <label data-i18n="license_id">License / ID</label>
-                            <input id="caregiverLicense" type="text" placeholder="e.g. PT-123456" />
+                            <input id="caregiverLicense" type="text" placeholder="e.g. PT-123456" value="PT-123456" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
                             <label data-i18n="issuing_authority">Issuing Authority</label>
-                            <input id="issuingAuthority" type="text" placeholder="e.g. Klinik Rosenhof" />
+                            <input id="issuingAuthority" type="text" placeholder="e.g. Klinik Rosenhof" value="Klinik Rosenhof" />
                         </div>
                         <div class="meta-field">
                             <label data-i18n="professional_role">Professional Role</label>
-                            <input id="professionalRole" type="text" placeholder="e.g. Physiotherapist" />
+                            <input id="professionalRole" type="text" placeholder="e.g. Physiotherapist" value="Physiotherapist" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
                             <label data-i18n="institution">Institution / Practice</label>
-                            <input id="institution" type="text" placeholder="e.g. Rosenhof Medical Center" />
+                            <input id="institution" type="text" placeholder="e.g. Rosenhof Medical Center" value="Rosenhof Medical Center" />
                         </div>
                         <div class="meta-field">
                             <label data-i18n="contact">Contact / Email</label>
-                            <input id="contact" type="text" placeholder="e.g. info@klinik-rosenhof.de" />
+                            <input id="contact" type="text" placeholder="e.g. info@klinik-rosenhof.de" value="info@klinik-rosenhof.de" />
                         </div>
                     </div>
                 </div>
@@ -1615,13 +1631,13 @@
                         <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> <span data-i18n="session_token">VERITAS Session Token</span></span>
                     </div>
                     <div class="meta-actions">
-                        <button class="btn-token" id="generateTokenBtn" disabled><i class="fas fa-key"></i> <span data-i18n="generate_token">Generate Token</span></button>
+                        <button class="btn-token" id="generateTokenBtn"><i class="fas fa-key"></i> <span data-i18n="generate_token">Generate Token</span></button>
                         <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> <span data-i18n="copy">Copy</span></button>
                         <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> <span data-i18n="save_vault">Save to Vault</span></button>
-                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus"><span data-i18n="complete_first">Complete VERITAS verification first</span></span>
+                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus">Click "Generate Token" to create</span>
                     </div>
                     <div style="margin-top:4px;">
-                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + PPD"></textarea>
+                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear here after clicking Generate Token"></textarea>
                     </div>
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
@@ -3055,7 +3071,6 @@
                     if (livenessStartTime != null) {
                         livenessDurationSec = (performance.now() / 1000) - livenessStartTime;
                     }
-                    checkAndGenerateToken();
                     updateAnchorStatus();
                     return;
                 }
@@ -3172,7 +3187,6 @@
                     hrDebugEl.textContent += "\nRaw BPM: " + rawBpm.toFixed(1) + " | Clamped BPM: " + clampedBpm.toFixed(1) +
                         " | Quality: " + (quality * 100).toFixed(1) + "%";
 
-                    checkAndGenerateToken();
                     updateAnchorStatus();
                 } else {
                     hrStatusEl.textContent = "No dominant HR frequency found. Improve lighting and stay very still.";
@@ -3235,43 +3249,17 @@
             return { bpm, rawBpm, quality };
         }
 
-        // ========== TOKEN GENERATION (AUTO) ==========
-        function checkAndGenerateToken() {
-            const ppd = getPPDData();
-            const hasName = ppd.name && ppd.name.trim().length > 0;
-            const hasLicense = ppd.license && ppd.license.trim().length > 0;
-
-            console.log("Checking token generation:", {
-                liveness: livenessCompleted,
-                hr: !!lastHREstimate,
-                name: hasName,
-                license: hasLicense,
-                tokenGenerated: tokenGenerated
-            });
-
-            if (livenessCompleted && lastHREstimate && hasName && hasLicense) {
-                if (!tokenGenerated) {
-                    console.log("Generating token...");
-                    generateToken();
-                    tokenGenerated = true;
-                    tokenStatus.textContent = "✅ VERITAS token generated. Waiting for human verification.";
-                    generateTokenBtn.disabled = false;
-                    copyTokenBtn.disabled = false;
-                    saveToVaultBtn.disabled = false;
-                } else {
-                    generateTokenBtn.disabled = false;
-                    copyTokenBtn.disabled = false;
-                    saveToVaultBtn.disabled = false;
-                }
-            } else {
-                generateTokenBtn.disabled = true;
-                copyTokenBtn.disabled = true;
-                saveToVaultBtn.disabled = true;
-            }
-        }
-
+        // ========== TOKEN GENERATION ==========
         function generateToken() {
             const ppd = getPPDData();
+
+            // Validate required fields
+            if (!ppd.name || !ppd.license) {
+                tokenStatus.textContent = "⚠️ Please enter Name and License first.";
+                tokenStatus.style.color = "#ffc107";
+                return;
+            }
+
             const formData = getFormData();
             const index = computeCareIndex(formData);
 
@@ -3301,10 +3289,10 @@
                 ppd: {
                     caregiver_name: ppd.name,
                     caregiver_license: ppd.license,
-                    issuing_authority: ppd.authority,
-                    professional_role: ppd.role,
-                    institution: ppd.institution,
-                    contact: ppd.contact,
+                    issuing_authority: ppd.authority || "Not specified",
+                    professional_role: ppd.role || "Not specified",
+                    institution: ppd.institution || "Not specified",
+                    contact: ppd.contact || "Not specified",
                 },
                 assessment: {
                     functionality_index: index,
@@ -3326,8 +3314,22 @@
 
             const token = encodedHeader + "." + encodedPayload + "." + signature;
             console.log("Token generated, length:", token.length);
+
             tokenOutput.value = token;
             lastGeneratedToken = token;
+            tokenGenerated = true;
+
+            tokenStatus.textContent = "✅ Token generated successfully!";
+            tokenStatus.style.color = "#28a745";
+
+            copyTokenBtn.disabled = false;
+            saveToVaultBtn.disabled = false;
+
+            // Update the verifier modal token input
+            verifierTokenInput.value = token;
+
+            updateAnchorStatus();
+            return token;
         }
 
         function updateAnchorStatus() {
@@ -3352,16 +3354,20 @@
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
                 anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ PPD ✓ Human ✓";
-                tokenStatus.textContent = "✅ VERITAS fully verified!";
-                updateVaultVerification();
+                if (tokenGenerated) {
+                    tokenStatus.textContent = "✅ VERITAS fully verified!";
+                    tokenStatus.style.color = "#28a745";
+                }
             } else if (anchorComplete) {
                 anchorIcon.className = "status-icon pending";
                 anchorIcon.textContent = "⏳";
                 anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
                 if (tokenGenerated) {
                     tokenStatus.textContent = "⏳ Token generated. Complete human verification in Verifier.";
+                    tokenStatus.style.color = "#ffc107";
                 } else {
-                    tokenStatus.textContent = "⏳ ANCHOR verified. Generating token...";
+                    tokenStatus.textContent = "⏳ ANCHOR verified. Click 'Generate Token' to create.";
+                    tokenStatus.style.color = "#ffc107";
                 }
             } else {
                 anchorIcon.className = "status-icon pending";
@@ -3373,21 +3379,10 @@
                 if (!hasLicense) missing.push("License");
                 anchorStatusText.textContent = "VERITAS pending: " + (missing.length > 0 ? missing.join(", ") :
                     "Complete all steps");
-                tokenStatus.textContent = "Complete all steps: " + missing.join(", ");
-            }
-
-            checkAndGenerateToken();
-        }
-
-        function updateVaultVerification() {
-            if (!tokenOutput.value) return;
-            const token = tokenOutput.value.trim();
-            const idx = tokenVault.findIndex(t => t.token === token);
-            if (idx >= 0) {
-                tokenVault[idx].verified = true;
-                tokenVault[idx].verification_date = new Date().toISOString();
-                localStorage.setItem(VAULT_KEY, JSON.stringify(tokenVault));
-                renderVault();
+                if (!tokenGenerated) {
+                    tokenStatus.textContent = "Complete steps: " + missing.join(", ");
+                    tokenStatus.style.color = "#8892b0";
+                }
             }
         }
 
@@ -4103,20 +4098,19 @@
             startHRBtn.addEventListener('click', startHRMonitoring);
             stopHRBtn.addEventListener('click', stopHRMonitoring);
 
-            // PPD input listeners
+            // PPD input listeners - update status
             [caregiverName, caregiverLicense, issuingAuthority, professionalRole, institution, contact].forEach(el => {
                 el.addEventListener('input', function() {
-                    console.log("PPD input changed, checking token generation...");
-                    checkAndGenerateToken();
                     updateAnchorStatus();
                 });
             });
 
+            // Generate Token button - MANUAL
             generateTokenBtn.addEventListener('click', function() {
-                console.log("Manual token generation requested");
-                tokenGenerated = false;
-                checkAndGenerateToken();
+                console.log("Manual token generation clicked");
+                generateToken();
             });
+
             copyTokenBtn.addEventListener('click', copyToken);
             saveToVaultBtn.addEventListener('click', saveTokenToVault);
             clearVaultBtn.addEventListener('click', clearVault);
@@ -4170,13 +4164,9 @@
                 renderInsights(null);
             }
 
-            // Force check on load
-            setTimeout(() => {
-                checkAndGenerateToken();
-                updateAnchorStatus();
-            }, 500);
-
+            updateAnchorStatus();
             console.log('=== Initialization complete ===');
+            console.log('Click "Generate Token" to create a VERITAS token');
         }
 
         if (document.readyState === 'loading') {

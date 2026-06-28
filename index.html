@@ -1495,6 +1495,31 @@
             font-size: 0.45rem;
             color: #8892b0;
         }
+
+        .verification-status-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .verification-status-badge.pending {
+            background: #ffc107;
+            color: #1a1a1a;
+        }
+        .verification-status-badge.verified {
+            background: #28a745;
+            color: white;
+        }
+        .verification-status-badge.failed {
+            background: #dc3545;
+            color: white;
+        }
+        .verification-status-badge.partial {
+            background: #6f42c1;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -1504,7 +1529,7 @@
         <header class="app-header">
             <div class="brand">
                 <h1><i class="fas fa-heartbeat"></i> MyMedfit BRAVO PRO</h1>
-                <span class="badge"><i class="fas fa-robot"></i> <span data-i18n="badge_patient">Patient‑Centred Care</span></span>
+                <span class="badge"><i class="fas fa-robot"></i> Patient‑Centred Care</span>
                 <span class="badge badge-veritas"><i class="fas fa-shield-alt"></i> VERITAS</span>
             </div>
             <div class="header-controls">
@@ -1518,39 +1543,39 @@
         </header>
 
         <div class="profile-selector">
-            <button class="profile-btn active" data-profile="acute"><i class="fas fa-bolt"></i> <span data-i18n="profile_acute">Acute Rehab</span></button>
-            <button class="profile-btn" data-profile="preventive"><i class="fas fa-shield-alt"></i> <span data-i18n="profile_preventive">Preventive</span></button>
-            <button class="profile-btn" data-profile="palliative"><i class="fas fa-heart"></i> <span data-i18n="profile_palliative">Palliative</span></button>
+            <button class="profile-btn active" data-profile="acute"><i class="fas fa-bolt"></i> Acute Rehab</button>
+            <button class="profile-btn" data-profile="preventive"><i class="fas fa-shield-alt"></i> Preventive</button>
+            <button class="profile-btn" data-profile="palliative"><i class="fas fa-heart"></i> Palliative</button>
         </div>
 
         <div class="grid-2">
 
             <div class="card">
-                <h3><i class="fas fa-camera"></i> <span data-i18n="anchor_title">ANCHOR · Liveness & HR</span></h3>
+                <h3><i class="fas fa-camera"></i> ANCHOR · Liveness & HR</h3>
 
                 <div class="video-container">
                     <video id="video" autoplay playsinline></video>
                     <div id="overlay" class="overlay hidden">
-                        <span id="overlayText" data-i18n="look_straight">Look straight into the camera</span>
+                        <span id="overlayText">Look straight into the camera</span>
                     </div>
                 </div>
 
                 <div class="controls">
-                    <button id="startCameraBtn" class="btn-success"><span data-i18n="start_camera">Start Camera</span></button>
-                    <button id="stopCameraBtn" class="btn-danger" disabled><span data-i18n="stop">Stop</span></button>
-                    <button id="runLivenessBtn" class="btn-success" disabled><span data-i18n="run_liveness">Run Liveness</span></button>
-                    <button id="startHRBtn" class="btn-success" disabled><span data-i18n="start_hr">Start HR</span></button>
-                    <button id="stopHRBtn" class="btn-danger" disabled><span data-i18n="stop_hr">Stop HR</span></button>
+                    <button id="startCameraBtn" class="btn-success">Start Camera</button>
+                    <button id="stopCameraBtn" class="btn-danger" disabled>Stop</button>
+                    <button id="runLivenessBtn" class="btn-success" disabled>Run Liveness</button>
+                    <button id="startHRBtn" class="btn-success" disabled>Start HR</button>
+                    <button id="stopHRBtn" class="btn-danger" disabled>Stop HR</button>
                 </div>
 
                 <div class="status">
                     <div class="status-row">
-                        <span data-i18n="status">Status:</span>
-                        <span id="statusText" data-i18n="idle">Idle</span>
+                        <span>Status:</span>
+                        <span id="statusText">Idle</span>
                     </div>
                     <div class="status-row">
-                        <span data-i18n="liveness">Liveness:</span>
-                        <span id="livenessStatus" data-i18n="not_run">Not run</span>
+                        <span>Liveness:</span>
+                        <span id="livenessStatus">Not run</span>
                     </div>
                     <progress id="progressBar" value="0" max="100"></progress>
                 </div>
@@ -1559,70 +1584,74 @@
                     <div class="hr-top-row">
                         <span>
                             <span id="hrQualityDot" class="quality-dot"></span>
-                            <span data-i18n="optical_hr">Optical HR (rPPG):</span>
+                            Optical HR (rPPG):
                         </span>
                         <span class="hr-value" id="hrValue">-- bpm</span>
                     </div>
-                    <div style="font-size:0.7rem; opacity:0.8;" id="hrStatus" data-i18n="hr_press">Press "Start HR" and stay still</div>
+                    <div style="font-size:0.7rem; opacity:0.8;" id="hrStatus">Press "Start HR" and stay still</div>
                     <div style="font-size:0.6rem; opacity:0.6; margin-top:2px;" id="hrDebug"></div>
                 </div>
 
                 <div class="anchor-status">
                     <span class="status-icon pending" id="anchorIcon">⏳</span>
-                    <span id="anchorStatusText" data-i18n="veritas_pending">VERITAS verification pending</span>
-                    <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ Name:❌ License:❌</span>
+                    <span id="anchorStatusText">VERITAS verification pending</span>
+                    <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ PPD:❌ Human:❌</span>
                 </div>
 
-                <!-- PPD Section - Replaced "KYC · Caregiver Identity" -->
+                <!-- PPD Section -->
                 <div class="ppd-section" style="margin-top:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> PPD · Personal Professional Details</span>
-                        <span style="font-size:0.5rem; color:#8892b0;"><span data-i18n="device">Device</span>: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
+                        <span style="font-size:0.5rem; color:#8892b0;">Device: <span id="deviceIdDisplay" style="font-family:monospace;">—</span></span>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
                             <label>Full Name</label>
-                            <input id="ppdName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" value="Dr. Moustafa" />
+                            <input id="ppdName" type="text" placeholder="e.g. Dr. Moustafa Mohammed Ali" />
                         </div>
                         <div class="meta-field">
                             <label>License / ID</label>
-                            <input id="ppdLicense" type="text" placeholder="e.g. PT-123456" value="PT-123456" />
+                            <input id="ppdLicense" type="text" placeholder="e.g. PT-123456" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
                             <label>Issuing Authority</label>
-                            <input id="ppdAuthority" type="text" placeholder="e.g. Klinik Rosenhof" value="Klinik Rosenhof" />
+                            <input id="ppdAuthority" type="text" placeholder="e.g. Klinik Rosenhof" />
                         </div>
                         <div class="meta-field">
                             <label>Professional Role</label>
-                            <input id="ppdRole" type="text" placeholder="e.g. Physiotherapist" value="Physiotherapist" />
+                            <input id="ppdRole" type="text" placeholder="e.g. Physiotherapist" />
                         </div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-field">
                             <label>Institution / Practice</label>
-                            <input id="ppdInstitution" type="text" placeholder="e.g. Rosenhof Medical Center" value="Rosenhof Medical Center" />
+                            <input id="ppdInstitution" type="text" placeholder="e.g. Rosenhof Medical Center" />
                         </div>
                         <div class="meta-field">
                             <label>Contact / Email</label>
-                            <input id="ppdContact" type="text" placeholder="e.g. info@klinik-rosenhof.de" value="info@klinik-rosenhof.de" />
+                            <input id="ppdContact" type="text" placeholder="e.g. info@klinik-rosenhof.de" />
                         </div>
+                    </div>
+                    <div style="margin-top:4px; font-size:0.55rem; color:#8892b0;">
+                        <span id="ppdStatus">⚠️ PPD incomplete: Name and License required</span>
                     </div>
                 </div>
 
                 <div class="ppd-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> VERITAS Session Token</span>
+                        <span class="verification-status-badge pending" id="tokenVerificationBadge">PENDING</span>
                     </div>
                     <div class="meta-actions">
-                        <button class="btn-token" id="generateTokenBtn"><i class="fas fa-key"></i> Generate Token</button>
+                        <button class="btn-token" id="generateTokenBtn" disabled><i class="fas fa-key"></i> Generate Token</button>
                         <button class="btn-copy" id="copyTokenBtn" disabled><i class="fas fa-copy"></i> Copy</button>
                         <button class="btn-vault" id="saveToVaultBtn" disabled><i class="fas fa-vault"></i> Save to Vault</button>
-                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus">Click "Generate Token" to create</span>
+                        <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus">Complete ANCHOR + PPD first</span>
                     </div>
                     <div style="margin-top:4px;">
-                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear here after clicking Generate Token"></textarea>
+                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after ANCHOR + PPD are complete"></textarea>
                     </div>
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
@@ -1648,15 +1677,15 @@
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-edit"></i> <span data-i18n="assessment_title">Patient Assessment & Labs</span></h3>
+                <h3><i class="fas fa-edit"></i> Patient Assessment & Labs</h3>
 
                 <div class="demo-bar">
                     <div class="demo-group">
                         <label><i class="fas fa-venus-mars"></i></label>
                         <select id="gender">
-                            <option value="female">♀ <span data-i18n="female">Female</span></option>
-                            <option value="male">♂ <span data-i18n="male">Male</span></option>
-                            <option value="diverse">⚧ <span data-i18n="diverse">Diverse</span></option>
+                            <option value="female">♀ Female</option>
+                            <option value="male">♂ Male</option>
+                            <option value="diverse">⚧ Diverse</option>
                         </select>
                     </div>
                     <div class="demo-group">
@@ -1672,19 +1701,19 @@
                         <input type="number" id="weight" placeholder="72" step="0.1" />
                     </div>
                     <div class="demo-group">
-                        <label><i class="fas fa-calendar"></i> <span data-i18n="dob">DOB</span></label>
+                        <label><i class="fas fa-calendar"></i> DOB</label>
                         <input type="date" id="dob" value="1980-01-01" />
                     </div>
                     <div class="demo-group">
-                        <label><i class="fas fa-id-card"></i> <span data-i18n="insurance">Insurance</span></label>
+                        <label><i class="fas fa-id-card"></i> Insurance</label>
                         <input type="text" id="insuranceNumber" value="INS-123456789" style="width:80px; font-size:0.55rem;" />
                     </div>
                 </div>
 
                 <div class="goals-section">
-                    <div class="goal-item"><i class="fas fa-bullseye"></i> <span data-i18n="goal_pain">Pain</span>: <input type="number" id="goal_pain" value="2" min="0" max="10" step="1" /></div>
-                    <div class="goal-item"><i class="fas fa-walking"></i> <span data-i18n="goal_mobility">Mobility</span>: <input type="number" id="goal_mobility" value="8" min="0" max="10" step="1" /></div>
-                    <div class="goal-item"><i class="fas fa-battery-half"></i> <span data-i18n="goal_energy">Energy</span>: <input type="number" id="goal_energy" value="6" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-bullseye"></i> Pain: <input type="number" id="goal_pain" value="2" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-walking"></i> Mobility: <input type="number" id="goal_mobility" value="8" min="0" max="10" step="1" /></div>
+                    <div class="goal-item"><i class="fas fa-battery-half"></i> Energy: <input type="number" id="goal_energy" value="6" min="0" max="10" step="1" /></div>
                 </div>
 
                 <form id="checkupForm" autocomplete="off">
@@ -1692,19 +1721,19 @@
                         <div class="form-grid" id="formFields"></div>
                     </div>
                     <div class="action-bar">
-                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <span data-i18n="save_encounter">Save Encounter</span></button>
-                        <button type="reset" class="btn btn-outline" id="clearBtn"><i class="fas fa-undo"></i> <span data-i18n="clear">Clear</span></button>
-                        <button type="button" class="btn btn-pdf" id="pdfBtn"><i class="fas fa-file-pdf"></i> <span data-i18n="pdf_report">PDF Report</span></button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save Encounter</button>
+                        <button type="reset" class="btn btn-outline" id="clearBtn"><i class="fas fa-undo"></i> Clear</button>
+                        <button type="button" class="btn btn-pdf" id="pdfBtn"><i class="fas fa-file-pdf"></i> PDF Report</button>
                     </div>
                 </form>
 
                 <div style="margin-top:8px;">
-                    <h3 style="font-size:0.8rem;"><i class="fas fa-chart-pie"></i> <span data-i18n="care_insights">Care Insights</span></h3>
+                    <h3 style="font-size:0.8rem;"><i class="fas fa-chart-pie"></i> Care Insights</h3>
                     <div id="riskContainer">
-                        <div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;" data-i18n="save_to_see">Save an encounter to see recommendations.</div>
+                        <div style="color:#8892b0; padding:8px 0; text-align:center; font-size:0.7rem;">Save an encounter to see recommendations.</div>
                     </div>
                     <div class="composite-box">
-                        <span><i class="fas fa-shield-alt"></i> <span data-i18n="functionality_index">Functionality Index</span></span>
+                        <span><i class="fas fa-shield-alt"></i> Functionality Index</span>
                         <span class="composite-score" id="compositeScore">—</span>
                     </div>
                     <div id="concordanceContainer" style="margin:4px 0;"></div>
@@ -1713,35 +1742,35 @@
                         <canvas id="trendChart"></canvas>
                     </div>
                     <div class="ai-insight" id="aiInsight">
-                        <i class="fas fa-robot"></i> <span data-i18n="recommendations_appear">Evidence‑based recommendations appear after saving.</span>
+                        <i class="fas fa-robot"></i> <span>Evidence‑based recommendations appear after saving.</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="card history-section">
-            <h3><i class="fas fa-history"></i> <span data-i18n="encounter_history">Encounter History</span> <span style="font-size:0.55rem; font-weight:400; color:#8892b0;" id="historyCount">0 <span data-i18n="records">records</span></span></h3>
+            <h3><i class="fas fa-history"></i> Encounter History <span style="font-size:0.55rem; font-weight:400; color:#8892b0;" id="historyCount">0 records</span></h3>
             <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
-                            <th data-i18n="th_id">ID</th>
-                            <th data-i18n="th_date">Date</th>
-                            <th data-i18n="th_profile">Profile</th>
-                            <th data-i18n="th_ppd">PPD Name</th>
-                            <th data-i18n="th_gender">Gender</th>
-                            <th data-i18n="th_age">Age</th>
-                            <th data-i18n="th_bmi">BMI</th>
-                            <th data-i18n="th_pain">Pain</th>
-                            <th data-i18n="th_mobility">Mobility</th>
-                            <th data-i18n="th_fatigue">Fatigue</th>
-                            <th data-i18n="th_function">Function</th>
-                            <th data-i18n="th_index">Index</th>
-                            <th data-i18n="th_action">Action</th>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Profile</th>
+                            <th>PPD Name</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>BMI</th>
+                            <th>Pain</th>
+                            <th>Mobility</th>
+                            <th>Fatigue</th>
+                            <th>Function</th>
+                            <th>Index</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="historyBody">
-                        <tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;" data-i18n="no_encounters">No encounters yet.</td></tr>
+                        <tr><td colspan="13" style="text-align:center; color:#8892b0; font-size:0.65rem;">No encounters yet.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1758,18 +1787,18 @@
             <div class="footer-cta-section">
                 <div class="cta-badge">
                     <i class="fas fa-shield-alt veritas-accent"></i>
-                    <span>VERITAS: <span class="veritas-accent" data-i18n="vbc_tag">Value-Based Care</span> with <span class="veritas-accent" data-i18n="anti_deepfake">Anti-Deepfake Verification</span></span>
+                    <span>VERITAS: <span class="veritas-accent">Value-Based Care</span> with <span class="veritas-accent">Anti-Deepfake Verification</span></span>
                     <i class="fas fa-check-circle" style="color:#28a745; font-size:0.7rem;"></i>
                 </div>
                 <div class="footer-triad">
-                    <span class="triad-item"><span class="provider">🏛️</span> <span data-i18n="provider">Provider</span></span>
-                    <span class="triad-item"><span class="payer">💰</span> <span data-i18n="payer">Payer</span></span>
-                    <span class="triad-item"><span class="regulator">📋</span> <span data-i18n="regulator">Regulator</span></span>
-                    <span class="triad-item"><span class="heart">❤️</span> <span data-i18n="patient">Patient</span></span>
+                    <span class="triad-item"><span class="provider">🏛️</span> Provider</span>
+                    <span class="triad-item"><span class="payer">💰</span> Payer</span>
+                    <span class="triad-item"><span class="regulator">📋</span> Regulator</span>
+                    <span class="triad-item"><span class="heart">❤️</span> Patient</span>
                 </div>
             </div>
             <div class="footer-bottom">
-                <span class="footer-value-line" data-i18n="footer_align">Aligns Provider–Payer–Regulator goals around measurable patient outcomes.</span>
+                <span class="footer-value-line">Aligns Provider–Payer–Regulator goals around measurable patient outcomes.</span>
                 <span class="footer-separator">·</span>
                 <span class="care-aid-badge">🏠 Pflegehilfsmittel</span>
             </div>
@@ -1822,7 +1851,7 @@
 
     <script>
         // ============================================================
-        //  COMPLETE VERITAS APPLICATION - FIXED TOKEN GENERATION
+        //  COMPLETE VERITAS APPLICATION - PROPER VERIFICATION LOGIC
         // ============================================================
 
         const TOKEN_KEY_STRING = "local-offline-signature";
@@ -1848,7 +1877,17 @@
         let hrSignal = [];
         let hrTimestamps = [];
         let lastHREstimate = null;
-        let humanVerified = false;
+
+        // VERIFICATION STATE - TRACKS ALL REQUIRED STEPS
+        let verificationState = {
+            liveness: false,
+            hr: false,
+            ppd: false,
+            human: false
+        };
+
+        let tokenGenerated = false;
+        let lastGeneratedToken = null;
 
         let faceDetector = null;
         let lastFaceBox = null;
@@ -1864,7 +1903,7 @@
         const hrCanvas = document.createElement("canvas");
         const hrCtx = hrCanvas.getContext("2d");
 
-        // DOM refs - UPDATED to use PPD IDs
+        // DOM refs
         const video = document.getElementById("video");
         const overlay = document.getElementById("overlay");
         const overlayText = document.getElementById("overlayText");
@@ -1878,6 +1917,7 @@
         const anchorIcon = document.getElementById("anchorIcon");
         const anchorStatusText = document.getElementById("anchorStatusText");
         const statusDetails = document.getElementById("statusDetails");
+        const tokenVerificationBadge = document.getElementById("tokenVerificationBadge");
 
         const startCameraBtn = document.getElementById("startCameraBtn");
         const stopCameraBtn = document.getElementById("stopCameraBtn");
@@ -1892,6 +1932,7 @@
         const ppdRole = document.getElementById("ppdRole");
         const ppdInstitution = document.getElementById("ppdInstitution");
         const ppdContact = document.getElementById("ppdContact");
+        const ppdStatus = document.getElementById("ppdStatus");
         const deviceIdDisplay = document.getElementById("deviceIdDisplay");
 
         const tokenOutput = document.getElementById("tokenOutput");
@@ -1931,7 +1972,6 @@
         const verifierStatusBadge = document.getElementById("verifierStatusBadge");
         const passwordHint = document.getElementById("passwordHint");
 
-        // Dynamic Risk UI
         const concordanceContainer = document.getElementById("concordanceContainer");
         const trendContainer = document.getElementById("trendContainer");
 
@@ -1974,14 +2014,106 @@
         // ========== GET PPD DATA ==========
         function getPPDData() {
             return {
-                name: ppdName.value || 'Dr. Moustafa',
-                license: ppdLicense.value || 'PT-123456',
-                authority: ppdAuthority.value || 'Klinik Rosenhof',
-                role: ppdRole.value || 'Physiotherapist',
-                institution: ppdInstitution.value || 'Rosenhof Medical Center',
-                contact: ppdContact.value || 'info@klinik-rosenhof.de',
+                name: ppdName.value || '',
+                license: ppdLicense.value || '',
+                authority: ppdAuthority.value || '',
+                role: ppdRole.value || '',
+                institution: ppdInstitution.value || '',
+                contact: ppdContact.value || '',
                 device_id: deviceId,
             };
+        }
+
+        function isPPDComplete() {
+            const ppd = getPPDData();
+            return ppd.name.trim().length > 0 && ppd.license.trim().length > 0;
+        }
+
+        // ========== VERIFICATION STATUS UPDATE ==========
+        function updateVerificationStatus() {
+            const ppd = getPPDData();
+            const isPPDValid = isPPDComplete();
+
+            verificationState.liveness = livenessCompleted;
+            verificationState.hr = lastHREstimate !== null;
+            verificationState.ppd = isPPDValid;
+
+            // Update status details
+            if (statusDetails) {
+                statusDetails.innerHTML = `
+                    Liveness: ${verificationState.liveness ? '✅' : '❌'} 
+                    HR: ${verificationState.hr ? '✅' : '❌'} 
+                    PPD: ${verificationState.ppd ? '✅' : '❌'} 
+                    Human: ${verificationState.human ? '✅' : '❌'}
+                `;
+            }
+
+            // Update PPD status
+            if (ppdStatus) {
+                if (isPPDValid) {
+                    ppdStatus.innerHTML = '✅ PPD complete: Name and License provided';
+                    ppdStatus.style.color = '#28a745';
+                } else {
+                    ppdStatus.innerHTML = '⚠️ PPD incomplete: Name and License required';
+                    ppdStatus.style.color = '#ffc107';
+                }
+            }
+
+            // Update anchor icon
+            const allAnchorSteps = verificationState.liveness && verificationState.hr && verificationState.ppd;
+            const fullyVerified = allAnchorSteps && verificationState.human;
+
+            if (fullyVerified) {
+                anchorIcon.className = "status-icon pass";
+                anchorIcon.textContent = "✅";
+                anchorStatusText.textContent = "VERITAS Fully Verified ✓";
+                tokenVerificationBadge.className = "verification-status-badge verified";
+                tokenVerificationBadge.textContent = "VERIFIED";
+            } else if (allAnchorSteps) {
+                anchorIcon.className = "status-icon pending";
+                anchorIcon.textContent = "⏳";
+                anchorStatusText.textContent = "ANCHOR + PPD complete. Awaiting human verification.";
+                tokenVerificationBadge.className = "verification-status-badge partial";
+                tokenVerificationBadge.textContent = "ANCHOR OK";
+            } else {
+                anchorIcon.className = "status-icon pending";
+                anchorIcon.textContent = "⏳";
+                let missing = [];
+                if (!verificationState.liveness) missing.push("Liveness");
+                if (!verificationState.hr) missing.push("HR");
+                if (!verificationState.ppd) missing.push("PPD");
+                anchorStatusText.textContent = "VERITAS pending: " + missing.join(", ");
+                tokenVerificationBadge.className = "verification-status-badge pending";
+                tokenVerificationBadge.textContent = "PENDING";
+            }
+
+            // Enable/disable generate token button
+            if (allAnchorSteps && !tokenGenerated) {
+                generateTokenBtn.disabled = false;
+                tokenStatus.textContent = "✅ Ready to generate token";
+                tokenStatus.style.color = "#28a745";
+            } else if (allAnchorSteps && tokenGenerated) {
+                generateTokenBtn.disabled = true;
+                tokenStatus.textContent = "✅ Token already generated";
+                tokenStatus.style.color = "#28a745";
+            } else {
+                generateTokenBtn.disabled = true;
+                tokenStatus.textContent = "Complete ANCHOR + PPD first";
+                tokenStatus.style.color = "#8892b0";
+            }
+
+            // Update copy/save buttons
+            if (tokenGenerated) {
+                copyTokenBtn.disabled = false;
+                saveToVaultBtn.disabled = false;
+            }
+
+            // Update verifier token input
+            if (tokenOutput.value) {
+                verifierTokenInput.value = tokenOutput.value;
+            }
+
+            return fullyVerified;
         }
 
         // ========== FIELD DEFINITIONS ==========
@@ -2142,7 +2274,7 @@
             data.anchor_liveness_duration = livenessDurationSec;
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
             data.anchor_hr_quality = lastHREstimate ? lastHREstimate.quality : null;
-            data.human_verified = humanVerified;
+            data.human_verified = verificationState.human;
             const dobEl = document.getElementById('dob');
             const insEl = document.getElementById('insuranceNumber');
             data.dob = dobEl ? dobEl.value : '1980-01-01';
@@ -2165,7 +2297,7 @@
             if (data.dob) { const dobEl = document.getElementById('dob'); if (dobEl) dobEl.value = data.dob; }
             if (data.insurance_number) { const insEl = document.getElementById('insuranceNumber'); if (insEl) insEl.value = data
                     .insurance_number; }
-            if (data.human_verified !== undefined) humanVerified = data.human_verified;
+            if (data.human_verified !== undefined) verificationState.human = data.human_verified;
         }
 
         function clearFormValues() {
@@ -2612,7 +2744,7 @@
                     if (livenessStartTime != null) {
                         livenessDurationSec = (performance.now() / 1000) - livenessStartTime;
                     }
-                    updateAnchorStatus();
+                    updateVerificationStatus();
                     return;
                 }
                 showOverlay(steps[index].text);
@@ -2646,7 +2778,7 @@
             hrStatusEl.textContent = "HR idle. Press Start HR again to re-measure.";
             startHRBtn.disabled = !stream;
             stopHRBtn.disabled = true;
-            updateAnchorStatus();
+            updateVerificationStatus();
         }
 
         async function sampleHRFrame() {
@@ -2729,7 +2861,7 @@
                     hrDebugEl.textContent += "\nRaw BPM: " + rawBpm.toFixed(1) + " | Clamped BPM: " + clampedBpm.toFixed(1) +
                         " | Quality: " + (quality * 100).toFixed(1) + "%";
 
-                    updateAnchorStatus();
+                    updateVerificationStatus();
                 } else {
                     hrStatusEl.textContent = "No dominant HR frequency found. Improve lighting and stay very still.";
                     hrQualityDot.className = "quality-dot red";
@@ -2791,71 +2923,22 @@
             return { bpm, rawBpm, quality };
         }
 
-        function updateAnchorStatus() {
-            const ppd = getPPDData();
-            const hasName = ppd.name && ppd.name.trim().length > 0;
-            const hasLicense = ppd.license && ppd.license.trim().length > 0;
-
-            const anchorComplete = livenessCompleted && lastHREstimate && hasName && hasLicense;
-            const fullyVerified = anchorComplete && humanVerified;
-
-            if (statusDetails) {
-                statusDetails.innerHTML = `
-                    Liveness: ${livenessCompleted ? '✅' : '❌'} 
-                    HR: ${lastHREstimate ? '✅' : '❌'} 
-                    Name: ${hasName ? '✅' : '❌'} 
-                    License: ${hasLicense ? '✅' : '❌'}
-                    Human: ${humanVerified ? '✅' : '❌'}
-                `;
-            }
-
-            if (fullyVerified) {
-                anchorIcon.className = "status-icon pass";
-                anchorIcon.textContent = "✅";
-                anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ PPD ✓ Human ✓";
-                tokenStatus.textContent = "✅ VERITAS fully verified!";
-                tokenStatus.style.color = "#28a745";
-            } else if (anchorComplete) {
-                anchorIcon.className = "status-icon pending";
-                anchorIcon.textContent = "⏳";
-                anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
-                if (tokenOutput.value) {
-                    tokenStatus.textContent = "⏳ Token generated. Complete human verification in Verifier.";
-                    tokenStatus.style.color = "#ffc107";
-                } else {
-                    tokenStatus.textContent = "⏳ ANCHOR verified. Click 'Generate Token' to create.";
-                    tokenStatus.style.color = "#ffc107";
-                }
-            } else {
-                anchorIcon.className = "status-icon pending";
-                anchorIcon.textContent = "⏳";
-                let missing = [];
-                if (!livenessCompleted) missing.push("Liveness");
-                if (!lastHREstimate) missing.push("HR");
-                if (!hasName) missing.push("Name");
-                if (!hasLicense) missing.push("License");
-                anchorStatusText.textContent = "VERITAS pending: " + (missing.length > 0 ? missing.join(", ") :
-                    "Complete all steps");
-                if (!tokenOutput.value) {
-                    tokenStatus.textContent = "Complete steps: " + missing.join(", ");
-                    tokenStatus.style.color = "#8892b0";
-                }
-            }
-        }
-
-        // ========== TOKEN GENERATION - SIMPLIFIED AND FIXED ==========
+        // ========== TOKEN GENERATION ==========
         function generateToken() {
-            console.log("=== GENERATING TOKEN ===");
+            // Verify all required steps are complete
             const ppd = getPPDData();
-            console.log("PPD Data:", ppd);
+            const isPPDValid = isPPDComplete();
 
-            // Use defaults if fields are empty
-            const name = ppd.name || "Dr. Moustafa";
-            const license = ppd.license || "PT-123456";
-            const authority = ppd.authority || "Klinik Rosenhof";
-            const role = ppd.role || "Physiotherapist";
-            const institution = ppd.institution || "Rosenhof Medical Center";
-            const contact = ppd.contact || "info@klinik-rosenhof.de";
+            if (!verificationState.liveness || !verificationState.hr || !isPPDValid) {
+                tokenStatus.textContent = "⚠️ Cannot generate: Complete Liveness, HR, and PPD first";
+                tokenStatus.style.color = "#ffc107";
+                return;
+            }
+
+            console.log("=== GENERATING VERITAS TOKEN ===");
+            console.log("Liveness:", verificationState.liveness);
+            console.log("HR:", verificationState.hr);
+            console.log("PPD:", isPPDValid);
 
             const formData = getFormData();
             const index = computeCareIndex(formData);
@@ -2879,15 +2962,15 @@
                     hr_quality: lastHREstimate ? Math.round(lastHREstimate.quality * 100) : null,
                     verified_at: new Date().toISOString(),
                     device_id: deviceId,
-                    human_verified: humanVerified,
+                    human_verified: verificationState.human,
                 },
                 ppd: {
-                    caregiver_name: name,
-                    caregiver_license: license,
-                    issuing_authority: authority,
-                    professional_role: role,
-                    institution: institution,
-                    contact: contact,
+                    caregiver_name: ppd.name,
+                    caregiver_license: ppd.license,
+                    issuing_authority: ppd.authority || "Not specified",
+                    professional_role: ppd.role || "Not specified",
+                    institution: ppd.institution || "Not specified",
+                    contact: ppd.contact || "Not specified",
                 },
                 assessment: {
                     functionality_index: index,
@@ -2911,19 +2994,21 @@
             console.log("Token generated, length:", token.length);
 
             tokenOutput.value = token;
+            lastGeneratedToken = token;
+            tokenGenerated = true;
+
             tokenStatus.textContent = "✅ Token generated successfully!";
             tokenStatus.style.color = "#28a745";
-
+            generateTokenBtn.disabled = true;
             copyTokenBtn.disabled = false;
             saveToVaultBtn.disabled = false;
 
             // Update verifier token input
             verifierTokenInput.value = token;
 
-            updateAnchorStatus();
+            updateVerificationStatus();
 
-            // Show success message
-            alert("✅ VERITAS Token generated successfully!\n\nThe token has been placed in the textarea. You can now copy it or save it to the vault.");
+            alert("✅ VERITAS Token generated successfully!\n\nANCHOR verification complete:\n- Liveness: ✓\n- HR: ✓\n- PPD: ✓\n\nToken is ready. Complete human verification in the Verifier tool.");
 
             return token;
         }
@@ -2968,8 +3053,8 @@
                 date: new Date().toISOString(),
                 ppd_name: ppdName.value || 'Unknown',
                 device: deviceId,
-                verified: humanVerified,
-                verification_date: humanVerified ? new Date().toISOString() : null,
+                verified: verificationState.human,
+                verification_date: verificationState.human ? new Date().toISOString() : null,
             });
             localStorage.setItem(VAULT_KEY, JSON.stringify(tokenVault));
             renderVault();
@@ -3173,8 +3258,10 @@
                     statusText = '✅ VERIFIED';
                     badgeClass = 'verified';
 
-                    humanVerified = true;
+                    // Set human verified
+                    verificationState.human = true;
 
+                    // Update token vault
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -3184,13 +3271,12 @@
                     }
 
                     if (token === tokenOutput.value.trim()) {
-                        anchorIcon.className = "status-icon pass";
-                        anchorIcon.textContent = "✅";
-                        anchorStatusText.textContent = "VERITAS Verified: Token verified by second human ✓";
+                        tokenVerificationBadge.className = "verification-status-badge verified";
+                        tokenVerificationBadge.textContent = "VERIFIED";
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
                     }
 
-                    updateAnchorStatus();
+                    updateVerificationStatus();
 
                 } else if (!signatureValid) {
                     status = 'failed';
@@ -3632,9 +3718,15 @@
             startHRBtn.addEventListener('click', startHRMonitoring);
             stopHRBtn.addEventListener('click', stopHRMonitoring);
 
-            // Generate Token button - SIMPLE AND DIRECT
+            // PPD input listeners
+            [ppdName, ppdLicense, ppdAuthority, ppdRole, ppdInstitution, ppdContact].forEach(el => {
+                el.addEventListener('input', function() {
+                    updateVerificationStatus();
+                });
+            });
+
+            // Generate Token button
             generateTokenBtn.addEventListener('click', function() {
-                console.log("Generate Token button clicked!");
                 generateToken();
             });
 
@@ -3691,9 +3783,9 @@
                 renderInsights(null);
             }
 
-            updateAnchorStatus();
+            updateVerificationStatus();
             console.log('=== Initialization complete ===');
-            console.log('Click "Generate Token" to create a VERITAS token');
+            console.log('Complete ANCHOR + PPD, then click "Generate Token"');
         }
 
         if (document.readyState === 'loading') {

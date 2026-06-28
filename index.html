@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>VERITAS · MyMedfit BRAVO PRO · Dynamic Risk</title>
 
-    <!-- ========== DEPENDENCIES ========== -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
@@ -13,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
-        /* ========== RESET & BASE ========== */
         * {
             margin: 0;
             padding: 0;
@@ -35,8 +33,6 @@
             width: 100%;
             flex: 1;
         }
-
-        /* ========== HEADER ========== */
         .app-header {
             display: flex;
             flex-wrap: wrap;
@@ -120,8 +116,6 @@
             color: #8892b0;
             white-space: nowrap;
         }
-
-        /* ========== PROFILE SELECTOR ========== */
         .profile-selector {
             display: flex;
             gap: 4px;
@@ -156,15 +150,12 @@
         .profile-btn i {
             font-size: 0.7rem;
         }
-
-        /* ========== GRID ========== */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr;
             gap: 10px;
             margin-bottom: 10px;
         }
-
         .card {
             background: #151a30;
             border-radius: 16px;
@@ -186,8 +177,6 @@
             width: 16px;
             font-size: 0.8rem;
         }
-
-        /* ========== CAMERA / LIVENESS ========== */
         .video-container {
             position: relative;
             border-radius: 0.75rem;
@@ -259,7 +248,6 @@
         .controls .btn-success:not(:disabled):hover {
             box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
         }
-
         .status {
             margin-top: 0.5rem;
             padding-top: 0.5rem;
@@ -286,7 +274,6 @@
         progress::-moz-progress-bar {
             background: #24d18f;
         }
-
         .hr-block {
             margin-top: 0.5rem;
             padding-top: 0.5rem;
@@ -321,8 +308,6 @@
         .quality-dot.yellow {
             background: #ffc107;
         }
-
-        /* ========== FORM ========== */
         .form-scroll {
             max-height: 320px;
             overflow-y: auto;
@@ -337,7 +322,6 @@
             background: #262c4a;
             border-radius: 4px;
         }
-
         .demo-bar {
             display: flex;
             flex-wrap: wrap;
@@ -382,7 +366,6 @@
         .demo-bar .demo-group input[type="text"] {
             width: 80px;
         }
-
         .goals-section {
             display: flex;
             flex-wrap: wrap;
@@ -418,7 +401,6 @@
             outline: 2px solid #005792;
             border-radius: 4px;
         }
-
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -456,7 +438,6 @@
             font-weight: 400;
             color: #6f7d8f;
         }
-
         .action-bar {
             display: flex;
             gap: 6px;
@@ -499,8 +480,6 @@
         .btn-pdf:hover {
             background: #b02a37;
         }
-
-        /* ========== RISK / INSIGHTS ========== */
         .risk-summary {
             display: flex;
             flex-wrap: wrap;
@@ -536,7 +515,6 @@
             background: #f8d7da;
             color: #721c24;
         }
-
         .composite-box {
             background: linear-gradient(135deg, #0f1a30, #1a2a4a);
             border-radius: 10px;
@@ -552,7 +530,6 @@
             font-weight: 800;
             color: #00b4d8;
         }
-
         .ai-insight {
             background: #0f1428;
             border-left: 4px solid #00b4d8;
@@ -579,13 +556,10 @@
         .ai-insight ul li {
             margin-bottom: 1px;
         }
-
         .chart-container {
             height: 70px;
             margin: 4px 0;
         }
-
-        /* ========== HISTORY ========== */
         .history-section {
             margin-top: 4px;
         }
@@ -616,7 +590,6 @@
         tr:hover td {
             background: #1a2038;
         }
-
         .btn-sm {
             padding: 2px 6px;
             border-radius: 30px;
@@ -639,8 +612,6 @@
         .btn-sm.danger:hover {
             background: #5a1a1a;
         }
-
-        /* ========== CAREGIVER ========== */
         .caregiver-section {
             background: #0f1428;
             border-radius: 10px;
@@ -735,8 +706,6 @@
             color: #f5f5f5;
             word-break: break-all;
         }
-
-        /* ========== VAULT ========== */
         .vault-list {
             max-height: 100px;
             overflow-y: auto;
@@ -793,7 +762,6 @@
             background: #262c4a;
             color: #f5f5f5;
         }
-
         .anchor-status {
             display: flex;
             align-items: center;
@@ -822,8 +790,6 @@
             color: #8892b0;
             margin-left: auto;
         }
-
-        /* ========== VERIFIER MODAL ========== */
         .verifier-modal {
             display: none;
             position: fixed;
@@ -1019,8 +985,6 @@
         .verifier-password-hint.error {
             color: #dc3545;
         }
-
-        /* ========== VERITAS FOOTER ========== */
         .app-footer {
             margin-top: 16px;
             background: #12172a;
@@ -1051,7 +1015,6 @@
         .footer-ip i {
             margin-right: 4px;
         }
-
         .footer-cta-section {
             background: #0f1428;
             border-radius: 12px;
@@ -1077,7 +1040,6 @@
         .cta-badge .veritas-accent {
             color: #6f42c1;
         }
-
         .footer-triad {
             display: flex;
             flex-wrap: wrap;
@@ -1115,7 +1077,6 @@
         .triad-item .regulator {
             color: #ffc107;
         }
-
         .footer-bottom {
             display: flex;
             flex-wrap: wrap;
@@ -1144,12 +1105,9 @@
             font-weight: 600;
             color: #00b4d8;
         }
-
         #pdfContent {
             display: none;
         }
-
-        /* ========== CONCORDANCE & DYNAMIC RISK UI ========== */
         .concordance-box {
             background: #0f1428;
             border-radius: 8px;
@@ -1178,7 +1136,6 @@
             color: #8892b0;
             margin-top: 2px;
         }
-
         .trend-indicator {
             display: flex;
             gap: 8px;
@@ -1189,11 +1146,15 @@
             font-size: 0.6rem;
             margin: 2px 0;
         }
-        .trend-indicator .up { color: #28a745; }
-        .trend-indicator .down { color: #dc3545; }
-        .trend-indicator .stable { color: #ffc107; }
-
-        /* ========== RESPONSIVE ========== */
+        .trend-indicator .up {
+            color: #28a745;
+        }
+        .trend-indicator .down {
+            color: #dc3545;
+        }
+        .trend-indicator .stable {
+            color: #ffc107;
+        }
         @media (max-width: 480px) {
             .form-grid {
                 grid-template-columns: 1fr 1fr;
@@ -1256,7 +1217,6 @@
 
     <div class="container">
 
-        <!-- ========== HEADER ========== -->
         <header class="app-header">
             <div class="brand">
                 <h1><i class="fas fa-heartbeat"></i> MyMedfit BRAVO PRO</h1>
@@ -1273,17 +1233,14 @@
             </div>
         </header>
 
-        <!-- ========== PROFILE SELECTOR ========== -->
         <div class="profile-selector">
             <button class="profile-btn active" data-profile="acute"><i class="fas fa-bolt"></i> <span data-i18n="profile_acute">Acute Rehab</span></button>
             <button class="profile-btn" data-profile="preventive"><i class="fas fa-shield-alt"></i> <span data-i18n="profile_preventive">Preventive</span></button>
             <button class="profile-btn" data-profile="palliative"><i class="fas fa-heart"></i> <span data-i18n="profile_palliative">Palliative</span></button>
         </div>
 
-        <!-- ========== MAIN GRID ========== -->
         <div class="grid-2">
 
-            <!-- ========== LEFT COLUMN: ANCHOR + VERIFIER ========== -->
             <div class="card">
                 <h3><i class="fas fa-camera"></i> <span data-i18n="anchor_title">ANCHOR · Liveness & HR</span></h3>
 
@@ -1326,14 +1283,12 @@
                     <div style="font-size:0.6rem; opacity:0.6; margin-top:2px;" id="hrDebug"></div>
                 </div>
 
-                <!-- ANCHOR Status -->
                 <div class="anchor-status">
                     <span class="status-icon pending" id="anchorIcon">⏳</span>
                     <span id="anchorStatusText" data-i18n="veritas_pending">VERITAS verification pending</span>
-                    <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ Name:❌ License:❌</span>
+                    <span class="status-details" id="statusDetails">Liveness:❌ HR:❌ Name:❌ License:❌ Human:❌</span>
                 </div>
 
-                <!-- Caregiver Identification -->
                 <div class="caregiver-section" style="margin-top:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="font-weight:700; font-size:0.7rem; color:#00b4d8;"><i class="fas fa-user-md"></i> <span data-i18n="kyc_title">KYC · Caregiver Identity</span></span>
@@ -1361,7 +1316,6 @@
                     </div>
                 </div>
 
-                <!-- Token Generation -->
                 <div class="caregiver-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="font-weight:700; font-size:0.7rem; color:#6f42c1;"><i class="fas fa-fingerprint"></i> <span data-i18n="session_token">VERITAS Session Token</span></span>
@@ -1373,9 +1327,8 @@
                         <span style="font-size:0.6rem; color:#8892b0;" id="tokenStatus"><span data-i18n="complete_first">Complete VERITAS verification first</span></span>
                     </div>
                     <div style="margin-top:4px;">
-                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + KYC"></textarea>
+                        <textarea class="token-output" id="tokenOutput" readonly placeholder="VERITAS token will appear after liveness + HR + KYC + Human Verification"></textarea>
                     </div>
-                    <!-- Open Verifier Button -->
                     <div style="margin-top:4px;">
                         <button id="openVerifierBtn" style="background:#6f42c1; color:white; border:none; border-radius:30px; padding:5px 14px; font-size:0.65rem; cursor:pointer; width:100%;">
                             <i class="fas fa-shield-alt"></i> <span data-i18n="open_verifier">Open Verifier (Human-in-the-Loop)</span>
@@ -1383,7 +1336,6 @@
                     </div>
                 </div>
 
-                <!-- Token Vault -->
                 <div class="caregiver-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="font-weight:700; font-size:0.7rem; color:#28a745;"><i class="fas fa-vault"></i> <span data-i18n="token_vault">Token Vault</span></span>
@@ -1400,7 +1352,6 @@
                 </div>
             </div>
 
-            <!-- ========== RIGHT COLUMN: PATIENT ASSESSMENT ========== -->
             <div class="card">
                 <h3><i class="fas fa-edit"></i> <span data-i18n="assessment_title">Patient Assessment & Labs</span></h3>
 
@@ -1461,7 +1412,6 @@
                         <span><i class="fas fa-shield-alt"></i> <span data-i18n="functionality_index">Functionality Index</span></span>
                         <span class="composite-score" id="compositeScore">—</span>
                     </div>
-                    <!-- Concordance / Dynamic Risk UI -->
                     <div id="concordanceContainer" style="margin:4px 0;"></div>
                     <div id="trendContainer" class="trend-indicator" style="display:none;"></div>
                     <div class="chart-container">
@@ -1474,7 +1424,6 @@
             </div>
         </div>
 
-        <!-- ========== HISTORY ========== -->
         <div class="card history-section">
             <h3><i class="fas fa-history"></i> <span data-i18n="encounter_history">Encounter History</span> <span style="font-size:0.55rem; font-weight:400; color:#8892b0;" id="historyCount">0 <span data-i18n="records">records</span></span></h3>
             <div class="table-wrap">
@@ -1503,7 +1452,6 @@
             </div>
         </div>
 
-        <!-- ========== VERITAS FOOTER ========== -->
         <footer class="app-footer">
             <div class="footer-top">
                 <span class="footer-brand">MyMedfit BRAVO PRO</span>
@@ -1512,14 +1460,12 @@
                 <span class="footer-divider">·</span>
                 <span class="footer-ip"><i class="fas fa-globe"></i> IP: <span id="ipDisplay">—</span></span>
             </div>
-
             <div class="footer-cta-section">
                 <div class="cta-badge">
                     <i class="fas fa-shield-alt veritas-accent"></i>
                     <span>VERITAS: <span class="veritas-accent" data-i18n="vbc_tag">Value-Based Care</span> with <span class="veritas-accent" data-i18n="anti_deepfake">Anti-Deepfake Verification</span></span>
                     <i class="fas fa-check-circle" style="color:#28a745; font-size:0.7rem;"></i>
                 </div>
-
                 <div class="footer-triad">
                     <span class="triad-item"><span class="provider">🏛️</span> <span data-i18n="provider">Provider</span></span>
                     <span class="triad-item"><span class="payer">💰</span> <span data-i18n="payer">Payer</span></span>
@@ -1527,7 +1473,6 @@
                     <span class="triad-item"><span class="heart">❤️</span> <span data-i18n="patient">Patient</span></span>
                 </div>
             </div>
-
             <div class="footer-bottom">
                 <span class="footer-value-line" data-i18n="footer_align">Aligns Provider–Payer–Regulator goals around measurable patient outcomes.</span>
                 <span class="footer-separator">·</span>
@@ -1535,33 +1480,27 @@
             </div>
         </footer>
 
-        <!-- ========== VERIFIER MODAL ========== -->
         <div class="verifier-modal" id="verifierModal">
             <div class="verifier-modal-content">
                 <button class="close-btn" id="closeVerifierBtn">&times;</button>
-
                 <h2><i class="fas fa-shield-alt" style="color:#6f42c1;"></i> <span data-i18n="verifier_title">VERITAS Token Verifier</span></h2>
                 <p style="font-size:0.7rem; color:#8892b0; margin-bottom:10px;" data-i18n="verifier_sub">
-                    Second human verifies the token. Enter password to unlock, then verify. Paste the token generated from the ANCHOR, then the status will change.
+                    Second human verifies the token. Enter password to unlock, then verify.
                 </p>
-
                 <div class="verifier-field">
                     <label><i class="fas fa-lock"></i> <span data-i18n="human_password">Verifier Password</span></label>
                     <input type="password" id="verifierPassword" placeholder="Enter password to unlock verifier" />
                     <div class="verifier-password-hint" id="passwordHint"></div>
                 </div>
-
                 <div class="verifier-field">
                     <label><i class="fas fa-key"></i> <span data-i18n="session_token_label">Session Token</span></label>
                     <textarea id="verifierTokenInput" readonly placeholder="Token will auto-populate from the main tool"></textarea>
                 </div>
-
                 <div class="verifier-actions">
                     <button class="btn-unlock" id="unlockVerifierBtn"><i class="fas fa-unlock"></i> <span data-i18n="unlock">Unlock</span></button>
                     <button class="btn-verify" id="verifyTokenBtn" disabled><i class="fas fa-check-circle"></i> <span data-i18n="verify_token">Verify Token</span></button>
                     <button class="btn-close-verifier" id="closeVerifierBtn2"><i class="fas fa-times"></i> <span data-i18n="close">Close</span></button>
                 </div>
-
                 <div class="verifier-results" id="verifierResults" style="display:none;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:4px;">
                         <span style="font-weight:700; font-size:0.7rem;">📊 <span data-i18n="verification_results">Verification Results</span></span>
@@ -1580,18 +1519,15 @@
             </div>
         </div>
 
-        <!-- ========== PDF CONTENT (hidden) ========== -->
         <div id="pdfContent">
             <div id="pdfReportContent"></div>
         </div>
 
     </div>
 
-    <!-- ========== JAVASCRIPT ========== -->
     <script>
         // ============================================================
         //  COMPLETE VERITAS APPLICATION with DYNAMIC RISK ENGINE
-        //  Includes: Signal Decomposition, Dynamic Weighting, Concordance, Temporal Decay
         // ============================================================
 
         // ========== CONSTANTS ==========
@@ -1599,7 +1535,7 @@
         const VERIFIER_PASSWORD = "MoMo123456789@@@";
         const STORAGE_KEY = 'medfitBravo_encounters';
         const VAULT_KEY = 'medfitBravo_tokenVault';
-        const DECAY_LAMBDA = 0.1; // temporal decay rate
+        const DECAY_LAMBDA = 0.1;
 
         // ========== I18N DICTIONARY ==========
         const i18n = {
@@ -2054,7 +1990,6 @@
                 }
             });
 
-            // Password hint is completely hidden
             const hintEl = document.getElementById('passwordHint');
             if (hintEl) {
                 hintEl.textContent = '';
@@ -2141,7 +2076,7 @@
                 { id: 'bnp', label: 'BNP / NT‑proBNP', unit: 'pg/mL', step: '1' },
                 { id: 'fev1', label: 'FEV1', unit: 'L', step: '0.1' },
                 { id: 'fvc', label: 'FVC', unit: 'L', step: '0.1' },
-                { id: 'comfort', label: 'Comfort Score', unit: '0‑10', step: '1', max: 10 },
+                { id: 'comfort', label: 'Comfort Score', unit: '0‑10', step: '1', max: '10' },
             ]
         };
 
@@ -2164,7 +2099,7 @@
         let lastHREstimate = null;
         let anchorVerified = false;
         let lastGeneratedToken = null;
-        let humanVerified = false; // NEW: tracks if human verifier verified the token
+        let humanVerified = false;
 
         let faceDetector = null;
         let lastFaceBox = null;
@@ -2339,7 +2274,7 @@
             data.anchor_hr_bpm = lastHREstimate ? lastHREstimate.bpm : null;
             data.anchor_hr_quality = lastHREstimate ? lastHREstimate.quality : null;
             data.anchor_verified = anchorVerified;
-            data.human_verified = humanVerified; // NEW: track human verification
+            data.human_verified = humanVerified;
             const dobEl = document.getElementById('dob');
             const insEl = document.getElementById('insuranceNumber');
             data.dob = dobEl ? dobEl.value : '1980-01-01';
@@ -2387,7 +2322,8 @@
             }
             const recent = historicalValues.slice(-10);
             const sorted = [...recent].sort((a, b) => a - b);
-            const median = sorted.length % 2 === 0 ? (sorted[sorted.length/2 - 1] + sorted[sorted.length/2]) / 2 : sorted[Math.floor(sorted.length/2)];
+            const median = sorted.length % 2 === 0 ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2 : sorted[
+                Math.floor(sorted.length / 2)];
             const trait = median;
             const state = currentValue - trait;
             const noise = Math.abs(state) < 0.5 ? 0 : state;
@@ -2407,7 +2343,8 @@
             const mobility = parseFloat(encounter.mobility) || 0;
             const fatigue = parseFloat(encounter.fatigue) || 0;
             const func = parseFloat(encounter.function) || 0;
-            const subjectiveScore = ((10 - Math.min(10, pain)) + Math.min(10, mobility) + (10 - Math.min(10, fatigue)) + Math.min(10, func)) / 4 * 10;
+            const subjectiveScore = ((10 - Math.min(10, pain)) + Math.min(10, mobility) + (10 - Math.min(10, fatigue)) + Math
+                .min(10, func)) / 4 * 10;
 
             const glucose = parseFloat(encounter.glucose) || 0;
             const hba1c = parseFloat(encounter.hba1c) || 0;
@@ -2421,15 +2358,24 @@
 
             let objectiveScore = 0;
             let objCount = 0;
-            if (glucose > 0) { objectiveScore += Math.max(0, 100 - Math.abs(glucose - 5.5) * 20); objCount++; }
-            if (hba1c > 0) { objectiveScore += Math.max(0, 100 - (hba1c - 5.5) * 20); objCount++; }
-            if (egfr > 0) { objectiveScore += Math.min(100, egfr / 90 * 100); objCount++; }
-            if (fev1 > 0) { objectiveScore += Math.min(100, fev1 / 3.5 * 100); objCount++; }
-            if (hb > 0) { objectiveScore += Math.min(100, hb / 150 * 100); objCount++; }
-            if (albumin > 0) { objectiveScore += Math.min(100, albumin / 45 * 100); objCount++; }
-            if (crp > 0) { objectiveScore += Math.max(0, 100 - crp * 2); objCount++; }
-            if (ef > 0) { objectiveScore += Math.min(100, ef / 60 * 100); objCount++; }
-            if (ldl > 0) { objectiveScore += Math.max(0, 100 - (ldl - 2.5) * 20); objCount++; }
+            if (glucose > 0) { objectiveScore += Math.max(0, 100 - Math.abs(glucose - 5.5) * 20);
+                objCount++; }
+            if (hba1c > 0) { objectiveScore += Math.max(0, 100 - (hba1c - 5.5) * 20);
+                objCount++; }
+            if (egfr > 0) { objectiveScore += Math.min(100, egfr / 90 * 100);
+                objCount++; }
+            if (fev1 > 0) { objectiveScore += Math.min(100, fev1 / 3.5 * 100);
+                objCount++; }
+            if (hb > 0) { objectiveScore += Math.min(100, hb / 150 * 100);
+                objCount++; }
+            if (albumin > 0) { objectiveScore += Math.min(100, albumin / 45 * 100);
+                objCount++; }
+            if (crp > 0) { objectiveScore += Math.max(0, 100 - crp * 2);
+                objCount++; }
+            if (ef > 0) { objectiveScore += Math.min(100, ef / 60 * 100);
+                objCount++; }
+            if (ldl > 0) { objectiveScore += Math.max(0, 100 - (ldl - 2.5) * 20);
+                objCount++; }
             if (objCount === 0) return { discrepancy: 0, riskMultiplier: 1.0, alert: null };
             objectiveScore = objectiveScore / objCount;
 
@@ -2901,7 +2847,7 @@
 
                     if (quality >= 0.05) {
                         hrStatusEl.textContent = "HR estimated (usable signal, quality: " + (quality * 100).toFixed(0) +
-                        "%).";
+                            "%).";
                         hrQualityDot.className = "quality-dot green";
                     } else {
                         hrStatusEl.textContent = "HR estimated (low-confidence signal, quality: " + (quality * 100).toFixed(
@@ -2979,10 +2925,7 @@
             const hasName = cg.name && cg.name.trim().length > 0;
             const hasLicense = cg.license && cg.license.trim().length > 0;
 
-            // ANCHOR verification = liveness + HR + KYC (name + license)
             const anchorConditionsMet = livenessCompleted && lastHREstimate && hasName && hasLicense;
-
-            // FULL verification = ANCHOR + human verifier
             const fullVerification = anchorConditionsMet && humanVerified;
 
             if (statusDetails) {
@@ -3000,9 +2943,12 @@
                 anchorIcon.className = "status-icon pass";
                 anchorIcon.textContent = "✅";
                 anchorStatusText.textContent = "VERITAS Verified: Liveness ✓ HR ✓ KYC ✓ Human ✓";
-                tokenStatus.textContent = "✅ VERITAS fully verified!";
+                tokenStatus.textContent = "✅ VERITAS fully verified! Ready to generate token.";
                 generateTokenBtn.disabled = false;
+                copyTokenBtn.disabled = false;
+                saveToVaultBtn.disabled = false;
 
+                // Auto-generate token if not already generated
                 if (!lastGeneratedToken) {
                     generateToken();
                 }
@@ -3013,6 +2959,8 @@
                 anchorStatusText.textContent = "ANCHOR complete. Waiting for human verification.";
                 tokenStatus.textContent = "⏳ ANCHOR verified. Complete human verification in Verifier.";
                 generateTokenBtn.disabled = true;
+                copyTokenBtn.disabled = true;
+                saveToVaultBtn.disabled = true;
             } else {
                 anchorVerified = false;
                 anchorIcon.className = "status-icon pending";
@@ -3023,20 +2971,27 @@
                 if (!hasName) missing.push("Name");
                 if (!hasLicense) missing.push("License");
                 anchorStatusText.textContent = "VERITAS pending: " + (missing.length > 0 ? missing.join(", ") :
-                "Complete all steps");
+                    "Complete all steps");
                 generateTokenBtn.disabled = true;
+                copyTokenBtn.disabled = true;
+                saveToVaultBtn.disabled = true;
                 tokenStatus.textContent = "Complete all steps: " + missing.join(", ");
             }
         }
 
         // ========== TOKEN GENERATION ==========
         function generateToken() {
-            if (!anchorVerified) {
-                tokenStatus.textContent = "⚠️ Complete VERITAS verification first";
+            // Check both ANCHOR and human verification
+            const cg = getCaregiverData();
+            const hasName = cg.name && cg.name.trim().length > 0;
+            const hasLicense = cg.license && cg.license.trim().length > 0;
+            const anchorConditionsMet = livenessCompleted && lastHREstimate && hasName && hasLicense;
+
+            if (!anchorConditionsMet || !humanVerified) {
+                tokenStatus.textContent = "⚠️ Complete both ANCHOR and human verification first";
                 return;
             }
 
-            const cg = getCaregiverData();
             const formData = getFormData();
             const index = computeCareIndex(formData);
 
@@ -3341,6 +3296,7 @@
                     // Set human verified flag
                     humanVerified = true;
 
+                    // Update token vault
                     const idx = tokenVault.findIndex(t => t.token === token);
                     if (idx >= 0) {
                         tokenVault[idx].verified = true;
@@ -3349,12 +3305,16 @@
                         renderVault();
                     }
 
+                    // Update main status
                     if (token === tokenOutput.value.trim()) {
                         anchorVerified = true;
                         anchorIcon.className = "status-icon pass";
                         anchorIcon.textContent = "✅";
                         anchorStatusText.textContent = "VERITAS Verified: Token verified by second human ✓";
                         tokenStatus.textContent = '✅ Token VERIFIED by second human!';
+                        generateTokenBtn.disabled = false;
+                        copyTokenBtn.disabled = false;
+                        saveToVaultBtn.disabled = false;
                     }
 
                     // Update anchor status
@@ -3540,7 +3500,8 @@
             }
 
             const dob = latest.dob || document.getElementById('dob')?.value || '1980-01-01';
-            const insuranceNumber = latest.insurance_number || document.getElementById('insuranceNumber')?.value || 'INS-123456789';
+            const insuranceNumber = latest.insurance_number || document.getElementById('insuranceNumber')?.value ||
+            'INS-123456789';
 
             const idx = computeCareIndex(latest);
             const tips = generateCareTips(latest, getGoals());
@@ -3617,7 +3578,6 @@
 
             let tipsHtml = tips.map(t => `<li>${t}</li>`).join('');
 
-            // Only show VERIFIED if human verified AND anchor verified
             const isFullyVerified = latest.anchor_verified && latest.human_verified;
             const veritasStatus = isFullyVerified ? '✅ VERIFIED' : '⏳ Pending';
             const veritasIcon = isFullyVerified ? '🛡️' : '⏳';
